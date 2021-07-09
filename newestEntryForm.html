@@ -1,0 +1,125 @@
+<form id="myForm" onsubmit="handleFormSubmit(this)">
+    <!--first row for dates-->
+    <div class="row form-row">
+      <div class="col-sm-3">
+        <label for="dojo_location">Dojo Location</label>
+        <select class="form-control" id="dojo_location" name="dojo_location" >
+        </select>
+      </div> 
+      <div class="col-sm-3">
+        <label for="inquire_date">Inquire Date</label>
+        <input class="form-control" type="date" id="inquire_date" name="inquire_date">
+      </div>
+      <div class="col-sm-3">
+        <label for="lastcontact_date">Last Contact Date</label>
+        <input class="form-control" type="date" id="lastcontact_date" name="lastcontact_date">
+      </div>         
+      <div class="col-sm-3">
+        <label for="student_status">Student Status</label>
+        <select class="form-control" id="student_status" name="student_status" >
+        </select>
+      </div>   
+    </div>
+    <hr></hr>
+  
+    <div class="row form-row">
+      <div class="col-3">
+        <label for="lead_firstname">First Name</label>
+        <input class="form-control" type="text" id="lead_firstname" name="lead_firstname">
+      </div>
+      <div class="col-3">
+        <label for="lead_lastname">Last Name</label>
+        <input class="form-control" type="text" id="lead_lastname" name="lead_lastname">
+      </div>
+      <div class="col-3">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email">
+      </div> 
+      <div class="col-3">
+        <label for="phone">Phone</label>
+        <input class="form-control" type="test" id="phone" name="phone">
+      </div>       
+    </div>
+    <hr></hr>
+    <div class="row form-row">
+      <div class="col-3">
+        <label for="participant_firstname">Participant First Name</label>
+        <input class="form-control" type="text" id="participant_firstname" name="participant_firstname">
+      </div>
+      <div class="col-3">
+        <label for="participant_lastname">Participant Last Name</label>
+        <input class="form-control" type="text" id="participant_lastname" name="participant_lastname">
+      </div>
+      <div class="col-3">
+        <label for="gender">Gender</label>
+        <select class="form-control" id="gender" name="gender">
+          <option value="" selected>Choose...</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <label for="age_class">Age Class</label>
+        <select class="form-control" id="age_class" name="age_class">
+        </select>
+      </div>    
+    </div>
+    <hr></hr>
+    <div class="row form-row">
+      <div class="col-3">
+        <label for="intro1_date ">Intro 1 Date</label>
+        <input class="form-control" type="date" id="intro1_date" name="intro1_date">
+      </div>
+      <div class="col-3">
+        <label for="intro1_time">Intro 1 Time</label>
+        <select class="form-control" id="intro1_time" name="intro1_time">
+        </select>
+      </div>
+      <div class="col-3">
+        <label for="intro_offer">Offer</label>
+        <select class="form-control" id="intro_offer" name="intro_offer">
+        </select>
+      </div> 
+      <div class="col-3">
+        <label for="intro_notes">Intro Notes</label>
+        <select class="form-control" type="text" id="intro_notes" name="intro_notes">
+        </select>
+      </div>       
+    </div>
+    <hr></hr>
+    <div class="row form-row">
+      <div class="col-3">
+        <label for="lead_date ">Lead Date</label>
+        <input class="form-control" type="date" id="lead_date" name="lead_date">
+      </div>  
+      <div class="col-3">
+        <label for="lead_source">Lead Source</label>
+        <select class="form-control" id="lead_source" name="lead_source">
+        </select>
+      </div> 
+      <div class="col-3">
+        <label for="leadsource_subcategory">Source Subcategory</label>
+        <select class="form-control" id="leadsource_subcategory" name="leadsource_subcategory">
+        </select>
+      </div> 
+      <div class="col-3">
+        <label for="prospect_phase">Prospect Phase</label>
+        <select class="form-control" id="prospect_phase" name="prospect_phase">
+        </select>
+      </div>     
+    </div>
+    <hr></hr>
+    <div class="row form-row">
+        <div class="col-6 text-start">
+          <label for="communication_notes" class="p-2">Call Center Notes</label>
+          <textarea class="form-control" id="communication_notes" name="communication_notes"></textarea>
+        </div>
+        <div class="col-6 text-start">
+          <label for="dojo_notes" class="p-2">Dojo Notes</label>
+          <textarea class="form-control" id="dojo_notes" name="dojo_notes">
+          </textarea>
+        </div>
+    </div>
+  </div>
+  </form>
+
