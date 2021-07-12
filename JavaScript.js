@@ -6,6 +6,7 @@ const SCOPE = 'https://www.googleapis.com/auth/spreadsheets https://www.googleap
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
 //const spreadsheetId = "1qIcmrgiVhKtz1kWPJ0ZkpBt7uyP6o_g-cc-7t0oYdk0"; //learn doPost
 const appURL = "https://script.google.com/macros/s/AKfycbyUdaa1X2K0YxHt42xfN8es1EtJMqAJhX-JJ1-H4c4_I2Le8QqZGVlmpUS7TMtIL7H8/exec";
+var childRows = $('#newLeads tr.shown');
 
     //All dropdown variables
     var dojoLocations = [
@@ -162,6 +163,11 @@ $(document).ready(function() {
 
   });
 
+$(document).ready(function($){
+    console.log("initializing input mask")
+    $('#phone1, phone2').usPhoneFormat();
+});
+
 
 
 function handleClientLoad() {
@@ -286,6 +292,9 @@ function updateSigninStatus() {
   }
 
 
+
+
+
 function checkCalendarEvents(d) {
 
     introStage = "";
@@ -314,23 +323,23 @@ function checkCalendarEvents(d) {
         "calendarId": "info-"+d.gsx$dojolocation.$t+"@mydojos.com",
         "maxResults": 10000,
         "q": "intro",
-        "showDeleted": false
+        //"showDeleted": false,
+        "singleEvents": false,
+        'timeMin': (new Date()).toISOString(),
     })
         .then(function(response) {
             resultItems = response.result.items;
             valueArray = [];
+            matchArray = [];
             calendarId = "info-"+d.gsx$dojolocation.$t+"@mydojos.com";
+            console.log(response)
 
 
 
-            for (let index = 0; index < resultItems.length; index++) {
-                console.log(resultItems[index].summary);
-                valueArray.push(resultItems[index].summary);
-                console.log("Value array length: "+valueArray.length);
-            }
             console.log("Value array: " +valueArray);
+ 
             var eventTitle = introStage+" - " +d.gsx$participantfirstname.$t+" "+d.gsx$participantlastname.$t;
-            var description = "First Name: "+d.gsx$participantfirstname.$t+"\r\n Last Name: "+d.gsx$participantlastname.$t+"\r\n Age: "+(getAge(d.gsx$dateofbirth.$t))+"\r\n Age Class: "+d.gsx$ageclass.$t+"\r\n Phone: "+d.gsx$phone.$t+"\r\n Email: "+d.gsx$email.$t+" \r\nIntro Notes: "+d.gsx$intronotes.$t;
+            var description = "First Name: "+d.gsx$participantfirstname.$t+"\r\nLast Name: "+d.gsx$participantlastname.$t+"\r\nAge: "+(getAge(d.gsx$dateofbirth.$t))+"\r\nAge Class: "+d.gsx$ageclass.$t+"\r\nPhone: "+d.gsx$phone.$t+"\r\nEmail: "+d.gsx$email.$t+"\r\nIntro Notes: "+d.gsx$intronotes.$t;
             var sT = "";
             if (introStage === "Intro 1"){
                 sT = new Date(new Date(d.gsx$intro1date.$t+" " +d.gsx$intro1time.$t));
@@ -340,9 +349,12 @@ function checkCalendarEvents(d) {
             }
             var sYear = sT.getFullYear();
             var sMonth = sT.getMonth()+1;
+            var sM = (sMonth < 10) ? '0' + sMonth : sMonth;
             var sDay = sT.getDate();
+            console.log("sDay: "+sDay);
+            var sD = (sDay < 10) ? '0' + sDay : sDay;
             var hours = sT.getHours();
-            var hr = hours < 10 ? '0' + hours : hours;
+            var hr = (hours < 10) ? '0' + hours : hours;
 
             var minutes = sT.getMinutes();
             var min = (minutes < 10) ? '0' + minutes : minutes;
@@ -350,7 +362,7 @@ function checkCalendarEvents(d) {
             var seconds = sT.getSeconds();
             var sec = (seconds < 10) ? '0' + seconds : seconds;
 
-            var newDateString = sYear + '-' + sMonth  + '-' + sDay;
+            var newDateString = sYear + '-' + sM  + '-' + sD;
             var newTimeString = hr + ':' + min + ':' + sec;
 
             var sDateTimeString = newDateString + 'T' + newTimeString;
@@ -376,11 +388,29 @@ function checkCalendarEvents(d) {
             console.log("End Time: "+eT);
             console.log("adjusted eT: " +eT.toLocaleString());
             console.log("Dojo Address: "+dojoAddress);
-            console.log("description" +description);
+            console.log("description: " +description);
             console.log("Calendar ID: "+calendarId);
             console.log("event title: "+eventTitle);
+            for (let index = 0; index < resultItems.length; index++) {
+                //console.log(resultItems[index].start.dateTime.includes(sDateTimeString));
+                //console.log(resultItems[index].summary);
+                //console.log(resultItems[index].start.dateTime);
+                if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
+                    console.log("I have a summary and a date! My title is: "+resultItems[index].summary)
+                    console.log(resultItems[index].start.dateTime);
+                    console.log(sDateTimeString);
+                    console.log((resultItems[index].start.dateTime).includes(sDateTimeString))
+                    if(resultItems[index].start.dateTime.includes(sDateTimeString)){
+                        valueArray.push(resultItems[index].summary);
+                        console.log("Next Entry: "+resultItems[index].summary);
+                        console.log("Value array length: "+valueArray.length);
+                    }
+                }
+            }
+                console.log(valueArray.length);
+
                 // Handle the results here (response.result has the parsed body).
-                    if (valueArray.includes(eventTitle)){
+                    if (valueArray.length > 0){
                         alert("The calendar entry already exists!");
                     }else{
                         console.log("Add this event to the calendar!");
@@ -738,8 +768,14 @@ function deleteRow(rowData) {
 }
 
 
+
 function updateRow(formData, searchValue) {
     console.log("Reading all data for update...");
+    //$('#formSubmitButton').removeClass('btn-primary');
+    $('#formSubmitButton').prop("disabled",true);
+    $('#formSubmitButton').html("Saving");
+    //$('#formSubmitButton').addClass('spinner-border');
+
     //const searchValue = searchValue;
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "CC_AllData",
@@ -824,10 +860,11 @@ function updateRow(formData, searchValue) {
                               .then(function(response) {
                                       // Handle the results here (response.result has the parsed body).
                                       console.log("Response", response.result);
-                                      //childRows = $('#newLeads').DataTable().rows($('.shown'));
-                                      //$("#newLeads").DataTable().ajax.reload(null, false);
-                                      console.log("reloading table now....");
-                                      ajaxReload();
+                                      $('#formSubmitButton').prop("disabled",false);
+                                      $('#formSubmitButton').html("Save");
+                                    ajaxReload();
+                                      //$('#newLeads').DataTable().ajax.reload(null, false);
+                                      //$('#newLeads').DataTable().draw();
                                     },
                                     function(err) { console.error("Execute error", err); });
                     }
@@ -856,7 +893,7 @@ function addNewRecord(formObject){
         intro1_date: formObject.intro1_date.value,
         intro1_endtime: "",
         intro1_starttime: "",
-        intro1_time: (formObject.intro1_time.value).getTime(),
+        intro1_time: formObject.intro1_time.value,//.toLocaleTimeString(),
         intro2_attended:"",
         intro2_date:"",
         intro2_endtime:"",
@@ -893,6 +930,7 @@ function addNewRecord(formObject){
             console.log(res);
         })
         .then(function(){
+            console.log("Cleaning up modals...")
             ajaxReload();
         });
     console.log("Transmission sent...");
@@ -914,31 +952,78 @@ function getAge(dateString){
     return age;
 }
 
+
+
 //Edit to handle the same thing as the refresh button
-function ajaxReload(){
+
+function ajaxReload(formObject){
     console.log("ajax reload begin");
-    childRows = $('#newLeads').DataTable().rows($('.shown'));
+      childRows = $('#newLeads').DataTable().rows($('.shown'));
       //var tr = $(this).closest('tr');
-      var tr = $('#newLeads').DataTable().rows($('.shown'));
-      var row = $('#newLeads').DataTable().row(tr);
-      if (childRows) {
+      var row = $('#newLeads').DataTable().row(childRows);
+      if (childRows != undefined && childRows.length > 0) {
           childRows.every(function (rowIdx, tableLoop, rowLoop) {
               console.log("There is a shown child row present on Ajax load");
               d = this.data();
               this.child($(format(d))).show();
+              dropdownStack();
               this.nodes().to$().addClass('shown');
               $('div.slider', row.child()).slideDown();                        
               console.log('I was shown from Ajax reload');
           });
           // Reset childRows so loop is not executed each draw
           //childRows = null;
-      };   
+      };    
      $('#newLeads').DataTable().ajax.reload(null, false);
      console.log("Table updated!");
      console.log("Child Rows after Ajax reload: "+childRows);
      $('#myModal').modal('hide');
      $('#unCloseable').modal('hide'); 
   }
+
+/*function ajaxReload(){
+    console.log("ajax reload begin");
+    childRows = $('#newLeads tr.shown');
+      //var tr = $(this).closest('tr');
+      //var tr = $('#newLeads tr.shown');
+      //var row = $('#newLeads').DataTable().row(tr);
+      //$('#newLeads').DataTable().draw();
+      //childRows = $('#newLeads tr.shown');
+      row = $('#newLeads').DataTable().row(childRows);
+      console.log("My childRow: "+childRows);
+      console.log(typeof row);
+
+
+      //childRows = $('#newLeads tr.shown');
+      //row = $('#newLeads').DataTable().row(childRows);
+      console.log("child row before reload: "+childRows);
+      //console.log("data: " +row.data().gsx$recordid.$t);
+      $('#newLeads').DataTable().ajax.reload();
+      console.log("child row after reload: "+childRows);
+      console.log("row: "+row);
+      console.log("row data: "+row.data());
+
+      if (childRows.length != undefined && childRows.length > 0) {
+          //childRows.every(function (rowIdx, tableLoop, rowLoop) {
+              console.log("There is a shown child row present on Ajax load");
+              d = row.data();
+              row.child($(format(d))).show();
+              row.nodes().to$().addClass('shown');
+              $('div.slider', row.child()).slideDown();                        
+              console.log('I was shown from Ajax reload');
+              childRows = $('#newLeads tr.shown');
+
+          //});
+          // Reset childRows so loop is not executed each draw
+          //childRows = null;
+      }else {
+          console.log("there are no rows to show on ajax reload");
+      } 
+     console.log("Table updated!");
+     //console.log("Child Rows after Ajax reload: "+childRows);
+     $('#myModal').modal('hide');
+     $('#unCloseable').modal('hide'); 
+  }*/
 
 function dropdownStack(){
     dojoLocationDropdown(dojoLocations);
@@ -1071,6 +1156,8 @@ function dropdownStack(){
         $(this).find('.modal-title').text("New Record");
     });
 
+
+
 function format(d){
     // `d` is the original data object for the row
   return '<div class="slider" style="width:100%">'+
@@ -1102,7 +1189,7 @@ function format(d){
                     '<label for="email">Email</label>'+
                       '<input class="form-control" type="email"  id="email" name="email" value="'+d.gsx$email.$t+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control" type="text"  id="phone" name="phone" value="'+d.gsx$phone.$t+'">'+
+                      '<input class="form-control" type="text" class="phone2"  id="phone" name="phone" value="'+d.gsx$phone.$t+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
@@ -1241,17 +1328,41 @@ function format(d){
                     '</div>'+               
                 '</div>'+
                 '<div class="text-center">'+
-                  '<button type="button" class="btn btn-secondary col-1" id="editFormReset" onClick="resetEditForm()">Cancel</button>'+
-                  '<button type="button" class="btn btn-primary col-1" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d.gsx$recordid.$t+')">Save</button>'+  
+                  '<button type="button" class="btn btn-secondary col" id="editFormReset" onClick="resetEditForm()">Cancel</button>'+
+                  '<button type="button" class="btn btn-primary col save-btn" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d.gsx$recordid.$t+')">Save</button>'+  
                 '</div>'+          
         '</div>'+
         '</form>'+
     '</div>';
 }
 
+/*$('#newLeads').on('draw.dt', function (){ 
+    //childRows = table.rows($('.shown'));
+    childRows = $('#newLeads').DataTable().rows($('.shown'));
+    console.log("The table is drawing...")
+    console.log("Child rows at draw: "+childRows);
+    var tr = table.rows($('.shown'));//$('#newLeads').DataTable().rows($('.shown'));
+    var row = table.row(tr);//$('#newLeads').DataTable().row(tr);  
+    //var tr = $(this).closest('tr');
+      //var row = table.row(tr);
+      if (childRows) {
+          childRows.every(function (rowIdx, tableLoop, rowLoop) {
+              console.log("There was a child row present on draw.");
+              d = row.data();
+              row.child($(format(d))).show();
+              row.nodes().to$().addClass('shown');
+              $('div.slider', row.child()).slideDown();
+              console.log('I was shown on table draw');
+          });
+        //clear the child rows so the loop doesn't execute again, and so that the previously shown row doesn't get shown again.
+        //childRows = null;
+      } else {
+        console.log("Nothing to see here...")
+      }
+    console.log("Table drawn"); 
+});*/
 
 function newLeadsInit(){
-        var childRows = null;
         var table = $('#newLeads').DataTable( {
         //"mark": true,
         "searchHighlight": true,
@@ -1262,15 +1373,20 @@ function newLeadsInit(){
         "sAjaxDataProp": "feed.entry",
         "sAjaxSource": "https://spreadsheets.google.com/feeds/list/1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0/1/public/full?alt=json",
         "aoColumns": [
-        { "data": null, 
+        {   "data": null, 
             "defaultContent" : "",
-            "className": "details-control",
+            "className": "details-control-symbol",
             "width": "5px"
         }, 
-        { "title": "Inquiry Date",
+        {   
+            "title": "Record ID",
+            "mDataProp": "gsx$recordid.$t"
+
+        },
+        {   "title": "Inquiry Date",
             "mDataProp": "gsx$inquiredate.$t"
         },
-        { "title": "Location",
+        {   "title": "Location",
             "mDataProp": "gsx$dojolocation.$t"
         },
         {
@@ -1300,11 +1416,17 @@ function newLeadsInit(){
             "title": "Prospect Phase",
             "mDataProp": "gsx$prospectphase.$t"
         },
-        { "data": null,
+        {   "data": null,
             "title": "", 
             "defaultContent" : '<i class="fa fa-backspace"></i>',
             "className": "delete-button",
         },  
+        ],
+        "columnDefs":[
+            {
+                "targets": 1,
+                "visible": false
+            }
         ],
         "buttons":{
         "buttons":[
@@ -1313,9 +1435,15 @@ function newLeadsInit(){
             {
             "text": '<i class="fas fa-sync"></i>',
             "action": function (dt){
-                childRows = table.rows($('.shown'));
-                table.ajax.reload(null, false);
-                console.log('Refresh button clicked');
+                //childRows = $('#newLeads tr.shown');
+                //row = $('#newLeads').DataTable().row(childRows);
+                //console.log(childRows);
+                //console.log(row);
+                //console.log(row.data());
+                //console.log("data: " +row.data().gsx$recordid.$t);
+                //console.log("refresh button childRows: "+ childRows.length);
+                ajaxReload();
+
             },
             "className": "btn btn-secondary btn-block",
             },
@@ -1333,16 +1461,18 @@ function newLeadsInit(){
         ],       
         },
         "initComplete": function(){
-        childRows = table.rows($('.shown'));
+        //childRows = table.rows($('.shown'));
         newEntryDropdownStack();
         },    
-        "order": [[1, "desc"]]
+        //"order": [[2, "desc"]],
+        
     });
 
-    $('#newLeads tbody').on('click', 'td.details-control', function () {
-        childRows = table.rows($('.shown'));
+    $('#newLeads tbody').on('click', 'td.details-control-symbol', function () {
         var tr = $(this).closest('tr');
+        console.log(tr);
         var row = table.row( tr );
+        console.log(row);
         if ( row.child.isShown() ) {
           $('div.slider',row.child()).slideUp(function(){
                     row.child.hide();
@@ -1392,20 +1522,22 @@ function newLeadsInit(){
     $('#newLeads tbody').on('click', 'td.delete-button', function(){
         var tr = $(this).closest('tr');
         var row = table.row(tr);
-        var response = confirm("Would you like to delete record "+row.data().gsx$recordid.$t+"?");
+        var response = confirm("Would you like to delete this record for "+row.data().gsx$leadfirstname.$t+" "+row.data().gsx$participantlastname.$t+"?");
         if (response){
             deleteRow(row.data());
         }
       });
+      
       $('#newLeads').on('draw.dt', function (){  
         console.log("Child rows at draw: "+childRows);
-          var tr = $(this).closest('tr');
-          var row = table.row(tr);
-          if (childRows) {
+          //var tr = $(this).closest('tr');
+          var row = table.row(childRows);
+          if (childRows != undefined && childRows.length > 0) {
               childRows.every(function (rowIdx, tableLoop, rowLoop) {
                   console.log("There was a child row present on draw.");
                   d = this.data();
                   this.child($(format(d))).show();
+                  dropdownStack();
                   this.nodes().to$().addClass('shown');
                   $('div.slider', row.child()).slideDown();
                   console.log('I was shown on table draw');
@@ -1415,10 +1547,80 @@ function newLeadsInit(){
           } else {
             console.log("Nothing to see here...")
           }
-        console.log("Table drawn");   
-        
-        
+        console.log("Table drawn");              
       }).dataTable();
+      table.order([1,"desc"]);
+      table.column(1).visible(false);
 
+    /*$('#newLeads').on('draw.dt', function (){
+        console.log("draw callback begin");
+        childRows = $('#newLeads tr.shown');
+          //var tr = $(this).closest('tr');
+          //var tr = $('#newLeads tr.shown');
+          //var row = $('#newLeads').DataTable().row(tr);
+          //$('#newLeads').DataTable().draw();
+          childRows = $('#newLeads tr.shown');
+          row = $('#newLeads').DataTable().row(childRows);
+          console.log("My childRow: "+childRows);
+          console.log(typeof row);
+    
+    
+          //childRows = $('#newLeads tr.shown');
+          //row = $('#newLeads').DataTable().row(childRows);
+          //console.log("child row before reload: "+childRows);
+          //console.log("data: " +row.data().gsx$recordid.$t);
+          //$('#newLeads').DataTable().ajax.reload();
+          //console.log("child row after reload: "+childRows);
+          //console.log("row: "+row);
+          //console.log("row data: "+row.data());
+    
+          if (childRows.length != undefined && childRows.length > 0) {
+              //childRows.every(function (rowIdx, tableLoop, rowLoop) {
+                  console.log("There is a shown child row present on table draw");
+                  d = row.data();
+                  row.child($(format(d))).show();
+                  row.nodes().to$().addClass('shown');
+                  $('div.slider', row.child()).slideDown();                        
+                  console.log('I was shown from table draw reload');
+                  childRows = $('#newLeads tr.shown');
+              //});
+              // Reset childRows so loop is not executed each draw
+              //childRows = null;
+          }else{
+            console.log("there are no rows to show on table draw");
+
+          }
+         console.log("Table updated!");
+         //console.log("Child Rows after Ajax reload: "+childRows);
+         $('#myModal').modal('hide');
+         $('#unCloseable').modal('hide'); 
+    });
+      
+     /* 
+    $('#newLeads').on('draw.dt', function (){ 
+        //childRows = table.rows($('.shown'));
+        childRows = $('#newLeads').DataTable().rows($('.shown'));
+        console.log("The table is drawing...")
+        console.log("Child rows at draw: "+childRows);
+        var tr = table.rows($('.shown'));//$('#newLeads').DataTable().rows($('.shown'));
+        var row = table.row(tr);//$('#newLeads').DataTable().row(tr);  
+        //var tr = $(this).closest('tr');
+        //var row = table.row(tr);
+        if (childRows) {
+            childRows.every(function (rowIdx, tableLoop, rowLoop) {
+                console.log("There was a child row present on draw.");
+                d = row.data();
+                row.child($(format(d))).show();
+                row.nodes().to$().addClass('shown');
+                $('div.slider', row.child()).slideDown();
+                console.log('I was shown on table draw');
+            });
+            //clear the child rows so the loop doesn't execute again, and so that the previously shown row doesn't get shown again.
+            //childRows = null;
+        } else {
+            console.log("Nothing to see here...")
+        }
+        console.log("Table drawn"); 
+    }); */
 
 }
