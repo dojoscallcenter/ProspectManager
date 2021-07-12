@@ -792,6 +792,17 @@ function updateRow(formData, searchValue) {
             console.log(valueArray);
             console.log(valueArray.length);
             //console.log(valueArray[0].indexOf('123456'));
+            if(formData.intro1_time.value == ""){
+                intro1TimeValue = ""
+            }else {
+                intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString();
+            }
+            if(formData.intro2_time.value == ""){
+                intro2TimeValue = ""
+            }else {
+                intro2TimeValue = new Date("2021-01-01 "+ formData.intro2_time.value).toLocaleTimeString();
+            }
+
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
@@ -826,12 +837,12 @@ function updateRow(formData, searchValue) {
                                         formData.participant_lastname.value,
                                         formData.age_class.value,
                                         formData.intro1_date.value,
-                                        new Date("2021-1-1 "+ formData.intro1_time.value).toLocaleTimeString(),
+                                        intro1TimeValue,
                                         "",
                                         "",
                                         formData.intro1_attended.value,
                                         formData.intro2_date.value,
-                                        new Date("2021-1-1 "+ formData.intro2_time.value).toLocaleTimeString(),
+                                        intro2TimeValue,
                                         "",
                                         "",
                                         formData.intro2_attended.value,
@@ -893,7 +904,7 @@ function addNewRecord(formObject){
         intro1_date: formObject.intro1_date.value,
         intro1_endtime: "",
         intro1_starttime: "",
-        intro1_time: formObject.intro1_time.value,//.toLocaleTimeString(),
+        intro1_time: (new Date("2021-01-01 "+formObject.intro1_time.value)).toLocaleTimeString(),//.toLocaleTimeString(),
         intro2_attended:"",
         intro2_date:"",
         intro2_endtime:"",
@@ -1552,75 +1563,5 @@ function newLeadsInit(){
       table.order([1,"desc"]);
       table.column(1).visible(false);
 
-    /*$('#newLeads').on('draw.dt', function (){
-        console.log("draw callback begin");
-        childRows = $('#newLeads tr.shown');
-          //var tr = $(this).closest('tr');
-          //var tr = $('#newLeads tr.shown');
-          //var row = $('#newLeads').DataTable().row(tr);
-          //$('#newLeads').DataTable().draw();
-          childRows = $('#newLeads tr.shown');
-          row = $('#newLeads').DataTable().row(childRows);
-          console.log("My childRow: "+childRows);
-          console.log(typeof row);
-    
-    
-          //childRows = $('#newLeads tr.shown');
-          //row = $('#newLeads').DataTable().row(childRows);
-          //console.log("child row before reload: "+childRows);
-          //console.log("data: " +row.data().gsx$recordid.$t);
-          //$('#newLeads').DataTable().ajax.reload();
-          //console.log("child row after reload: "+childRows);
-          //console.log("row: "+row);
-          //console.log("row data: "+row.data());
-    
-          if (childRows.length != undefined && childRows.length > 0) {
-              //childRows.every(function (rowIdx, tableLoop, rowLoop) {
-                  console.log("There is a shown child row present on table draw");
-                  d = row.data();
-                  row.child($(format(d))).show();
-                  row.nodes().to$().addClass('shown');
-                  $('div.slider', row.child()).slideDown();                        
-                  console.log('I was shown from table draw reload');
-                  childRows = $('#newLeads tr.shown');
-              //});
-              // Reset childRows so loop is not executed each draw
-              //childRows = null;
-          }else{
-            console.log("there are no rows to show on table draw");
-
-          }
-         console.log("Table updated!");
-         //console.log("Child Rows after Ajax reload: "+childRows);
-         $('#myModal').modal('hide');
-         $('#unCloseable').modal('hide'); 
-    });
-      
-     /* 
-    $('#newLeads').on('draw.dt', function (){ 
-        //childRows = table.rows($('.shown'));
-        childRows = $('#newLeads').DataTable().rows($('.shown'));
-        console.log("The table is drawing...")
-        console.log("Child rows at draw: "+childRows);
-        var tr = table.rows($('.shown'));//$('#newLeads').DataTable().rows($('.shown'));
-        var row = table.row(tr);//$('#newLeads').DataTable().row(tr);  
-        //var tr = $(this).closest('tr');
-        //var row = table.row(tr);
-        if (childRows) {
-            childRows.every(function (rowIdx, tableLoop, rowLoop) {
-                console.log("There was a child row present on draw.");
-                d = row.data();
-                row.child($(format(d))).show();
-                row.nodes().to$().addClass('shown');
-                $('div.slider', row.child()).slideDown();
-                console.log('I was shown on table draw');
-            });
-            //clear the child rows so the loop doesn't execute again, and so that the previously shown row doesn't get shown again.
-            //childRows = null;
-        } else {
-            console.log("Nothing to see here...")
-        }
-        console.log("Table drawn"); 
-    }); */
 
 }
