@@ -6,7 +6,7 @@ edit-button{
       position: relative;
       cursor: pointer;
   }
-  td.details-control::before{
+  td.details-control-symbol::before{
     position: relative;
     font-family: "FontAwesome";
     font-weight: 900;
@@ -22,7 +22,7 @@ edit-button{
     position: relative;
     cursor: pointer;
   }
-  tr.shown td.details-control::before{
+  tr.shown td.details-control-symbol::before{
     position: center;
     color: red;
     font-family: "FontAwesome";
