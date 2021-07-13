@@ -163,9 +163,7 @@ $(document).ready(function() {
 
   });
 
-  $(document).ready(function(){
-    $('.phone').inputmask('(999)-999-9999');
-  });
+
 
 
 function handleClientLoad() {
@@ -300,6 +298,7 @@ function updateSigninStatus() {
 
 function checkCalendarEvents(d) {
     $('#intro1Calendar, #intro2Calendar').prop("disabled",true);
+    $('#intro1Calendar, #intro2Calendar').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Adding event...</span>');
 
     introStage = "";
     dojoAddress = "";
@@ -417,6 +416,7 @@ function checkCalendarEvents(d) {
                     if (valueArray.length > 0){
                         alert("The calendar entry already exists!");
                         $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
+                        $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
                     }else{
                         console.log("Add this event to the calendar!");
                         var event = {
@@ -455,9 +455,10 @@ function checkCalendarEvents(d) {
                             //appendPre('Event created: ' + event.htmlLink);
                             console.log("request complete!");
                             alert("Successfully added intro to calendar!!");
-                          }).then(
-                            $('#intro1Calendar, #intro2Calendar').prop("disabled",false)
-                          );
+                          }).then(function (){
+                            $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
+                            $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
+                          });
 
 
 
@@ -470,11 +471,13 @@ function checkCalendarEvents(d) {
                 function(err) { 
                     alert("An error occured. See the debugger console for details.")
                     $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
+                    $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
                     console.error("Execute error", err); });
 }
 
 function sendWelcomeForm(d){
     $('#welcomeForm').prop("disabled",true);
+    $('#welcomeForm').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Sending...</span>');
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
     var scriptId = "AKfycby9gt1h0sdZjo658JimEi2CF3IQZRdZpYzJOwgXeoqsL7Euvx-7iIvCliH9PsQwSYpn";
     var formInfo = {
@@ -535,6 +538,7 @@ function sendWelcomeForm(d){
       if (result.error && result.error.status) {
           alert.log("Error calling API!");
           $('#welcomeForm').prop("disabled",false);
+          $('#welcomeForm').html("Send Welcome Form");
 
 
         // The API encountered a problem before the script
@@ -551,11 +555,13 @@ function sendWelcomeForm(d){
         //appendPre('Script error message: ' + error.errorMessage);
         alert.log('Script error message: ' + error.errorMessage);
         $('#welcomeForm').prop("disabled",false);
+        $('#welcomeForm').html("Send Welcome Form");
 
   
         if (error.scriptStackTraceElements) {
             alert.log("Stack Trace Elements present!");
             $('#welcomeForm').prop("disabled",false);
+            $('#welcomeForm').html("Send Welcome Form");
 
           // There may not be a stacktrace if the script didn't start
           // executing.
@@ -573,7 +579,9 @@ function sendWelcomeForm(d){
         // is treated as a JavaScript object (folderSet).
   
         console.log(resp.result);
+        alert("Welcome form sent!");
         $('#welcomeForm').prop("disabled",false);
+        $('#welcomeForm').html("Send Welcome Form");
 
       }
     });
@@ -715,7 +723,7 @@ function updateRow(formData, searchValue) {
     console.log("Reading all data for update...");
     //$('#formSubmitButton').removeClass('btn-primary');
     $('#formSubmitButton').prop("disabled",true);
-    $('#formSubmitButton').html("Saving");
+    $('#formSubmitButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Saving...</span>');
     //$('#formSubmitButton').addClass('spinner-border');
 
     //const searchValue = searchValue;
@@ -891,7 +899,16 @@ function addNewRecord(formObject){
 
 
 function resetEditForm(){
+    var tr = $('#newLeads tbody tr.shown');
+    var row = $('#newLeads').DataTable().row(tr);
+
+
     document.getElementById("editForm").reset();
+    $('div.slider',row.child()).slideUp(function(){
+        row.child.hide();
+        tr.removeClass('shown');
+    } ); 
+
   }
 
 function getAge(dateString){
@@ -1142,7 +1159,7 @@ function format(d){
                     '<label for="email">Email</label>'+
                       '<input class="form-control" type="email"  id="email" name="email" value="'+d.gsx$email.$t+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control phone" type="text"  id="phone" name="phone" value="'+d.gsx$phone.$t+'">'+
+                      '<input class="form-control phone" type="text"  id="phone1" name="phone" value="'+d.gsx$phone.$t+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
@@ -1203,12 +1220,12 @@ function format(d){
                               '<option>Non-binary / other</option>'+
                           '</select>'+
                       '<div class="row">'+
-                      '<div class="col-6">'+
+                      '<div class="col-8">'+
                         '<label for="date_ofbirth" class="">'+"DOB"+'</label>'+
-                          '<input class="form-control" type="date" id="date_ofbirth" name="date_ofbirth" value="'+d.gsx$dateofbirth.$t+'">'+
+                          '<input class="form-control " type="date" id="date_ofbirth" name="date_ofbirth" value="'+d.gsx$dateofbirth.$t+'">'+
                       '</div>'+                           
                         //AGE NEEDS TO BE AUTOMATICALLY CALCULATED
-                      '<div class="col-6">'+
+                      '<div class="col-4">'+
                         '<label for="age" class="">'+"Age"+'</label>'+
                           '<input class="form-control" type="text" id="age" value="'+(getAge(new Date(d.gsx$dateofbirth.$t).toString()))+'">'+ 
                       '</div>'+ 
