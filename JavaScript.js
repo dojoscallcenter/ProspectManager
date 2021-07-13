@@ -158,13 +158,13 @@ var childRows = $('#newLeads tr.shown');
 
 $(document).ready(function() {
     console.log("loading client libraries and checking sign in status...")
-    //async defer src="https://apis.google.com/js/api.js"
     handleClientLoad();
-
   });
+  
 
 
-
+function maskUp(){
+    $("#phone1, #phone2").inputmask("(999) 999-9999");}
 
 function handleClientLoad() {
     // Load the API's client and auth2 modules.
@@ -455,10 +455,10 @@ function checkCalendarEvents(d) {
                             //appendPre('Event created: ' + event.htmlLink);
                             console.log("request complete!");
                             alert("Successfully added intro to calendar!!");
-                          }).then(function (){
+                          })//.then(function(){
                             $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                             $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
-                          });
+                          //});
 
 
 
@@ -938,9 +938,11 @@ function ajaxReload(formObject){
               this.child($(format(d))).show();
               dropdownStack();
               this.nodes().to$().addClass('shown');
-              $('div.slider', row.child()).slideDown();                        
+              $('div.slider', row.child()).slideDown(); 
               console.log('I was shown from Ajax reload');
           });
+                          
+
           // Reset childRows so loop is not executed each draw
           //childRows = null;
       };    
@@ -1159,7 +1161,7 @@ function format(d){
                     '<label for="email">Email</label>'+
                       '<input class="form-control" type="email"  id="email" name="email" value="'+d.gsx$email.$t+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control phone" type="text"  id="phone1" name="phone" value="'+d.gsx$phone.$t+'">'+
+                      '<input class="form-control phone" type="text"  id="phone2" name="phone" value="'+d.gsx$phone.$t+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
@@ -1433,6 +1435,7 @@ function newLeadsInit(){
         "initComplete": function(){
         //childRows = table.rows($('.shown'));
         newEntryDropdownStack();
+        maskUp(); 
         },    
         //"order": [[2, "desc"]],
         
@@ -1456,6 +1459,7 @@ function newLeadsInit(){
               }
               row.child( format(row.data()) ).show();
               dropdownStack();
+              maskUp();
               tr.addClass('shown');
               $('div.slider', row.child()).slideDown();
         }
