@@ -163,11 +163,9 @@ $(document).ready(function() {
 
   });
 
-$(document).ready(function($){
-    console.log("initializing input mask")
-    $('#phone1, phone2').usPhoneFormat();
-});
-
+  $(document).ready(function(){
+    $('.phone').inputmask('(999)-999-9999');
+  });
 
 
 function handleClientLoad() {
@@ -229,12 +227,12 @@ function initClient() {
      });
      $('#calendar-button').click(function() {
         console.log("Add to Calendar!");
-        testCalendar();
+        addToCalendar();
         //addToCalendar();
      });
      $('#script-button').click(function() {
         console.log("Run Google script!");
-        appScriptTest();
+        sendWelcomeForm();
         //addToCalendar();
      });            
     });
@@ -271,6 +269,11 @@ function setSigninStatus() {
       $('#revoke-access-button').css('display', 'none');
       $('#auth-status').html('You have not authorized this app or you are ' +
           'signed out.');
+        if ($.fn.DataTable.isDataTable( '#newLeads' ) ) {
+        console.log("Signing out...");
+        $('#newLeads').DataTable().destroy();
+        $('#newLeads').empty();
+        }
     }
 }
 
@@ -296,6 +299,7 @@ function updateSigninStatus() {
 
 
 function checkCalendarEvents(d) {
+    $('#intro1Calendar, #intro2Calendar').prop("disabled",true);
 
     introStage = "";
     dojoAddress = "";
@@ -412,6 +416,7 @@ function checkCalendarEvents(d) {
                 // Handle the results here (response.result has the parsed body).
                     if (valueArray.length > 0){
                         alert("The calendar entry already exists!");
+                        $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                     }else{
                         console.log("Add this event to the calendar!");
                         var event = {
@@ -450,7 +455,9 @@ function checkCalendarEvents(d) {
                             //appendPre('Event created: ' + event.htmlLink);
                             console.log("request complete!");
                             alert("Successfully added intro to calendar!!");
-                          });
+                          }).then(
+                            $('#intro1Calendar, #intro2Calendar').prop("disabled",false)
+                          );
 
 
 
@@ -462,10 +469,12 @@ function checkCalendarEvents(d) {
         },
                 function(err) { 
                     alert("An error occured. See the debugger console for details.")
+                    $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                     console.error("Execute error", err); });
 }
 
-function appScriptTest(d){
+function sendWelcomeForm(d){
+    $('#welcomeForm').prop("disabled",true);
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
     var scriptId = "AKfycby9gt1h0sdZjo658JimEi2CF3IQZRdZpYzJOwgXeoqsL7Euvx-7iIvCliH9PsQwSYpn";
     var formInfo = {
@@ -524,7 +533,10 @@ function appScriptTest(d){
     }).then(function(resp) {
       var result = resp.result;
       if (result.error && result.error.status) {
-          console.log("Error calling API!");
+          alert.log("Error calling API!");
+          $('#welcomeForm').prop("disabled",false);
+
+
         // The API encountered a problem before the script
         // started executing.
         //appendPre('Error calling API:');
@@ -537,10 +549,14 @@ function appScriptTest(d){
         // 'errorType', and an array of stack trace elements.
         var error = result.error.details[0];
         //appendPre('Script error message: ' + error.errorMessage);
-        console.log('Script error message: ' + error.errorMessage);
+        alert.log('Script error message: ' + error.errorMessage);
+        $('#welcomeForm').prop("disabled",false);
+
   
         if (error.scriptStackTraceElements) {
-            console.log("Stack Trace Elements present!");
+            alert.log("Stack Trace Elements present!");
+            $('#welcomeForm').prop("disabled",false);
+
           // There may not be a stacktrace if the script didn't start
           // executing.
           //appendPre('Script error stacktrace:');
@@ -557,87 +573,13 @@ function appScriptTest(d){
         // is treated as a JavaScript object (folderSet).
   
         console.log(resp.result);
+        $('#welcomeForm').prop("disabled",false);
+
       }
     });
   }
   
 
-function testCalendar(){
-    var event = {
-        'summary': 'Google I/O 2015',
-        'location': '800 Howard St., San Francisco, CA 94103',
-        'description': 'A chance to hear more about Google\'s developer products.',
-        'start': {
-          'dateTime': '2021-07-05T09:00:00-07:00',
-          'timeZone': 'America/Los_Angeles'
-        },
-        'end': {
-          'dateTime': 'ç',
-          'timeZone': 'America/Los_Angeles'
-        },
-        'recurrence': [
-          'RRULE:FREQ=DAILY;COUNT=2'
-        ],
-        'attendees': [
-          {'email': 'lpage@example.com'},
-          {'email': 'sbrin@example.com'}
-        ],
-        'reminders': {
-          'useDefault': false,
-          'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 10}
-          ]
-        }
-      };
-      
-      var request = gapi.client.calendar.events.insert({
-        'calendarId': 'info-wdm@mydojos.com',
-        'resource': event
-      });
-      
-      request.execute(function(event) {
-        //appendPre('Event created: ' + event.htmlLink);
-      });
-}
-
-function addToCalendar(d){
-    var event = {
-        'summary': 'This is a test entry',
-        'location': 'Test',
-        'description': 'This is a test description',
-        'start': {
-          'dateTime': '2021-07-05T09:00:00-07:00',
-          'timeZone': 'America/Chicago'
-        },
-        'end': {
-          'dateTime': '2021-07-05T17:00:00-07:00',
-          'timeZone': 'America/Chicago'
-        },
-        'recurrence': [
-          'RRULE:FREQ=DAILY;COUNT=1'
-        ],
-        'attendees': [
-          {'email': 'spckoski@gmail.com'},
-        ],
-        'reminders': {
-          'useDefault': false,
-          'overrides': [
-            {'method': 'email', 'minutes': 24 * 60},
-            {'method': 'popup', 'minutes': 60 * 2}
-          ]
-        }
-      };
-      
-      var request = gapi.client.calendar.events.insert({
-        'calendarId': 'info-wdm@mydojos.com',
-        'resource': event
-      });
-      
-      request.execute(function(event) {
-        //appendPre('Event created: ' + event.htmlLink);
-      });
-}
 
 
 function readGS(){
@@ -1200,7 +1142,7 @@ function format(d){
                     '<label for="email">Email</label>'+
                       '<input class="form-control" type="email"  id="email" name="email" value="'+d.gsx$email.$t+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control" type="text" class="phone2"  id="phone" name="phone" value="'+d.gsx$phone.$t+'">'+
+                      '<input class="form-control phone" type="text"  id="phone" name="phone" value="'+d.gsx$phone.$t+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
@@ -1294,7 +1236,7 @@ function format(d){
                           '</select>'+
                         '<br>'+
                         '<div class="text-center">'+
-                          '<button class="btn btn-secondary intro1Calendar" type="button">Add to Calendar</button>'+
+                          '<button class="btn btn-secondary intro1Calendar" id="intro1Calendar" type="button">Add to Calendar</button>'+
                         '</div>'+
                     '</div>'+
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
@@ -1314,7 +1256,7 @@ function format(d){
                           '</select>'+
                         '<br>'+
                         '<div class="text-center">'+
-                          '<button class="btn btn-secondary intro2Calendar" type="button">Add to Calendar</button>'+
+                          '<button class="btn btn-secondary intro2Calendar" id="intro2Calendar" type="button">Add to Calendar</button>'+
                         '</div>'+
                         '<br>'+
                     '</div>'+                    
@@ -1334,7 +1276,7 @@ function format(d){
                           '</select>'+ 
                         '<br>'+
                         '<div class="text-center">'+
-                          '<button class="btn btn-secondary welcomeForm" type="button">Send Welcome Form</button>'+
+                          '<button class="btn btn-secondary welcomeForm" id="welcomeForm" type="button">Send Welcome Form</button>'+
                         '</div>'+                                                                                                                    
                     '</div>'+               
                 '</div>'+
@@ -1527,7 +1469,7 @@ function newLeadsInit(){
         var row = table.row(tr);
         console.log(row.data());
         var data = row.data();
-        appScriptTest(data);
+        sendWelcomeForm(data);
       });
 
     $('#newLeads tbody').on('click', 'td.delete-button', function(){
