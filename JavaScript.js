@@ -4,7 +4,6 @@
 let GoogleAuth;
 const SCOPE = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
-//const spreadsheetId = "1qIcmrgiVhKtz1kWPJ0ZkpBt7uyP6o_g-cc-7t0oYdk0"; //learn doPost
 const appURL = "https://script.google.com/macros/s/AKfycbyUdaa1X2K0YxHt42xfN8es1EtJMqAJhX-JJ1-H4c4_I2Le8QqZGVlmpUS7TMtIL7H8/exec";
 var childRows = $('#newLeads tr.shown');
 
@@ -157,7 +156,7 @@ var childRows = $('#newLeads tr.shown');
       ];
 
 $(document).ready(function() {
-    console.log("loading client libraries and checking sign in status...")
+    //console.log("loading client libraries and checking sign in status...")
     handleClientLoad();
   });
   
@@ -170,7 +169,7 @@ function handleClientLoad() {
     // Load the API's client and auth2 modules.
     // Call the initClient function after the modules load.
     gapi.load('client:auth2', initClient);
-    console.log("Client load complete...")
+    //console.log("Client load complete...")
 }
 
 function initClient() {
@@ -207,32 +206,7 @@ function initClient() {
       $('#revoke-access-button').click(function() {
         revokeAccess();
       });
-      $('#update-row-button').click(function() {
-        console.log("yo!! updateRow was clicked!");
-        updateRow();
-     });
-     $('#find-record-id').click(function() {
-        console.log("read all data button clicked!");
-        findRecordId();
-     });
-     $('#add-record-button').click(function() {
-        console.log("add record button clicked!");
-        appendRow();
-     });    
-     $('#read-all-data').click(function() {
-        console.log("readData!");
-        readGS();
-     });
-     $('#calendar-button').click(function() {
-        console.log("Add to Calendar!");
-        addToCalendar();
-        //addToCalendar();
-     });
-     $('#script-button').click(function() {
-        console.log("Run Google script!");
-        sendWelcomeForm();
-        //addToCalendar();
-     });            
+           
     });
 }
 
@@ -254,21 +228,21 @@ function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
     var isAuthorized = user.hasGrantedScopes(SCOPE);
     if (isAuthorized) {
-      console.log ("I am signed in as: "+ user.getBasicProfile().getName());
+      //console.log ("I am signed in as: "+ user.getBasicProfile().getName());
       $('#sign-in-or-out-button').html('Sign out');
       $('#revoke-access-button').css('display', 'inline-block');
       $('#auth-status').html('You are currently signed in and have granted ' +
           'access to this app.');
           newLeadsInit();
     ////////////////////Put dataTables init function here.
-        console.log("Login initialization complete...");
+        //console.log("Login initialization complete...");
     } else {
       $('#sign-in-or-out-button').html('Sign In/Authorize');
       $('#revoke-access-button').css('display', 'none');
       $('#auth-status').html('You have not authorized this app or you are ' +
           'signed out.');
         if ($.fn.DataTable.isDataTable( '#newLeads' ) ) {
-        console.log("Signing out...");
+        //console.log("Signing out...");
         $('#newLeads').DataTable().destroy();
         $('#newLeads').empty();
         }
@@ -281,15 +255,9 @@ function updateSigninStatus() {
 }
 
  function handleFormSubmit(formObject) {
-    console.log(formObject.dojo_location.value);
-    //google.script.run.withSuccessHandler(ajaxReload).processForm(formObject);
+    //console.log(formObject.dojo_location.value);
     addNewRecord(formObject);
-    //$('#myModal').modal('hide');
-    //$('#unCloseable').modal({backdrop: 'static', keyboard: false});
     ajaxReload();
-    //$('#unCloseable').modal('hide');
-
-    //console.log("hiding uncloseable modal...")
   }
 
 
@@ -303,13 +271,13 @@ function checkCalendarEvents(d) {
     introStage = "";
     dojoAddress = "";
     if (d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t === ""){
-        console.log("Intro 1");
+        //console.log("Intro 1");
         introStage = "Intro 1";
     }else if(d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t !== "" && d.gsx$intro2Date.$t !== "NaN:NaN"){
-        console.log("Intro 2");
+        //console.log("Intro 2");
         introStage = "Intro 2";
     }
-    console.log("The current introstage is: "+introStage)
+    //console.log("The current introstage is: "+introStage)
     if (d.gsx$dojolocation.$t === "Ankeny"){
         dojoAddress = dojoAddresses[0];
     }else if (d.gsx$dojolocation.$t === "Johnston"){
@@ -335,11 +303,11 @@ function checkCalendarEvents(d) {
             valueArray = [];
             matchArray = [];
             calendarId = "info-"+d.gsx$dojolocation.$t+"@mydojos.com";
-            console.log(response)
+            //console.log(response)
 
 
 
-            console.log("Value array: " +valueArray);
+            //console.log("Value array: " +valueArray);
  
             var eventTitle = introStage+" - " +d.gsx$participantfirstname.$t+" "+d.gsx$participantlastname.$t;
             var description = "First Name: "+d.gsx$participantfirstname.$t+"\r\nLast Name: "+d.gsx$participantlastname.$t+"\r\nAge: "+(getAge(d.gsx$dateofbirth.$t))+"\r\nAge Class: "+d.gsx$ageclass.$t+"\r\nPhone: "+d.gsx$phone.$t+"\r\nEmail: "+d.gsx$email.$t+"\r\nIntro Notes: "+d.gsx$intronotes.$t;
@@ -354,7 +322,7 @@ function checkCalendarEvents(d) {
             var sMonth = sT.getMonth()+1;
             var sM = (sMonth < 10) ? '0' + sMonth : sMonth;
             var sDay = sT.getDate();
-            console.log("sDay: "+sDay);
+            //console.log("sDay: "+sDay);
             var sD = (sDay < 10) ? '0' + sDay : sDay;
             var hours = sT.getHours();
             var hr = (hours < 10) ? '0' + hours : hours;
@@ -369,9 +337,8 @@ function checkCalendarEvents(d) {
             var newTimeString = hr + ':' + min + ':' + sec;
 
             var sDateTimeString = newDateString + 'T' + newTimeString;
-            console.log("DateTime string: "+sDateTimeString);
+            //console.log("DateTime string: "+sDateTimeString);
 
-            //console.log("Start Time: "+(new Date(sT).getFullYear())+"-"+(new Date(sT).)+"-"+(new Date(sT).getDay()));
             var add_minutes =  function (dt, minutes) {
                 return new Date(dt.getTime() + minutes*60000);
             }
@@ -386,31 +353,29 @@ function checkCalendarEvents(d) {
             eTimeString = eHr+':'+eMin+':'+eSec;
             var eDateTimeString = newDateString +'T'+eTimeString;
 
-            console.log(newDateString+"T"+newTimeString);
-            console.log(newDateString+"T"+eTimeString);
-            console.log("End Time: "+eT);
-            console.log("adjusted eT: " +eT.toLocaleString());
-            console.log("Dojo Address: "+dojoAddress);
-            console.log("description: " +description);
-            console.log("Calendar ID: "+calendarId);
-            console.log("event title: "+eventTitle);
+            //console.log(newDateString+"T"+newTimeString);
+            //console.log(newDateString+"T"+eTimeString);
+            //console.log("End Time: "+eT);
+            //console.log("adjusted eT: " +eT.toLocaleString());
+            //console.log("Dojo Address: "+dojoAddress);
+            //console.log("description: " +description);
+            //console.log("Calendar ID: "+calendarId);
+            //console.log("event title: "+eventTitle);
             for (let index = 0; index < resultItems.length; index++) {
-                //console.log(resultItems[index].start.dateTime.includes(sDateTimeString));
-                //console.log(resultItems[index].summary);
-                //console.log(resultItems[index].start.dateTime);
+
                 if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
-                    console.log("I have a summary and a date! My title is: "+resultItems[index].summary)
-                    console.log(resultItems[index].start.dateTime);
-                    console.log(sDateTimeString);
-                    console.log((resultItems[index].start.dateTime).includes(sDateTimeString))
+                    //console.log("I have a summary and a date! My title is: "+resultItems[index].summary)
+                    //console.log(resultItems[index].start.dateTime);
+                    //console.log(sDateTimeString);
+                    //console.log((resultItems[index].start.dateTime).includes(sDateTimeString))
                     if(resultItems[index].start.dateTime.includes(sDateTimeString)){
                         valueArray.push(resultItems[index].summary);
-                        console.log("Next Entry: "+resultItems[index].summary);
-                        console.log("Value array length: "+valueArray.length);
+                        //console.log("Next Entry: "+resultItems[index].summary);
+                        //console.log("Value array length: "+valueArray.length);
                     }
                 }
             }
-                console.log(valueArray.length);
+                //console.log(valueArray.length);
 
                 // Handle the results here (response.result has the parsed body).
                     if (valueArray.length > 0){
@@ -418,7 +383,7 @@ function checkCalendarEvents(d) {
                         $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                         $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
                     }else{
-                        console.log("Add this event to the calendar!");
+                        //console.log("Add this event to the calendar!");
                         var event = {
                             'summary': eventTitle,
                             'location': dojoAddress,
@@ -452,20 +417,13 @@ function checkCalendarEvents(d) {
                           });
                           
                           request.execute(function(event) {
-                            //appendPre('Event created: ' + event.htmlLink);
-                            console.log("request complete!");
+                            //console.log("request complete!");
                             alert("Successfully added intro to calendar!!");
-                          })//.then(function(){
+                          })
                             $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                             $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
-                          //});
-
-
-
-                        console.log("Success!!");
-                    //}else{
-                      //  alert("A calendar event with this title already exists!");
-                        //}
+                         
+                        //console.log("Success!!");
                     }
         },
                 function(err) { 
@@ -481,7 +439,6 @@ function sendWelcomeForm(d){
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
     var scriptId = "AKfycby9gt1h0sdZjo658JimEi2CF3IQZRdZpYzJOwgXeoqsL7Euvx-7iIvCliH9PsQwSYpn";
     var formInfo = {
-        //record_id : new Date().getTime(),
         add_constantcontact: "",
         age_class: d.gsx$ageclass.$t,
         city: d.gsx$city.$t,
@@ -497,7 +454,7 @@ function sendWelcomeForm(d){
         intro1_date: d.gsx$intro1date.$t,
         intro1_endtime: "",
         intro1_starttime: "",
-        intro1_time: d.gsx$intro1time.$t,//(d.intro1_time.value).getTime(),
+        intro1_time: d.gsx$intro1time.$t,
         intro2_attended:"",
         intro2_date:"",
         intro2_endtime:"",
@@ -534,55 +491,41 @@ function sendWelcomeForm(d){
           ],
       }
     }).then(function(resp) {
+        // The API encountered a problem before the script
+        // started executing.
       var result = resp.result;
       if (result.error && result.error.status) {
           alert.log("Error calling API!");
           $('#welcomeForm').prop("disabled",false);
           $('#welcomeForm').html("Send Welcome Form");
-
-
-        // The API encountered a problem before the script
-        // started executing.
-        //appendPre('Error calling API:');
-        //appendPre(JSON.stringify(result, null, 2));
       } else if (result.error) {
         // The API executed, but the script returned an error.
-  
         // Extract the first (and only) set of error details.
         // The values of this object are the script's 'errorMessage' and
         // 'errorType', and an array of stack trace elements.
         var error = result.error.details[0];
-        //appendPre('Script error message: ' + error.errorMessage);
         alert.log('Script error message: ' + error.errorMessage);
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
 
   
         if (error.scriptStackTraceElements) {
+          // There may not be a stacktrace if the script didn't start
+          // executing.            
             alert.log("Stack Trace Elements present!");
             $('#welcomeForm').prop("disabled",false);
             $('#welcomeForm').html("Send Welcome Form");
 
-          // There may not be a stacktrace if the script didn't start
-          // executing.
-          //appendPre('Script error stacktrace:');
-          /*for (var i = 0; i < error.scriptStackTraceElements.length; i++) {
-            var trace = error.scriptStackTraceElements[i];
-            //appendPre('\t' + trace.function + ':' + trace.lineNumber);
-            console.log('\t' + trace.function + ':' + trace.lineNumber);
-          }*/
+
+
         }
       } else {
         // The structure of the result will depend upon what the Apps
-        // Script function returns. Here, the function returns an Apps
-        // Script Object with String keys and values, and so the result
-        // is treated as a JavaScript object (folderSet).
-  
-        console.log(resp.result);
+        // Script function returns.
+        //console.log(resp.result);
         alert("Welcome form sent!");
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
-
       }
     });
   }
@@ -591,33 +534,29 @@ function sendWelcomeForm(d){
 
 
 function readGS(){
-    console.log("Reading all data...");
+    //console.log("Reading all data...");
     const searchValue = 50;
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "GAS",
         "spreadsheetId": spreadsheetId,
-        //"prettyPrint": true
     })
         .then(function(response) {
             // Handle the results here (response.result has the parsed body).
-            //console.log(response.result.values[0][0]);
             var valueArray = response.result.values;
-            //var valueArrayLength = response.result.values.length();
-            //console.log(response);
+
             valueArray.shift();
-            console.log(valueArray);
-            console.log(valueArray.length);
-            //console.log(valueArray[0].indexOf('123456'));
+            //console.log(valueArray);
+            //console.log(valueArray.length);
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
-                    console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
+                    //console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
                     if(searchValue == valueArray[index][0]){
-                        console.log("element located");
+                        //console.log("element located");
                         //It's index +2 because I have removed the headers from the array to return only the values in the array
-                        console.log("the row index of the searched value is: "+(index+2));
+                        //console.log("the row index of the searched value is: "+(index+2));
                         var test = (index+2);
-                        console.log(test);
+                        //console.log(test);
                         return gapi.client.sheets.spreadsheets.batchUpdate({
                             "spreadsheetId": spreadsheetId,
                             "resource": {
@@ -627,9 +566,7 @@ function readGS(){
                                     "range": {
                                       "sheetId": 0,
                                       "dimension": "ROWS",
-                                      //"startIndex": 5,
                                       "startIndex": test-1,
-                                      //"endIndex": 
                                       "endIndex":test
                                     }
                                   }
@@ -639,11 +576,11 @@ function readGS(){
                           })
                               .then(function(response) {
                                       // Handle the results here (response.result has the parsed body).
-                                      console.log("Response", response);
+                                      //console.log("Response", response);
                                     },
                                     function(err) { console.error("Execute error", err); });
                     }else{
-                        console.log("Checking next record...")
+                        //console.log("Checking next record...")
                     }
                 }
             });
@@ -652,34 +589,29 @@ function readGS(){
 }
 
 function deleteRow(rowData) {
-    console.log("Reading all data...");
-    console.log("Row data: "+rowData.gsx$recordid.$t);
+    //console.log("Reading all data...");
+    //console.log("Row data: "+rowData.gsx$recordid.$t);
     const searchValue = rowData.gsx$recordid.$t;
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "CC_AllData",
         "spreadsheetId": spreadsheetId,
-        //"prettyPrint": true
     })
         .then(function(response) {
             // Handle the results here (response.result has the parsed body).
-            //console.log(response.result.values[0][0]);
             var valueArray = response.result.values;
-            //var valueArrayLength = response.result.values.length();
-            //console.log(response);
             valueArray.shift();
-            console.log(valueArray);
-            console.log(valueArray.length);
-            //console.log(valueArray[0].indexOf('123456'));
+            //console.log(valueArray);
+            //console.log(valueArray.length);
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
-                    console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
+                    //console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
                     if(searchValue == valueArray[index][0]){
-                        console.log("element located");
+                        //console.log("element located");
                         //It's index +2 because I have removed the headers from the array to return only the values in the array
-                        console.log("the row index of the searched value is: "+(index+2));
+                        //console.log("the row index of the searched value is: "+(index+2));
                         var test = (index+2);
-                        console.log(test);
+                        //console.log(test);
                         return gapi.client.sheets.spreadsheets.batchUpdate({
                             "spreadsheetId": spreadsheetId,
                             "resource": {
@@ -689,9 +621,7 @@ function deleteRow(rowData) {
                                     "range": {
                                       "sheetId": 81311297,
                                       "dimension": "ROWS",
-                                      //"startIndex": 5,
                                       "startIndex": test-1,
-                                      //"endIndex": 
                                       "endIndex":test
                                     }
                                   }
@@ -701,7 +631,7 @@ function deleteRow(rowData) {
                           })
                               .then(function(response) {
                                       // Handle the results here (response.result has the parsed body).
-                                      console.log("Response", response);                                      
+                                      //console.log("Response", response);                                      
                                     },
                                     function(err) { console.error("Execute error", err); })
                                 .then(
@@ -709,7 +639,7 @@ function deleteRow(rowData) {
                                         ajaxReload();
                                     });
                     }else{
-                        console.log("Checking next record...")
+                        //console.log("Checking next record...")
                     }
                 }
             });
@@ -720,28 +650,20 @@ function deleteRow(rowData) {
 
 
 function updateRow(formData, searchValue) {
-    console.log("Reading all data for update...");
-    //$('#formSubmitButton').removeClass('btn-primary');
+    //console.log("Reading all data for update...");
     $('#formSubmitButton').prop("disabled",true);
     $('#formSubmitButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Saving...</span>');
-    //$('#formSubmitButton').addClass('spinner-border');
 
-    //const searchValue = searchValue;
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "CC_AllData",
         "spreadsheetId": spreadsheetId,
-        //"prettyPrint": true
     })
         .then(function(response) {
             // Handle the results here (response.result has the parsed body).
-            //console.log(response.result.values[0][0]);
             var valueArray = response.result.values;
-            //var valueArrayLength = response.result.values.length();
-            //console.log(response);
-            //valueArray.shift();
-            console.log(valueArray);
-            console.log(valueArray.length);
-            //console.log(valueArray[0].indexOf('123456'));
+
+            //console.log(valueArray);
+            //console.log(valueArray.length);
             if(formData.intro1_time.value == ""){
                 intro1TimeValue = ""
             }else {
@@ -756,15 +678,15 @@ function updateRow(formData, searchValue) {
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
-                    console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
+                    //console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
                     if(searchValue == valueArray[index][0]){
-                        console.log("element located");
-                        console.log("the row index of the searched value is: "+(index+2));
+                        //console.log("element located");
+                        //console.log("the row index of the searched value is: "+(index+2));
                         var test = (index+1);
                         var updateRange = "CC_AllData!A"+test+":"+test;
-                        console.log("Update range is: " +updateRange);
+                        //console.log("Update range is: " +updateRange);
 
-                        console.log(test);
+                        //console.log(test);
                         return gapi.client.sheets.spreadsheets.values.batchUpdate({
                             "spreadsheetId": spreadsheetId,
                             "valueInputOption": "RAW",
@@ -814,18 +736,14 @@ function updateRow(formData, searchValue) {
                                         formData.date_ofbirth.value
                                     ]
                                 ]
-                            }]
-                              //"valueInputOption": "USER_ENTERED"
-                                
+                            }]                                
                             })
                               .then(function(response) {
                                       // Handle the results here (response.result has the parsed body).
-                                      console.log("Response", response.result);
+                                      //console.log("Response", response.result);
                                       $('#formSubmitButton').prop("disabled",false);
                                       $('#formSubmitButton').html("Save");
                                     ajaxReload();
-                                      //$('#newLeads').DataTable().ajax.reload(null, false);
-                                      //$('#newLeads').DataTable().draw();
                                     },
                                     function(err) { console.error("Execute error", err); });
                     }
@@ -838,7 +756,6 @@ function updateRow(formData, searchValue) {
 
 function addNewRecord(formObject){
     var formInfo = {
-        //record_id : new Date().getTime(),
         add_constantcontact: "",
         age_class: formObject.age_class.value,
         city: "",
@@ -888,28 +805,26 @@ function addNewRecord(formObject){
         .then($('#unCloseable').modal('show'))
         .then(res => res.json())
         .then(res => {
-            console.log(res);
+            //console.log(res);
         })
         .then(function(){
-            console.log("Cleaning up modals...")
+            //console.log("Cleaning up modals...")
             ajaxReload();
         });
-    console.log("Transmission sent...");
+    //console.log("Transmission sent...");
 }
 
 
 function resetEditForm(){
     var tr = $('#newLeads tbody tr.shown');
     var row = $('#newLeads').DataTable().row(tr);
-
-
     document.getElementById("editForm").reset();
     $('div.slider',row.child()).slideUp(function(){
         row.child.hide();
         tr.removeClass('shown');
     } ); 
 
-  }
+}
 
 function getAge(dateString){
     var today = new Date();
@@ -923,79 +838,27 @@ function getAge(dateString){
 }
 
 
-
-//Edit to handle the same thing as the refresh button
-
 function ajaxReload(formObject){
-    console.log("ajax reload begin");
+    //console.log("ajax reload begin");
       childRows = $('#newLeads').DataTable().rows($('.shown'));
-      //var tr = $(this).closest('tr');
       var row = $('#newLeads').DataTable().row(childRows);
       if (childRows != undefined && childRows.length > 0) {
           childRows.every(function (rowIdx, tableLoop, rowLoop) {
-              console.log("There is a shown child row present on Ajax load");
+              //console.log("There is a shown child row present on Ajax load");
               d = this.data();
               this.child($(format(d))).show();
               dropdownStack();
               this.nodes().to$().addClass('shown');
               $('div.slider', row.child()).slideDown(); 
-              console.log('I was shown from Ajax reload');
+              //console.log('I was shown from Ajax reload');
           });
-                          
-
-          // Reset childRows so loop is not executed each draw
-          //childRows = null;
       };    
      $('#newLeads').DataTable().ajax.reload(null, false);
-     console.log("Table updated!");
-     console.log("Child Rows after Ajax reload: "+childRows);
-     $('#myModal').modal('hide');
-     $('#unCloseable').modal('hide'); 
-  }
-
-/*function ajaxReload(){
-    console.log("ajax reload begin");
-    childRows = $('#newLeads tr.shown');
-      //var tr = $(this).closest('tr');
-      //var tr = $('#newLeads tr.shown');
-      //var row = $('#newLeads').DataTable().row(tr);
-      //$('#newLeads').DataTable().draw();
-      //childRows = $('#newLeads tr.shown');
-      row = $('#newLeads').DataTable().row(childRows);
-      console.log("My childRow: "+childRows);
-      console.log(typeof row);
-
-
-      //childRows = $('#newLeads tr.shown');
-      //row = $('#newLeads').DataTable().row(childRows);
-      console.log("child row before reload: "+childRows);
-      //console.log("data: " +row.data().gsx$recordid.$t);
-      $('#newLeads').DataTable().ajax.reload();
-      console.log("child row after reload: "+childRows);
-      console.log("row: "+row);
-      console.log("row data: "+row.data());
-
-      if (childRows.length != undefined && childRows.length > 0) {
-          //childRows.every(function (rowIdx, tableLoop, rowLoop) {
-              console.log("There is a shown child row present on Ajax load");
-              d = row.data();
-              row.child($(format(d))).show();
-              row.nodes().to$().addClass('shown');
-              $('div.slider', row.child()).slideDown();                        
-              console.log('I was shown from Ajax reload');
-              childRows = $('#newLeads tr.shown');
-
-          //});
-          // Reset childRows so loop is not executed each draw
-          //childRows = null;
-      }else {
-          console.log("there are no rows to show on ajax reload");
-      } 
-     console.log("Table updated!");
+     //console.log("Table updated!");
      //console.log("Child Rows after Ajax reload: "+childRows);
      $('#myModal').modal('hide');
      $('#unCloseable').modal('hide'); 
-  }*/
+  }
 
 function dropdownStack(){
     dojoLocationDropdown(dojoLocations);
@@ -1008,9 +871,9 @@ function dropdownStack(){
     prospectPhaseDropdown(prospectPhases);
     introOfferDropdown(introOffers);
     introNotesDropdown(introNotes); 
-  }
+}
   
-  function newEntryDropdownStack(){
+function newEntryDropdownStack(){
     dojoLocationDropdown(dojoLocations);
     studentStatusDropdown(studentStatuses);
     ageClassDropdown(ageClasses);
@@ -1020,10 +883,10 @@ function dropdownStack(){
     prospectPhaseDropdown(prospectPhases);
     introOfferDropdown(introOffers);
     introNotesDropdown(introNotes);
-  }
+}
 
   //POPULATE DROPDOWN SELECTORS
-  function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('dojo_location');  
     for (var i = 0; i < values.length; i++) {
       var option = document.createElement("option");
@@ -1031,9 +894,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('student_status');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1041,9 +904,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function ageClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function ageClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('age_class');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1051,9 +914,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function intro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function intro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro1_time');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1061,9 +924,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function intro2TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function intro2TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro2_time');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1071,9 +934,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }  
+}  
 
-  function leadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function leadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('lead_source');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1081,9 +944,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function leadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function leadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('leadsource_subcategory');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1091,9 +954,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }  
+}  
 
-  function prospectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function prospectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('prospect_phase');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1101,9 +964,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function introOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function introOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro_offer');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1111,9 +974,9 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  function introNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+function introNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro_notes');   
     for (var i = 0; i < values.length; i++){
       var option = document.createElement("option");
@@ -1121,14 +984,12 @@ function dropdownStack(){
       option.text = values[i];
       list.appendChild(option);
     }
-  }
+}
 
-  $("#myModal").on('hidden.bs.modal',function(){
+$("#myModal").on('hidden.bs.modal',function(){
         $(this).find('#myForm')[0].reset();
         $(this).find('.modal-title').text("New Record");
-    });
-
-
+});
 
 function format(d){
     // `d` is the original data object for the row
@@ -1308,32 +1169,6 @@ function format(d){
     '</div>';
 }
 
-/*$('#newLeads').on('draw.dt', function (){ 
-    //childRows = table.rows($('.shown'));
-    childRows = $('#newLeads').DataTable().rows($('.shown'));
-    console.log("The table is drawing...")
-    console.log("Child rows at draw: "+childRows);
-    var tr = table.rows($('.shown'));//$('#newLeads').DataTable().rows($('.shown'));
-    var row = table.row(tr);//$('#newLeads').DataTable().row(tr);  
-    //var tr = $(this).closest('tr');
-      //var row = table.row(tr);
-      if (childRows) {
-          childRows.every(function (rowIdx, tableLoop, rowLoop) {
-              console.log("There was a child row present on draw.");
-              d = row.data();
-              row.child($(format(d))).show();
-              row.nodes().to$().addClass('shown');
-              $('div.slider', row.child()).slideDown();
-              console.log('I was shown on table draw');
-          });
-        //clear the child rows so the loop doesn't execute again, and so that the previously shown row doesn't get shown again.
-        //childRows = null;
-      } else {
-        console.log("Nothing to see here...")
-      }
-    console.log("Table drawn"); 
-});*/
-
 function newLeadsInit(){
         var table = $('#newLeads').DataTable( {
         //"mark": true,
@@ -1407,15 +1242,7 @@ function newLeadsInit(){
             {
             "text": '<i class="fas fa-sync"></i>',
             "action": function (dt){
-                //childRows = $('#newLeads tr.shown');
-                //row = $('#newLeads').DataTable().row(childRows);
-                //console.log(childRows);
-                //console.log(row);
-                //console.log(row.data());
-                //console.log("data: " +row.data().gsx$recordid.$t);
-                //console.log("refresh button childRows: "+ childRows.length);
                 ajaxReload();
-
             },
             "className": "btn btn-secondary btn-block",
             },
@@ -1423,7 +1250,7 @@ function newLeadsInit(){
             "text": '<i class="fas fa-plus"></i>',
             "className": "btn btn-danger btn-block attr-test-btn",
             "action": function (dt){
-                console.log("add new record button clicked");
+                //console.log("add new record button clicked");
                 document.getElementById("myForm").reset();
                 $('.attr-test-btn')
                     .attr('data-toggle', 'modal')
@@ -1433,19 +1260,16 @@ function newLeadsInit(){
         ],       
         },
         "initComplete": function(){
-        //childRows = table.rows($('.shown'));
         newEntryDropdownStack();
         maskUp(); 
-        },    
-        //"order": [[2, "desc"]],
-        
+        },            
     });
 
     $('#newLeads tbody').on('click', 'td.details-control-symbol', function () {
         var tr = $(this).closest('tr');
-        console.log(tr);
+        //console.log(tr);
         var row = table.row( tr );
-        console.log(row);
+        //console.log(row);
         if ( row.child.isShown() ) {
           $('div.slider',row.child()).slideUp(function(){
                     row.child.hide();
@@ -1466,29 +1290,29 @@ function newLeadsInit(){
     });
 
     $('#newLeads tbody').on('click', 'button.intro1Calendar',function(){
-        console.log("Calendar1 button clicked!");
+        //console.log("Calendar1 button clicked!");
         var tr = $('#newLeads tbody tr.shown');
-        console.log(tr);
+        //console.log(tr);
         var row = table.row(tr);
-        console.log(row.data());
+        //console.log(row.data());
         var data = row.data();
         checkCalendarEvents(data);
       });
     
       $('#newLeads tbody').on('click', 'button.intro2Calendar',function(){
-        console.log("Calendar2 button clicked!");
+        //console.log("Calendar2 button clicked!");
         var tr = $('#newLeads tbody tr.shown');
         var row = table.row(tr);
-        console.log(row.data());
+        //console.log(row.data());
         var data = row.data();
         checkCalendarEvent(data);
       });
 
       $('#newLeads tbody').on('click', 'button.welcomeForm',function(){
-        console.log("Welcome Form button clicked!!");
+        //console.log("Welcome Form button clicked!!");
         var tr = $('#newLeads tbody tr.shown');
         var row = table.row(tr);
-        console.log(row.data());
+        //console.log(row.data());
         var data = row.data();
         sendWelcomeForm(data);
       });
@@ -1503,25 +1327,23 @@ function newLeadsInit(){
       });
       
       $('#newLeads').on('draw.dt', function (){  
-        console.log("Child rows at draw: "+childRows);
+        //console.log("Child rows at draw: "+childRows);
           //var tr = $(this).closest('tr');
           var row = table.row(childRows);
           if (childRows != undefined && childRows.length > 0) {
               childRows.every(function (rowIdx, tableLoop, rowLoop) {
-                  console.log("There was a child row present on draw.");
+                 //console.log("There was a child row present on draw.");
                   d = this.data();
                   this.child($(format(d))).show();
                   dropdownStack();
                   this.nodes().to$().addClass('shown');
                   $('div.slider', row.child()).slideDown();
-                  console.log('I was shown on table draw');
+                  //console.log('I was shown on table draw');
               });
-            //clear the child rows so the loop doesn't execute again, and so that the previously shown row doesn't get shown again.
-            //childRows = null;
           } else {
-            console.log("Nothing to see here...")
+            //console.log("Nothing to see here...")
           }
-        console.log("Table drawn");              
+        //console.log("Table drawn");              
       }).dataTable();
       table.order([1,"desc"]);
       table.column(1).visible(false);
