@@ -158,7 +158,9 @@ var childRows = $('#newLeads tr.shown');
 $(document).ready(function() {
     //console.log("loading client libraries and checking sign in status...")
     handleClientLoad();
-  });
+
+});
+
   
 
 
@@ -230,15 +232,15 @@ function setSigninStatus() {
     if (isAuthorized) {
       //console.log ("I am signed in as: "+ user.getBasicProfile().getName());
       $('#sign-in-or-out-button').html('Sign out');
-      $('#revoke-access-button').css('display', 'inline-block');
+      $('#sign-in-or-out-button').removeClass('btn btn-warning').addClass('btn btn-outline-light me-2');
       $('#auth-status').html('You are currently signed in and have granted ' +
           'access to this app.');
           newLeadsInit();
     ////////////////////Put dataTables init function here.
         //console.log("Login initialization complete...");
     } else {
-      $('#sign-in-or-out-button').html('Sign In/Authorize');
-      $('#revoke-access-button').css('display', 'none');
+      $('#sign-in-or-out-button').html('Sign In');
+      $('#sign-in-or-out-button').removeClass('btn btn-outline-light me-2').addClass('btn btn-warning');
       $('#auth-status').html('You have not authorized this app or you are ' +
           'signed out.');
         if ($.fn.DataTable.isDataTable( '#newLeads' ) ) {
@@ -1173,7 +1175,8 @@ function newLeadsInit(){
         var table = $('#newLeads').DataTable( {
         //"mark": true,
         "searchHighlight": true,
-        "dom": "BQlfritp",
+        //"dom": "BQlfritp",
+        "dom": "Britp",
         "stateSave": true,
         "bServerSide":false,
         "bProcessing":true,
@@ -1233,9 +1236,16 @@ function newLeadsInit(){
             {
                 "targets": 1,
                 "visible": false
+            },
+            {
+                "searchPanes":{
+                    "show":true,
+                },
+                
             }
         ],
-        "buttons":{
+        "buttons":
+        {
         "buttons":[
             { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-secondary btn-block' },
             { "extend": 'pdf', "text":'<i class="far fa-file-pdf"></i>', "className": 'btn btn-secondary btn-block' },
@@ -1257,12 +1267,31 @@ function newLeadsInit(){
                     .attr('data-target', '.modal-attr-test');
             }
             },
+            {
+                "extend": 'searchPanes',
+                "text": "Filter",
+                "className": "btn btn-primary searchPaneButton",
+                "config": {
+                    cascadePanes: true,
+                    layout: "columns-3"
+                }
+            },
         ],       
         },
         "initComplete": function(){
         newEntryDropdownStack();
         maskUp(); 
-        },            
+        $("div.dt-buttons").detach().appendTo('#headerList');  
+        //$('#darkSearchBox').addClass('dataTables_filter');
+        $('#darkSearchBox').keyup(function(){
+            table.search($(this).val()).draw() ;
+        });   
+        $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
+        $('button.dt-button').removeClass('dt-button');
+
+        //$('#newLeads th').addClass('stickyHead');
+        //$("#newLeads_wrapper div.dtsb-searchBuilder div.dtsb-group").addClass("test");
+    },            
     });
 
     $('#newLeads tbody').on('click', 'td.details-control-symbol', function () {
@@ -1347,6 +1376,8 @@ function newLeadsInit(){
       }).dataTable();
       table.order([1,"desc"]);
       table.column(1).visible(false);
+      //table.searchBuilder.container().prependTo(table.table().container());
+
 
 
 }
