@@ -12,7 +12,7 @@ edit-button{
     font-weight: 900;
     content: "\f067";
   }
-  #example th {
+  #newLeads th {
     text-align: center;
   }
   td {
@@ -42,3 +42,31 @@ edit-button{
     margin: 10px;
   }
 
+div.dtsb-searchBuilder{
+  position: relative;
+  text-align: right;
+}
+
+.dtsb-titleRow{
+  display: none;
+}
+
+.dataTables_info{
+  display: none;
+}
+
+table{
+  position:relative;
+}
+
+.stickyHead{
+  padding: 3px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 25vw;
+}
+
+.dtsp-name{
+  color:black;
+}
