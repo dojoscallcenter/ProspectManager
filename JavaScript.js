@@ -4,7 +4,7 @@
 let GoogleAuth;
 const SCOPE = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
-const appURL = "https://script.google.com/macros/s/AKfycbyUdaa1X2K0YxHt42xfN8es1EtJMqAJhX-JJ1-H4c4_I2Le8QqZGVlmpUS7TMtIL7H8/exec";
+const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
 
     //All dropdown variables
@@ -439,7 +439,7 @@ function sendWelcomeForm(d){
     $('#welcomeForm').prop("disabled",true);
     $('#welcomeForm').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Sending...</span>');
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
-    var scriptId = "AKfycby9gt1h0sdZjo658JimEi2CF3IQZRdZpYzJOwgXeoqsL7Euvx-7iIvCliH9PsQwSYpn";
+    var scriptId = "AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd";
     var formInfo = {
         add_constantcontact: "",
         age_class: d.gsx$ageclass.$t,
