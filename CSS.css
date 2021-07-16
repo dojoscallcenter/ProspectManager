@@ -55,18 +55,8 @@ div.dtsb-searchBuilder{
   display: none;
 }
 
-table{
-  position:relative;
-}
-
-.stickyHead{
-  padding: 3px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 25vw;
-}
 
 .dtsp-name{
   color:black;
 }
+
