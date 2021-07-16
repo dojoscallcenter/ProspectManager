@@ -445,7 +445,7 @@ function sendWelcomeForm(d){
         age_class: d.gsx$ageclass.$t,
         city: d.gsx$city.$t,
         communication_notes: d.gsx$communicationnotes.$t,
-        date_ofbirth:"",
+        date_ofbirth:d.gsx$dateofbirth.$t,
         dojo_location: d.gsx$dojolocation.$t,
         dojo_notes: d.gsx$dojonotes.$t,
         email: d.gsx$email.$t,
