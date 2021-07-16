@@ -1267,7 +1267,7 @@ function newLeadsInit(){
                     .attr('data-target', '.modal-attr-test');
             }
             },
-            {
+            /*{
                 "extend": 'searchPanes',
                 "text": "Filter",
                 "className": "btn btn-primary searchPaneButton",
@@ -1275,7 +1275,8 @@ function newLeadsInit(){
                     cascadePanes: true,
                     layout: "columns-3"
                 }
-            },
+            },*/
+            "searchPanes"
         ],       
         },
         "initComplete": function(){
