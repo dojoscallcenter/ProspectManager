@@ -1269,7 +1269,6 @@ function newLeadsInit(){
             },
             {
                 "extend": 'searchPanes',
-                "text": "Filter",
                 "className": "btn btn-primary searchPaneButton",
                 "config": {
                     cascadePanes: true,
@@ -1377,7 +1376,5 @@ function newLeadsInit(){
       table.order([1,"desc"]);
       table.column(1).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
-
-
 
 }
