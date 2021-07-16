@@ -1241,6 +1241,7 @@ function newLeadsInit(){
                 "searchPanes":{
                     "show":true,
                 },
+                "targets": [2, 3, 4, 5, 6, 7, 8],
                 
             }
         ],
@@ -1272,7 +1273,10 @@ function newLeadsInit(){
                 "className": "btn btn-primary searchPaneButton",
                 "config": {
                     cascadePanes: true,
-                    layout: "columns-3"
+                    layout: "columns-3",
+                    action: function(dt){
+                      table.searchPanes.container().toggle();
+                    }
                 }
             },
         ],       
