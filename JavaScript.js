@@ -1194,7 +1194,10 @@ function newLeadsInit(){
 
         },
         {   "title": "Inquiry Date",
-            "mDataProp": "gsx$inquiredate.$t"
+            "mDataProp": "gsx$inquiredate.$t",
+            "render": function ( data, type, full, meta ) {
+              return moment(data).format('MM-DD-YYYY');
+             }
         },
         {   "title": "Location",
             "mDataProp": "gsx$dojolocation.$t"
@@ -1216,7 +1219,10 @@ function newLeadsInit(){
         },
         {
             "title": "Last Action Date",
-            "mDataProp": "gsx$lastcontactdate.$t"
+            "mDataProp": "gsx$lastcontactdate.$t",
+            "render": function ( data, type, full, meta ) {
+              return moment(data).format('MM-DD-YYYY');
+             }
         },
         {
             "title": "Source",
@@ -1279,6 +1285,12 @@ function newLeadsInit(){
                     }
                 }
             },
+            {
+              "extend": "searchBuilder",
+              "className": "btn btn-primary searchBuilderButton",
+              "text": '<i class="fa fa-bullseye" aria-hidden="true"></i>'
+
+            }, 
         ],       
         },
         "initComplete": function(){
@@ -1290,6 +1302,7 @@ function newLeadsInit(){
             table.search($(this).val()).draw() ;
         });   
         $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
+        $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
         $('button.dt-button').removeClass('dt-button');
         $('th.sorting').addClass('sticky')
 
