@@ -60,3 +60,9 @@ div.dtsb-searchBuilder{
   color:black;
 }
 
+.sticky {
+  position: sticky;
+  top: 5rem;
+  width: 100%;
+  background-color: white;
+}
