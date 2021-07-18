@@ -1391,7 +1391,7 @@ function newLeadsInit(){
           }
         //console.log("Table drawn");              
       }).dataTable();
-      table.order([1,"desc"]);
+      table.order([2,"desc"]);
       table.column(1).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
