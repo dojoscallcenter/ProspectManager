@@ -1177,7 +1177,7 @@ function newLeadsInit(){
         "searchHighlight": true,
         //"dom": "BQlfritp",
         "dom": "Blritp",
-        "lengthMenu": [[50],["All"]],
+        "iDisplayLength":50,
         "stateSave": true,
         "bServerSide":false,
         "bProcessing":true,
