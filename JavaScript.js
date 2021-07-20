@@ -1324,13 +1324,13 @@ function newLeadsInit(){
             }
         else
             {
-            if ( table.row( '.shown' ).length ) {
-                      $('.details-control', table.row( '.shown' ).node()).click();
+            if ( table.row( '.shown' ).length  ) {
+                      $('.details-control-symbol', table.row( '.shown' ).node()).click();
               }
               row.child( format(row.data()) ).show();
+              tr.addClass('shown');
               dropdownStack();
               maskUp();
-              tr.addClass('shown');
               $('div.slider', row.child()).slideDown();
         }
     });
