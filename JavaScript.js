@@ -1305,7 +1305,7 @@ function newLeadsInit(){
         $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
         $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
         $('button.dt-button').removeClass('dt-button');
-        $('th.sorting').addClass('sticky')
+        $('#newLeads.th').addClass('sticky')
 
         //$('#newLeads th').addClass('stickyHead');
         //$("#newLeads_wrapper div.dtsb-searchBuilder div.dtsb-group").addClass("test");
