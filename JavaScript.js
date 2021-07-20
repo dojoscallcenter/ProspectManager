@@ -367,10 +367,10 @@ function checkCalendarEvents(d) {
 
                 if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
                     //console.log("I have a summary and a date! My title is: "+resultItems[index].summary)
-                    //console.log(resultItems[index].start.dateTime);
+                    //console.log(resultItems[index]);
                     //console.log(sDateTimeString);
                     //console.log((resultItems[index].start.dateTime).includes(sDateTimeString))
-                    if(resultItems[index].start.dateTime.includes(sDateTimeString)){
+                    if(resultItems[index].summary === eventTitle && resultItems[index].start.dateTime.includes(sDateTimeString)){
                         valueArray.push(resultItems[index].summary);
                         //console.log("Next Entry: "+resultItems[index].summary);
                         //console.log("Value array length: "+valueArray.length);
@@ -1195,6 +1195,7 @@ function newLeadsInit(){
         },
         {   "title": "Inquiry Date",
             "mDataProp": "gsx$inquiredate.$t",
+
             "render": function ( data, type, full, meta ) {
               return moment(data).format('MM-DD-YYYY');
              }
@@ -1288,7 +1289,6 @@ function newLeadsInit(){
             {
               "extend": "searchBuilder",
               "className": "btn btn-primary searchBuilderButton",
-              "text": '<i class="fa fa-bullseye" aria-hidden="true"></i>'
 
             }, 
         ],       
