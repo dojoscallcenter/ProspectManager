@@ -1176,7 +1176,7 @@ function newLeadsInit(){
         //"mark": true,
         "searchHighlight": true,
         //"dom": "BQlfritp",
-        "dom": "Britp",
+        "dom": "Blritp",
         "lengthMenu": [[50],["All"]],
         "stateSave": true,
         "bServerSide":false,
