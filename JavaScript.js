@@ -1174,12 +1174,6 @@ function newLeadsInit(){
             "className": "delete-button",
         },  
         ],
-        "columnDefs":[
-            {
-                "targets": 1,
-                "visible": false
-            },
-        ],
         "buttons":
         {
         "buttons":[
