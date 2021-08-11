@@ -32,7 +32,8 @@ var childRows = $('#newLeads tr.shown');
   
       var ageClasses = [
         "",
-        "Ages 4-7",
+        "Ages 4-5",
+        "Ages 6-7",
         "Ages 8-12",
         "Ages 13-20",
         "Ages 21-99"
@@ -156,9 +157,7 @@ var childRows = $('#newLeads tr.shown');
       ];
 
 $(document).ready(function() {
-    //console.log("loading client libraries and checking sign in status...")
     handleClientLoad();
-
 });
 
 
@@ -168,15 +167,11 @@ function maskUp(){
     $("#phone1, #phone2").inputmask("(999) 999-9999");}
 
 function handleClientLoad() {
-    // Load the API's client and auth2 modules.
-    // Call the initClient function after the modules load.
     gapi.load('client:auth2', initClient);
-    //console.log("Client load complete...")
 }
 
 function initClient() {
     // In practice, your app can retrieve one or more discovery documents.
-    //var discoveryUrl = 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest';
     var discoveryDocs = [
         "https://sheets.googleapis.com/$discovery/rest?version=v4",
         "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
@@ -204,11 +199,7 @@ function initClient() {
       //      "Sign In/Authorize" button.
       $('#sign-in-or-out-button').click(function() {
         handleAuthClick();
-      });
-      $('#revoke-access-button').click(function() {
-        revokeAccess();
-      });
-           
+      });          
     });
 }
 
@@ -256,11 +247,10 @@ function updateSigninStatus() {
     setSigninStatus();
 }
 
- function handleFormSubmit(formObject) {
-    //console.log(formObject.dojo_location.value);
+function handleFormSubmit(formObject) {
     addNewRecord(formObject);
     ajaxReload();
-  }
+}
 
 
 
@@ -273,13 +263,10 @@ function checkCalendarEvents(d) {
     introStage = "";
     dojoAddress = "";
     if (d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t === ""){
-        //console.log("Intro 1");
         introStage = "Intro 1";
     }else if(d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t !== "" && d.gsx$intro2Date.$t !== "NaN:NaN"){
-        //console.log("Intro 2");
         introStage = "Intro 2";
     }
-    //console.log("The current introstage is: "+introStage)
     if (d.gsx$dojolocation.$t === "Ankeny"){
         dojoAddress = dojoAddresses[0];
     }else if (d.gsx$dojolocation.$t === "Johnston"){
@@ -289,8 +276,6 @@ function checkCalendarEvents(d) {
     }else if (d.gsx$dojolocation.$t === "Waukee"){
         dojoAddress = dojoAddresses[3];
     }
-
-
 
     return gapi.client.calendar.events.list({
         "calendarId": "info-"+d.gsx$dojolocation.$t+"@mydojos.com",
@@ -305,11 +290,6 @@ function checkCalendarEvents(d) {
             valueArray = [];
             matchArray = [];
             calendarId = "info-"+d.gsx$dojolocation.$t+"@mydojos.com";
-            //console.log(response)
-
-
-
-            //console.log("Value array: " +valueArray);
  
             var eventTitle = introStage+" - " +d.gsx$participantfirstname.$t+" "+d.gsx$participantlastname.$t;
             var description = "First Name: "+d.gsx$participantfirstname.$t+"\r\nLast Name: "+d.gsx$participantlastname.$t+"\r\nAge: "+(getAge(d.gsx$dateofbirth.$t))+"\r\nAge Class: "+d.gsx$ageclass.$t+"\r\nPhone: "+d.gsx$phone.$t+"\r\nEmail: "+d.gsx$email.$t+"\r\nIntro Notes: "+d.gsx$intronotes.$t;
@@ -339,7 +319,6 @@ function checkCalendarEvents(d) {
             var newTimeString = hr + ':' + min + ':' + sec;
 
             var sDateTimeString = newDateString + 'T' + newTimeString;
-            //console.log("DateTime string: "+sDateTimeString);
 
             var add_minutes =  function (dt, minutes) {
                 return new Date(dt.getTime() + minutes*60000);
@@ -355,37 +334,19 @@ function checkCalendarEvents(d) {
             eTimeString = eHr+':'+eMin+':'+eSec;
             var eDateTimeString = newDateString +'T'+eTimeString;
 
-            //console.log(newDateString+"T"+newTimeString);
-            //console.log(newDateString+"T"+eTimeString);
-            //console.log("End Time: "+eT);
-            //console.log("adjusted eT: " +eT.toLocaleString());
-            //console.log("Dojo Address: "+dojoAddress);
-            //console.log("description: " +description);
-            //console.log("Calendar ID: "+calendarId);
-            //console.log("event title: "+eventTitle);
             for (let index = 0; index < resultItems.length; index++) {
 
                 if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
-                    //console.log("I have a summary and a date! My title is: "+resultItems[index].summary)
-                    //console.log(resultItems[index]);
-                    //console.log(sDateTimeString);
-                    //console.log((resultItems[index].start.dateTime).includes(sDateTimeString))
                     if(resultItems[index].summary === eventTitle && resultItems[index].start.dateTime.includes(sDateTimeString)){
                         valueArray.push(resultItems[index].summary);
-                        //console.log("Next Entry: "+resultItems[index].summary);
-                        //console.log("Value array length: "+valueArray.length);
                     }
                 }
             }
-                //console.log(valueArray.length);
-
-                // Handle the results here (response.result has the parsed body).
                     if (valueArray.length > 0){
                         alert("The calendar entry already exists!");
                         $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                         $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
                     }else{
-                        //console.log("Add this event to the calendar!");
                         var event = {
                             'summary': eventTitle,
                             'location': dojoAddress,
@@ -425,7 +386,6 @@ function checkCalendarEvents(d) {
                             $('#intro1Calendar, #intro2Calendar').prop("disabled",false);
                             $('#intro1Calendar, #intro2Calendar').html('Add to Calendar');
                          
-                        //console.log("Success!!");
                     }
         },
                 function(err) { 
@@ -547,8 +507,6 @@ function readGS(){
             var valueArray = response.result.values;
 
             valueArray.shift();
-            //console.log(valueArray);
-            //console.log(valueArray.length);
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
@@ -558,7 +516,6 @@ function readGS(){
                         //It's index +2 because I have removed the headers from the array to return only the values in the array
                         //console.log("the row index of the searched value is: "+(index+2));
                         var test = (index+2);
-                        //console.log(test);
                         return gapi.client.sheets.spreadsheets.batchUpdate({
                             "spreadsheetId": spreadsheetId,
                             "resource": {
@@ -582,7 +539,6 @@ function readGS(){
                                     },
                                     function(err) { console.error("Execute error", err); });
                     }else{
-                        //console.log("Checking next record...")
                     }
                 }
             });
@@ -591,8 +547,6 @@ function readGS(){
 }
 
 function deleteRow(rowData) {
-    //console.log("Reading all data...");
-    //console.log("Row data: "+rowData.gsx$recordid.$t);
     const searchValue = rowData.gsx$recordid.$t;
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "CC_AllData",
@@ -602,12 +556,9 @@ function deleteRow(rowData) {
             // Handle the results here (response.result has the parsed body).
             var valueArray = response.result.values;
             valueArray.shift();
-            //console.log(valueArray);
-            //console.log(valueArray.length);
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
                     const element = valueArray[index];
-                    //console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
                     if(searchValue == valueArray[index][0]){
                         //console.log("element located");
                         //It's index +2 because I have removed the headers from the array to return only the values in the array
@@ -632,8 +583,6 @@ function deleteRow(rowData) {
                             }
                           })
                               .then(function(response) {
-                                      // Handle the results here (response.result has the parsed body).
-                                      //console.log("Response", response);                                      
                                     },
                                     function(err) { console.error("Execute error", err); })
                                 .then(
@@ -641,7 +590,6 @@ function deleteRow(rowData) {
                                         ajaxReload();
                                     });
                     }else{
-                        //console.log("Checking next record...")
                     }
                 }
             });
@@ -682,13 +630,9 @@ function updateRow(formData, searchValue) {
                     const element = valueArray[index];
                     //console.log("the element index number is: "+index+", the value of the currently inspected element is: "+valueArray[index][0]+", the search value is: "+searchValue);
                     if(searchValue == valueArray[index][0]){
-                        //console.log("element located");
-                        //console.log("the row index of the searched value is: "+(index+2));
                         var test = (index+1);
                         var updateRange = "CC_AllData!A"+test+":"+test;
-                        //console.log("Update range is: " +updateRange);
 
-                        //console.log(test);
                         return gapi.client.sheets.spreadsheets.values.batchUpdate({
                             "spreadsheetId": spreadsheetId,
                             "valueInputOption": "RAW",
@@ -806,9 +750,6 @@ function addNewRecord(formObject){
       })
         .then($('#unCloseable').modal('show'))
         .then(res => res.json())
-        .then(res => {
-            //console.log(res);
-        })
         .then(function(){
             //console.log("Cleaning up modals...")
             ajaxReload();
@@ -998,7 +939,6 @@ function format(d){
   return '<div class="slider" style="width:100%">'+
         '<form id="editForm">'+
         '<div class="container">'+
-                '<input  type="hidden" id="record_id" name="record_id" value="'+d.gsx$recordid.$t+'">'+
                 '<div class="row p-2">'+
                   '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                   '<br>'+
@@ -1173,7 +1113,6 @@ function format(d){
 
 function newLeadsInit(){
         var table = $('#newLeads').DataTable( {
-        //"mark": true,
         "searchHighlight": true,
         //"dom": "BQlfritp",
         "dom": "Britp",
@@ -1189,11 +1128,6 @@ function newLeadsInit(){
             "className": "details-control-symbol",
             "width": "5px"
         }, 
-        {   
-            "title": "Record ID",
-            "mDataProp": "gsx$recordid.$t"
-
-        },
         {   "title": "Inquiry Date",
             "mDataProp": "gsx$inquiredate.$t",
 
@@ -1245,13 +1179,6 @@ function newLeadsInit(){
                 "targets": 1,
                 "visible": false
             },
-            {
-                "searchPanes":{
-                    "show":true,
-                },
-                "targets": [2, 3, 4, 5, 6, 7, 8],
-                
-            }
         ],
         "buttons":
         {
@@ -1269,7 +1196,6 @@ function newLeadsInit(){
             "text": '<i class="fas fa-plus"></i>',
             "className": "btn btn-danger btn-block attr-test-btn",
             "action": function (dt){
-                //console.log("add new record button clicked");
                 document.getElementById("myForm").reset();
                 $('.attr-test-btn')
                     .attr('data-toggle', 'modal')
@@ -1282,6 +1208,7 @@ function newLeadsInit(){
                 "config": {
                     cascadePanes: true,
                     layout: "columns-3",
+                    columns: [2,7,8],
                     action: function(dt){
                       table.searchPanes.container().toggle();
                     }
@@ -1306,9 +1233,6 @@ function newLeadsInit(){
         $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
         $('button.dt-button').removeClass('dt-button');
         $('table th').addClass('sticky')
-
-        //$('#newLeads th').addClass('stickyHead');
-        //$("#newLeads_wrapper div.dtsb-searchBuilder div.dtsb-group").addClass("test");
     },            
     });
 
