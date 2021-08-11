@@ -1208,7 +1208,6 @@ function newLeadsInit(){
                 "config": {
                     cascadePanes: true,
                     layout: "columns-3",
-                    columns: [2,7,8],
                     action: function(dt){
                       table.searchPanes.container().toggle();
                     }
