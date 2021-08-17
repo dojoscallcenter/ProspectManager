@@ -1131,6 +1131,9 @@ function newLeadsInit(){
                 {
                     title: "Inquire Date",
                     data: 2,
+                    render: function ( data, type, full, meta ) {
+                        return moment(data).format('MM-DD-YYYY');
+                    }
                 },
                 {
                     title: "Location",
@@ -1156,11 +1159,11 @@ function newLeadsInit(){
                     data: 9,
                     "render": function ( data, type, full, meta ) {
                     return moment(data).format('MM-DD-YYYY');
-                    }
+                    },
                 },
                 {
                     title: "Source",
-                    data: 24
+                    data: 24,
                 },
                 {
                     title: "Prospect Phase",
