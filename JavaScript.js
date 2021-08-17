@@ -262,23 +262,23 @@ function checkCalendarEvents(d) {
 
     introStage = "";
     dojoAddress = "";
-    if (d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t === ""){
+    if (d[13] !=="" && d[18] === ""){
         introStage = "Intro 1";
-    }else if(d.gsx$intro1date.$t !=="" && d.gsx$intro2date.$t !== "" && d.gsx$intro2Date.$t !== "NaN:NaN"){
+    }else if(d[13] !=="" && d[18] !== "" && d[18] !== "NaN:NaN"){
         introStage = "Intro 2";
     }
-    if (d.gsx$dojolocation.$t === "Ankeny"){
+    if (d[3] === "Ankeny"){
         dojoAddress = dojoAddresses[0];
-    }else if (d.gsx$dojolocation.$t === "Johnston"){
+    }else if (d[3] === "Johnston"){
         dojoAddress = dojoAddresses[1];
-    }else if(d.gsx$dojolocation.$t === "WDM"){
+    }else if(d[3] === "WDM"){
         dojoAddress = dojoAddresses[2];
-    }else if (d.gsx$dojolocation.$t === "Waukee"){
+    }else if (d[3] === "Waukee"){
         dojoAddress = dojoAddresses[3];
     }
 
     return gapi.client.calendar.events.list({
-        "calendarId": "info-"+d.gsx$dojolocation.$t+"@mydojos.com",
+        "calendarId": "info-"+d[3]+"@mydojos.com",
         "maxResults": 10000,
         "q": "intro",
         //"showDeleted": false,
@@ -289,16 +289,16 @@ function checkCalendarEvents(d) {
             resultItems = response.result.items;
             valueArray = [];
             matchArray = [];
-            calendarId = "info-"+d.gsx$dojolocation.$t+"@mydojos.com";
+            calendarId = "info-"+d[3]+"@mydojos.com";
  
-            var eventTitle = introStage+" - " +d.gsx$participantfirstname.$t+" "+d.gsx$participantlastname.$t;
-            var description = "First Name: "+d.gsx$participantfirstname.$t+"\r\nLast Name: "+d.gsx$participantlastname.$t+"\r\nAge: "+(getAge(d.gsx$dateofbirth.$t))+"\r\nAge Class: "+d.gsx$ageclass.$t+"\r\nPhone: "+d.gsx$phone.$t+"\r\nEmail: "+d.gsx$email.$t+"\r\nIntro Notes: "+d.gsx$intronotes.$t;
+            var eventTitle = introStage+" - " +d[10]+" "+d[11];
+            var description = "First Name: "+d[10]+"\r\nLast Name: "+d[11]+"\r\nAge: "+(getAge(d[38]))+"\r\nAge Class: "+d[12]+"\r\nPhone: "+d[7]+"\r\nEmail: "+d[8]+"\r\nIntro Notes: "+d[29];
             var sT = "";
             if (introStage === "Intro 1"){
-                sT = new Date(new Date(d.gsx$intro1date.$t+" " +d.gsx$intro1time.$t));
+                sT = new Date(new Date(d[13]+" " +d[14]));
                 sT2 = sT.toLocaleString()
             }else if(introStage === "Intro 2"){
-                sT = new Date(new Date(d.gsx$intro2date.$t+" " +d.gsx$intro2Time.$t));//add_minutes(d.gsx$intro2time.$t,12*60));
+                sT = new Date(new Date(d[18]+" " +d[19]));
             }
             var sYear = sT.getFullYear();
             var sMonth = sT.getMonth()+1;
@@ -363,7 +363,7 @@ function checkCalendarEvents(d) {
                               'RRULE:FREQ=DAILY;COUNT=1'
                             ],
                             'attendees': [
-                              {'email': d.gsx$email.$t},
+                              {'email': d[8]},
                             ],
                             'reminders': {
                               'useDefault': false,
@@ -402,43 +402,43 @@ function sendWelcomeForm(d){
     var scriptId = "AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd";
     var formInfo = {
         add_constantcontact: "",
-        age_class: d.gsx$ageclass.$t,
-        city: d.gsx$city.$t,
-        communication_notes: d.gsx$communicationnotes.$t,
-        date_ofbirth:d.gsx$dateofbirth.$t,
-        dojo_location: d.gsx$dojolocation.$t,
-        dojo_notes: d.gsx$dojonotes.$t,
-        email: d.gsx$email.$t,
-        gender: d.gsx$gender.$t,
-        inquire_date: d.gsx$inquiredate.$t,
+        age_class: d[12],
+        city: d[35],
+        communication_notes: d[27],
+        date_ofbirth:d[38],
+        dojo_location: d[3],
+        dojo_notes: d[30],
+        email: d[8],
+        gender: d[33],
+        inquire_date: d[2],
         interest: "",
         intro1_attended: "",
-        intro1_date: d.gsx$intro1date.$t,
+        intro1_date: d[13],
         intro1_endtime: "",
         intro1_starttime: "",
-        intro1_time: d.gsx$intro1time.$t,
+        intro1_time: d[14],
         intro2_attended:"",
         intro2_date:"",
         intro2_endtime:"",
         intro2_starttime:"",
         intro2_time:"",
-        intro_notes: d.gsx$intronotes.$t,
-        intro_offer: d.gsx$introoffer.$t,
-        lastcontact_date: d.gsx$lastcontactdate.$t,
-        lead_date: d.gsx$leaddate.$t,
-        lead_firstname: d.gsx$leadfirstname,
-        lead_lastname: d.gsx$leadlastname,
-        leadsource: d.gsx$leadsource,
-        leadsource_subcategory: d.gsx$leadsourcesubcategory.$t,
-        participant_firstname: d.gsx$participantfirstname.$t,
-        participant_lastname: d.gsx$participantlastname.$t,
-        phone: d.gsx$phone.$t,
-        prospect_phase: d.gsx$prospectphase.$t,
+        intro_notes: d[29],
+        intro_offer: d[28],
+        lastcontact_date: d[9],
+        lead_date: d[1],
+        lead_firstname: d[5],
+        lead_lastname: d[6],
+        leadsource: d[24],
+        leadsource_subcategory: d[25],
+        participant_firstname: d[10],
+        participant_lastname: d[11],
+        phone: d[7],
+        prospect_phase: d[23],
         send_introsheet: "",
-        state: d.gsx$state.$t,
-        street_address: d.gsx$streetaddress.$t,
+        state: d[36],
+        street_address: d[34],
         student_status: "",
-        zip: d.gsx$zip.$t
+        zip: d[37]
     }
     // Call the Apps Script API run method
     //   'scriptId' is the URL parameter that states what script to run
@@ -547,7 +547,7 @@ function readGS(){
 }
 
 function deleteRow(rowData) {
-    const searchValue = rowData.gsx$recordid.$t;
+    const searchValue = rowData[0];
     return gapi.client.sheets.spreadsheets.values.get({
         "range": "CC_AllData",
         "spreadsheetId": spreadsheetId,
@@ -944,55 +944,55 @@ function format(d){
                   '<br>'+
                     '<label for="dojo_location">Dojo Location</label>'+
                       '<select class="form-control" id="dojo_location" name="dojo_location">'+
-                        '<option>'+d.gsx$dojolocation.$t+'</option>'+
+                        '<option>'+d[3]+'</option>'+
                       '</select>'+
                     '<label for="lead_date ">Lead Date</label>'+
-                      '<input class="form-control" type="date" id="lead_date" name="lead_date" value="'+d.gsx$leaddate.$t+'">'+
+                      '<input class="form-control" type="date" id="lead_date" name="lead_date" value="'+d[1]+'">'+
                     '<label for="inquire_date">Inquire Date</label>'+
-                      '<input class="form-control" type="date" id="inquire_date" name="inquire_date" value="'+d.gsx$inquiredate.$t+'">'+
+                      '<input class="form-control" type="date" id="inquire_date" name="inquire_date" value="'+d[2]+'">'+
                     '<label for="student_status">Student Status</label>'+
                       '<select class="form-control" id="student_status" name="student_status">'+
-                        '<option>'+d.gsx$studentstatus.$t+'</option>'+
+                        '<option>'+d[4]+'</option>'+
                       '</select>'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                     '<br>'+
                     '<label for="lead_firstname">First Name</label>'+
-                      '<input class="form-control" type="text" id="lead_firstname" name="lead_firstname" value="'+d.gsx$leadfirstname.$t+'">'+
+                      '<input class="form-control" type="text" id="lead_firstname" name="lead_firstname" value="'+d[5]+'">'+
                     '<label for="lead_lastname">Last Name</label>'+
-                      '<input class="form-control" type="text"  id="lead_lastname" name="lead_lastname" value="'+d.gsx$leadlastname.$t+'">'+
+                      '<input class="form-control" type="text"  id="lead_lastname" name="lead_lastname" value="'+d[6]+'">'+
                     '<label for="email">Email</label>'+
-                      '<input class="form-control" type="email"  id="email" name="email" value="'+d.gsx$email.$t+'">'+
+                      '<input class="form-control" type="email"  id="email" name="email" value="'+d[8]+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control phone" type="text"  id="phone2" name="phone" value="'+d.gsx$phone.$t+'">'+
+                      '<input class="form-control phone" type="text"  id="phone2" name="phone" value="'+d[7]+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
                     '<label for="lastcontact_date">Last Contact Date</label>'+
-                      '<input class="form-control" type="date"  id="lastcontact_date" name="lastcontact_date" value="'+d.gsx$lastcontactdate.$t+'">'+
+                      '<input class="form-control" type="date"  id="lastcontact_date" name="lastcontact_date" value="'+d[9]+'">'+
                     '<label for="leadsource">Lead Source</label>'+
                       '<select class="form-control"  id="lead_source" name="leadsource">'+
-                        '<option>'+d.gsx$leadsource.$t+'</option>'+
+                        '<option>'+d[24]+'</option>'+
                       '</select>'+
                     '<label for="leadsource_subcategory">Leadsource Subcategory</label>'+
                       '<select class="form-control"  id="leadsource_subcategory" name="leadsource_subcategory">'+
-                        '<option>'+d.gsx$leadsourcesubcategory.$t+'</option>'+
+                        '<option>'+d[25]+'</option>'+
                       '</select>'+
                     '<label for="prospect_phase">Prospect Phase</label>'+
                       '<select class="form-control"  id="prospect_phase" name="prospect_phase">'+
-                        '<option>'+d.gsx$prospectphase.$t+'</option>'+
+                        '<option>'+d[23]+'</option>'+
                       '</select>'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary border-start-0">'+
                     '<br>'+
                       '<label for="address" class="" >Address</label>'+
-                        '<input class="form-control" type="text" id="address" name="street_address" value="'+d.gsx$streetaddress.$t+'">'+
+                        '<input class="form-control" type="text" id="address" name="street_address" value="'+d[34]+'">'+
                       '<label for="city" class="" >'+"City"+'</label>'+
-                        '<input class="form-control" type="text" id="city" name="city" value="'+d.gsx$city.$t+'">'+
+                        '<input class="form-control" type="text" id="city" name="city" value="'+d[35]+'">'+
                       '<label for="state" class="">'+"State"+'</label>'+
-                        '<input class="form-control" type="text"  id="state" name="state" value="'+d.gsx$state.$t+'">'+
+                        '<input class="form-control" type="text"  id="state" name="state" value="'+d[36]+'">'+
                       '<label for="zip" class="" >'+"Zip"+'</label>'+
-                        '<input class="form-control" type="text" id="zip" name="zip" value="'+d.gsx$zip.$t+'">'+
+                        '<input class="form-control" type="text" id="zip" name="zip" value="'+d[37]+'">'+
                       '<br>'+
                   '</div>'+ 
                 '</div>'+  
@@ -1000,12 +1000,12 @@ function format(d){
                 '<div class="row p-2">'+
                     '<div class="col-6 text-start border border-5 border-secondary border-end-0">'+
                         '<label for="communication_notes" class="p-2 ">Call Center Notes</label>'+
-                          '<textarea class="form-control" id="communication_notes" name="communication_notes" rows="5">'+d.gsx$communicationnotes.$t+'</textarea>'+
+                          '<textarea class="form-control" id="communication_notes" name="communication_notes" rows="5">'+d[27]+'</textarea>'+
                       '<br>'+
                     '</div>'+
                     '<div class="col-6 text-start border border-5 border-secondary border-start-0">'+
                         '<label for ="dojo_notes" class="p-2" >Dojo Notes</label>'+
-                          '<textarea class="form-control" id="dojo_notes" rows="5" name="dojo_notes">'+d.gsx$dojonotes.$t+'</textarea>'+
+                          '<textarea class="form-control" id="dojo_notes" rows="5" name="dojo_notes">'+d[30]+'</textarea>'+
                         '<br>'+
                     '</div>'+
                 '</div>'+
@@ -1014,12 +1014,12 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="participant_firstname" class="" >'+"Participant First Name"+'</label>'+
-                          '<input class="form-control" type="text" id="participant_firstname" name="participant_firstname" value="'+d.gsx$participantfirstname.$t+'">'+
+                          '<input class="form-control" type="text" id="participant_firstname" name="participant_firstname" value="'+d[10]+'">'+
                         '<label for="participant_lastname" class="" >'+"Participant Last Name"+'</label>'+
-                          '<input class="form-control" type="text" id="particpant_lastname" name="participant_lastname" value="'+d.gsx$participantlastname.$t+'">'+
+                          '<input class="form-control" type="text" id="particpant_lastname" name="participant_lastname" value="'+d[11]+'">'+
                         '<label for="gender" class="" >'+"Gender"+'</label>'+
                           '<select class="form-control" id="gender" name="gender">'+
-                              '<option>'+d.gsx$gender.$t+'</option>'+
+                              '<option>'+d[33]+'</option>'+
                               '<option>Male</option>'+
                               '<option>Female</option>'+
                               '<option>Non-binary / other</option>'+
@@ -1027,31 +1027,31 @@ function format(d){
                       '<div class="row">'+
                       '<div class="col-8">'+
                         '<label for="date_ofbirth" class="">'+"DOB"+'</label>'+
-                          '<input class="form-control " type="date" id="date_ofbirth" name="date_ofbirth" value="'+d.gsx$dateofbirth.$t+'">'+
+                          '<input class="form-control " type="date" id="date_ofbirth" name="date_ofbirth" value="'+d[38]+'">'+
                       '</div>'+                           
                         //AGE NEEDS TO BE AUTOMATICALLY CALCULATED
                       '<div class="col-4">'+
                         '<label for="age" class="">'+"Age"+'</label>'+
-                          '<input class="form-control" type="text" id="age" value="'+(getAge(new Date(d.gsx$dateofbirth.$t).toString()))+'">'+ 
+                          '<input class="form-control" type="text" id="age" value="'+(getAge(new Date(d[38]).toString()))+'">'+ 
                       '</div>'+ 
                       '</div>'+
                         '<label for="age_class" class="" >'+"Age Class"+'</label>'+
                           '<select class="form-control" id="age_class" name="age_class">'+
-                            '<option>'+d.gsx$ageclass.$t+'</option>'+
+                            '<option>'+d[12]+'</option>'+
                           '</select>'+
                         '<br>'+                                                                                         
                     '</div>'+
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="intro1_date" class="" >'+"Intro 1 Date"+'</label>'+
-                          '<input class="form-control" type="date" id="intro1_date" name="intro1_date" value="'+d.gsx$intro1date.$t+'">'+
+                          '<input class="form-control" type="date" id="intro1_date" name="intro1_date" value="'+d[13]+'">'+
                         '<label for="intro1_time" class="" >'+"Intro 1 Time"+'</label>'+
                           '<select class="form-control" id="intro1_time" name="intro1_time">'+
-                              '<option>'+d.gsx$intro1time.$t+'</option>'+
+                              '<option>'+d[14]+'</option>'+
                           '</select>'+
                         '<label for="intro1_attended" class="">'+"Intro 1 Attended"+'</label>'+
                           '<select class="form-control" id="intro1_attended" name="intro1_attended">'+
-                            '<option>'+d.gsx$intro1attended.$t+'</option>'+
+                            '<option>'+d[17]+'</option>'+
                             '<option></option>'+
                             '<option>Yes</option>'+
                             '<option>No</option>'+
@@ -1064,14 +1064,14 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="intro2_date" class="" >'+"Intro 2 Date"+'</label>'+
-                          '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+d.gsx$intro2date.$t+'">'+
+                          '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+d[18]+'">'+
                         '<label for="intro2_time" class="" >'+"Intro 2 Time"+'</label>'+
                           '<select class="form-control" id="intro2_time" name="intro2_time">'+
-                              '<option>'+d.gsx$intro2time.$t+'</option>'+
+                              '<option>'+d[20]+'</option>'+
                           '</select>'+
                         '<label for="intro2_attended" class="">'+"Intro 2 Attended"+'</label>'+
                           '<select class="form-control" id="intro2_attended" name="intro2_attended">'+
-                            '<option>'+d.gsx$intro2attended.$t+'</option>'+
+                            '<option>'+d[22]+'</option>'+
                             '<option></option>'+
                             '<option>Yes</option>'+
                             '<option>No</option>'+
@@ -1085,15 +1085,15 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary">'+  
                       '<br>'+
                         '<label for="interest" class="" >'+"Interest"+'</label>'+
-                          '<input class="form-control" type="text" id="interest" name="interest" value="'+d.gsx$interest.$t+'">'+  
+                          '<input class="form-control" type="text" id="interest" name="interest" value="'+d[26]+'">'+  
                         '<label for="intro_offer" class="" >'+"Offer"+'</label>'+
                           '<select class="form-control" id="intro_offer" name="intro_offer">'+
-                            '<option>'+d.gsx$introoffer.$t+'</option>'+
+                            '<option>'+d[28]+'</option>'+
                             '<option></option>'+   
                           '</select>'+ 
                         '<label for="dojo_notes" class="" >'+"Intro Notes"+'</label>'+
                           '<select class="form-control" id="intro_notes" name="intro_notes">'+
-                            '<option>'+d.gsx$intronotes.$t+'</option>'+
+                            '<option>'+d[29]+'</option>'+
                             '<option></option>'+   
                           '</select>'+ 
                         '<br>'+
@@ -1104,7 +1104,7 @@ function format(d){
                 '</div>'+
                 '<div class="text-center">'+
                   '<button type="button" class="btn btn-secondary col" id="editFormReset" onClick="resetEditForm()">Cancel</button>'+
-                  '<button type="button" class="btn btn-primary col save-btn" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d.gsx$recordid.$t+')">Save</button>'+  
+                  '<button type="button" class="btn btn-primary col save-btn" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d[0]+')">Save</button>'+  
                 '</div>'+          
         '</div>'+
         '</form>'+
@@ -1112,128 +1112,124 @@ function format(d){
 }
 
 function newLeadsInit(){
-        var table = $('#newLeads').DataTable( {
-        "searchHighlight": true,
-        //"dom": "BQlfritp",
-        "dom": "Britp",
-        "iDisplayLength":50,
-        "stateSave": true,
-        "bServerSide":false,
-        "bProcessing":true,
-        "sAjaxDataProp": "feed.entry",
-        "sAjaxSource": "https://spreadsheets.google.com/feeds/list/1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0/1/public/full?alt=json",
-        "aoColumns": [
-        {   "data": null, 
-            "defaultContent" : "",
-            "className": "details-control-symbol",
-            "width": "5px"
-        }, 
-        {   "title": "Inquiry Date",
-            "mDataProp": "gsx$inquiredate.$t",
+        var table = $('#newLeads').DataTable({
+            dom: "Britp",
+            displayLength: 50,
+            stateSave: true,
 
-            "render": function ( data, type, full, meta ) {
-              return moment(data).format('MM-DD-YYYY');
-             }
-        },
-        {   "title": "Location",
-            "mDataProp": "gsx$dojolocation.$t"
-        },
-        {
-            "title": "Lead Name",
-            "data": null,
-            "render": function (data,type,row){
-            return row.gsx$leadfirstname.$t+" "+row.gsx$leadlastname.$t
-            }
-        },
-        {
-            "title": "Phone",
-            "mDataProp": "gsx$phone.$t"
-        },
-        {
-            "title": "Email",
-            "mDataProp": "gsx$email.$t"
-        },
-        {
-            "title": "Last Action Date",
-            "mDataProp": "gsx$lastcontactdate.$t",
-            "render": function ( data, type, full, meta ) {
-              return moment(data).format('MM-DD-YYYY');
-             }
-        },
-        {
-            "title": "Source",
-            "mDataProp": "gsx$leadsource.$t"
-        },
-        {
-            "title": "Prospect Phase",
-            "mDataProp": "gsx$prospectphase.$t"
-        },
-        {   "data": null,
-            "title": "", 
-            "defaultContent" : '<i class="fa fa-backspace"></i>',
-            "className": "delete-button",
-        },  
-        ],
-        "buttons":
-        {
-        "buttons":[
-            { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-secondary btn-block' },
-            { "extend": 'pdf', "text":'<i class="far fa-file-pdf"></i>', "className": 'btn btn-secondary btn-block' },
-            {
-            "text": '<i class="fas fa-sync"></i>',
-            "action": function (dt){
-                ajaxReload();
+            ajax:{
+                url:"https://sheets.googleapis.com/v4/spreadsheets/1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0/values/CC_AllData!A2:AM?key=AIzaSyArmBSmCY-VxB3XIlgFuS5SdwG9p-skggs",
+                dataSrc: "values",
             },
-            "className": "btn btn-secondary btn-block",
-            },
-            {
-            "text": '<i class="fas fa-plus"></i>',
-            "className": "btn btn-danger btn-block attr-test-btn",
-            "action": function (dt){
-                document.getElementById("myForm").reset();
-                $('.attr-test-btn')
-                    .attr('data-toggle', 'modal')
-                    .attr('data-target', '.modal-attr-test');
-            }
-            },
-            {
-                "extend": 'searchPanes',
-                "className": "btn btn-primary searchPaneButton",
-                "config": {
-                    cascadePanes: true,
-                    layout: "columns-3",
-                    action: function(dt){
-                      table.searchPanes.container().toggle();
+            columns: [
+                {
+                    data: null,
+                    defaultContent: "",
+                    className: "details-control-symbol",
+                    width: "5px",
+                },
+                {
+                    title: "Inquire Date",
+                    data: 2,
+                },
+                {
+                    title: "Location",
+                    data: 3,
+                },
+                {
+                    title: "Lead Name",
+                    data: null,
+                    render: function (data,type,row){
+                    return row[5]+" "+row[6]
                     }
-                }
-            },
+                },
+                {
+                    title: "Phone",
+                    data: 7,
+                },
+                {
+                    title: "Email",
+                    data: 8,
+                },
+                {
+                    title: "Last Action Date",
+                    data: 9,
+                    "render": function ( data, type, full, meta ) {
+                    return moment(data).format('MM-DD-YYYY');
+                    }
+                },
+                {
+                    title: "Source",
+                    data: 24
+                },
+                {
+                    title: "Prospect Phase",
+                    data: 23,
+                },
+                {   data: null,
+                    title: "", 
+                    defaultContent : '<i class="fa fa-backspace"></i>',
+                    className: "delete-button",
+                }, 
+            ],
+            "buttons":
             {
-              "extend": "searchBuilder",
-              "className": "btn btn-primary searchBuilderButton",
-
-            }, 
-        ],       
-        },
-        "initComplete": function(){
-        newEntryDropdownStack();
-        maskUp(); 
-        $("div.dt-buttons").detach().appendTo('#headerList');  
-        //$('#darkSearchBox').addClass('dataTables_filter');
-        $('#darkSearchBox').keyup(function(){
-            table.search($(this).val()).draw() ;
-        });   
-        $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
-        $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
-        $('button.dt-button').removeClass('dt-button');
-        $('table th').addClass('sticky')
-    },            
-    });
+                "buttons":[
+                    { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-secondary btn-block' },
+                    { "extend": 'pdf', "text":'<i class="far fa-file-pdf"></i>', "className": 'btn btn-secondary btn-block' },
+                    {
+                    "text": '<i class="fas fa-sync"></i>',
+                    "action": function (dt){
+                        ajaxReload();
+                    },
+                    "className": "btn btn-secondary btn-block",
+                    },
+                    {
+                    "text": '<i class="fas fa-plus"></i>',
+                    "className": "btn btn-danger btn-block attr-test-btn",
+                    "action": function (dt){
+                        document.getElementById("myForm").reset();
+                        $('.attr-test-btn')
+                            .attr('data-toggle', 'modal')
+                            .attr('data-target', '.modal-attr-test');
+                    }
+                    },
+                    {
+                        "extend": 'searchPanes',
+                        "className": "btn btn-primary searchPaneButton",
+                        "config": {
+                            cascadePanes: true,
+                            layout: "columns-3",
+                            columns: [2,7,8],
+                            action: function(dt){
+                            table.searchPanes.container().toggle();
+                            }
+                        }
+                    },
+                    {
+                    "extend": "searchBuilder",
+                    "className": "btn btn-primary searchBuilderButton",
+        
+                    }, 
+                ],       
+            },
+            "initComplete": function(){
+                newEntryDropdownStack();
+                maskUp(); 
+                $("div.dt-buttons").detach().appendTo('#headerList');  
+                $('#darkSearchBox').keyup(function(){
+                    table.search($(this).val()).draw();
+                });   
+                $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
+                $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
+                $('button.dt-button').removeClass('dt-button');
+                $('table th').addClass('sticky')
+            },
+        });
 
     $('#newLeads tbody').on('click', 'td.details-control-symbol', function () {
         var tr = $(this).closest('tr');
-        //console.log(tr);
         var row = table.row( tr );
-        //console.log(row);
         if ( row.child.isShown() ) {
           $('div.slider',row.child()).slideUp(function(){
                     row.child.hide();
@@ -1284,7 +1280,7 @@ function newLeadsInit(){
     $('#newLeads tbody').on('click', 'td.delete-button', function(){
         var tr = $(this).closest('tr');
         var row = table.row(tr);
-        var response = confirm("Would you like to delete this record for "+row.data().gsx$leadfirstname.$t+" "+row.data().gsx$participantlastname.$t+"?");
+        var response = confirm("Would you like to delete this record for "+row.data()[5]+" "+row.data()[6]+"?");
         if (response){
             deleteRow(row.data());
         }
@@ -1309,7 +1305,8 @@ function newLeadsInit(){
           }
         //console.log("Table drawn");              
       }).dataTable();
-      table.order([2,"desc"]);
+      table.order([1,"desc"]);
+      //table.column(1).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
 }
