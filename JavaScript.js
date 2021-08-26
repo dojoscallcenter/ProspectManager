@@ -27,7 +27,8 @@ var childRows = $('#newLeads tr.shown');
         "",
         "Prospect",
         "Student",
-        "Alumni"
+        "Alumni",
+        "Group Prospect"
       ];
   
       var ageClasses = [
