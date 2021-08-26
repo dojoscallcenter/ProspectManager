@@ -405,7 +405,7 @@ function sendWelcomeForm(d){
         age_class: d[12],
         city: d[35],
         communication_notes: d[27],
-        date_ofbirth:d[38],
+        date_ofbirth: d[38],
         dojo_location: d[3],
         dojo_notes: d[30],
         email: d[8],
@@ -738,7 +738,7 @@ function addNewRecord(formObject){
         send_introsheet: "",
         state: "",
         street_address: "",
-        student_status: "",
+        student_status: formObject.student_status.value,
         zip: ""
     }
 
