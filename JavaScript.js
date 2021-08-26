@@ -35,7 +35,8 @@ var childRows = $('#newLeads tr.shown');
         "",
         "Ages 4-5",
         "Ages 6-7",
-        "Ages 8-12",
+        "Ages 8-9",
+        "Ages 10-12",
         "Ages 13-20",
         "Ages 21-99"
       ];
