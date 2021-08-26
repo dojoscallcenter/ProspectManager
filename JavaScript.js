@@ -1175,6 +1175,10 @@ function newLeadsInit(){
                     defaultContent : '<i class="fa fa-backspace"></i>',
                     className: "delete-button",
                 }, 
+                {
+                  title: "Student Status",
+                  data: 4,
+                },
             ],
             "buttons":
             {
@@ -1310,7 +1314,7 @@ function newLeadsInit(){
         //console.log("Table drawn");              
       }).dataTable();
       table.order([1,"desc"]);
-      //table.column(1).visible(false);
+      table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
 }
