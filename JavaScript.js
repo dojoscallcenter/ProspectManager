@@ -772,6 +772,9 @@ function resetEditForm(){
 }
 
 function getAge(dateString){
+    if (dateString === undefined){
+      return "";
+    }
     var today = new Date();
     var birthDate = new Date(dateString);
     var age = today.getFullYear() - birthDate.getFullYear();
@@ -936,6 +939,14 @@ $("#myModal").on('hidden.bs.modal',function(){
         $(this).find('.modal-title').text("New Record");
 });
 
+function testUndefined(value){
+    if (value === undefined || value === NaN || value === "NaN:NaN"){
+      return "";
+    }else{
+      return value;
+    }
+};
+
 function format(d){
     // `d` is the original data object for the row
   return '<div class="slider" style="width:100%">'+
@@ -946,55 +957,55 @@ function format(d){
                   '<br>'+
                     '<label for="dojo_location">Dojo Location</label>'+
                       '<select class="form-control" id="dojo_location" name="dojo_location">'+
-                        '<option>'+d[3]+'</option>'+
+                        '<option>'+(testUndefined(d[3]))+'</option>'+
                       '</select>'+
                     '<label for="lead_date ">Lead Date</label>'+
-                      '<input class="form-control" type="date" id="lead_date" name="lead_date" value="'+d[1]+'">'+
+                      '<input class="form-control" type="date" id="lead_date" name="lead_date" value="'+(testUndefined(d[1]))+'">'+
                     '<label for="inquire_date">Inquire Date</label>'+
-                      '<input class="form-control" type="date" id="inquire_date" name="inquire_date" value="'+d[2]+'">'+
+                      '<input class="form-control" type="date" id="inquire_date" name="inquire_date" value="'+(testUndefined(d[2]))+'">'+
                     '<label for="student_status">Student Status</label>'+
                       '<select class="form-control" id="student_status" name="student_status">'+
-                        '<option>'+d[4]+'</option>'+
+                        '<option>'+(testUndefined(d[4]))+'</option>'+
                       '</select>'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                     '<br>'+
                     '<label for="lead_firstname">First Name</label>'+
-                      '<input class="form-control" type="text" id="lead_firstname" name="lead_firstname" value="'+d[5]+'">'+
+                      '<input class="form-control" type="text" id="lead_firstname" name="lead_firstname" value="'+(testUndefined(d[5]))+'">'+
                     '<label for="lead_lastname">Last Name</label>'+
-                      '<input class="form-control" type="text"  id="lead_lastname" name="lead_lastname" value="'+d[6]+'">'+
+                      '<input class="form-control" type="text"  id="lead_lastname" name="lead_lastname" value="'+(testUndefined(d[6]))+'">'+
                     '<label for="email">Email</label>'+
-                      '<input class="form-control" type="email"  id="email" name="email" value="'+d[8]+'">'+
+                      '<input class="form-control" type="email"  id="email" name="email" value="'+(testUndefined(d[8]))+'">'+
                     '<label for="phone">Phone</label>'+
-                      '<input class="form-control phone" type="text"  id="phone2" name="phone" value="'+d[7]+'">'+
+                      '<input class="form-control phone" type="text"  id="phone2" name="phone" value="'+(testUndefined(d[7]))+'">'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary">'+
                     '<br>'+
                     '<label for="lastcontact_date">Last Contact Date</label>'+
-                      '<input class="form-control" type="date"  id="lastcontact_date" name="lastcontact_date" value="'+d[9]+'">'+
+                      '<input class="form-control" type="date"  id="lastcontact_date" name="lastcontact_date" value="'+(testUndefined(d[9]))+'">'+
                     '<label for="leadsource">Lead Source</label>'+
                       '<select class="form-control"  id="lead_source" name="leadsource">'+
-                        '<option>'+d[24]+'</option>'+
+                        '<option>'+(testUndefined(d[24]))+'</option>'+
                       '</select>'+
                     '<label for="leadsource_subcategory">Leadsource Subcategory</label>'+
                       '<select class="form-control"  id="leadsource_subcategory" name="leadsource_subcategory">'+
-                        '<option>'+d[25]+'</option>'+
+                        '<option>'+(testUndefined(d[25]))+'</option>'+
                       '</select>'+
                     '<label for="prospect_phase">Prospect Phase</label>'+
                       '<select class="form-control"  id="prospect_phase" name="prospect_phase">'+
-                        '<option>'+d[23]+'</option>'+
+                        '<option>'+(testUndefined(d[23]))+'</option>'+
                       '</select>'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary border-start-0">'+
                     '<br>'+
                       '<label for="address" class="" >Address</label>'+
-                        '<input class="form-control" type="text" id="address" name="street_address" value="'+d[34]+'">'+
+                        '<input class="form-control" type="text" id="address" name="street_address" value="'+(testUndefined(d[34]))+'">'+
                       '<label for="city" class="" >'+"City"+'</label>'+
-                        '<input class="form-control" type="text" id="city" name="city" value="'+d[35]+'">'+
+                        '<input class="form-control" type="text" id="city" name="city" value="'+(testUndefined(d[35]))+'">'+
                       '<label for="state" class="">'+"State"+'</label>'+
-                        '<input class="form-control" type="text"  id="state" name="state" value="'+d[36]+'">'+
+                        '<input class="form-control" type="text"  id="state" name="state" value="'+(testUndefined(d[36]))+'">'+
                       '<label for="zip" class="" >'+"Zip"+'</label>'+
-                        '<input class="form-control" type="text" id="zip" name="zip" value="'+d[37]+'">'+
+                        '<input class="form-control" type="text" id="zip" name="zip" value="'+(testUndefined(d[37]))+'">'+
                       '<br>'+
                   '</div>'+ 
                 '</div>'+  
@@ -1002,12 +1013,12 @@ function format(d){
                 '<div class="row p-2">'+
                     '<div class="col-6 text-start border border-5 border-secondary border-end-0">'+
                         '<label for="communication_notes" class="p-2 ">Call Center Notes</label>'+
-                          '<textarea class="form-control" id="communication_notes" name="communication_notes" rows="5">'+d[27]+'</textarea>'+
+                          '<textarea class="form-control" id="communication_notes" name="communication_notes" rows="5">'+(testUndefined(d[27]))+'</textarea>'+
                       '<br>'+
                     '</div>'+
                     '<div class="col-6 text-start border border-5 border-secondary border-start-0">'+
                         '<label for ="dojo_notes" class="p-2" >Dojo Notes</label>'+
-                          '<textarea class="form-control" id="dojo_notes" rows="5" name="dojo_notes">'+d[30]+'</textarea>'+
+                          '<textarea class="form-control" id="dojo_notes" rows="5" name="dojo_notes">'+(testUndefined(d[30]))+'</textarea>'+
                         '<br>'+
                     '</div>'+
                 '</div>'+
@@ -1016,12 +1027,12 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="participant_firstname" class="" >'+"Participant First Name"+'</label>'+
-                          '<input class="form-control" type="text" id="participant_firstname" name="participant_firstname" value="'+d[10]+'">'+
+                          '<input class="form-control" type="text" id="participant_firstname" name="participant_firstname" value="'+(testUndefined(d[10]))+'">'+
                         '<label for="participant_lastname" class="" >'+"Participant Last Name"+'</label>'+
-                          '<input class="form-control" type="text" id="particpant_lastname" name="participant_lastname" value="'+d[11]+'">'+
+                          '<input class="form-control" type="text" id="particpant_lastname" name="participant_lastname" value="'+(testUndefined(d[11]))+'">'+
                         '<label for="gender" class="" >'+"Gender"+'</label>'+
                           '<select class="form-control" id="gender" name="gender">'+
-                              '<option>'+d[33]+'</option>'+
+                              '<option>'+(testUndefined(d[33]))+'</option>'+
                               '<option>Male</option>'+
                               '<option>Female</option>'+
                               '<option>Non-binary / other</option>'+
@@ -1029,31 +1040,31 @@ function format(d){
                       '<div class="row">'+
                       '<div class="col-8">'+
                         '<label for="date_ofbirth" class="">'+"DOB"+'</label>'+
-                          '<input class="form-control " type="date" id="date_ofbirth" name="date_ofbirth" value="'+d[38]+'">'+
+                          '<input class="form-control " type="date" id="date_ofbirth" name="date_ofbirth" value="'+(testUndefined(d[38]))+'">'+
                       '</div>'+                           
                         //AGE NEEDS TO BE AUTOMATICALLY CALCULATED
                       '<div class="col-4">'+
                         '<label for="age" class="">'+"Age"+'</label>'+
-                          '<input class="form-control" type="text" id="age" value="'+(getAge(new Date(d[38]).toString()))+'">'+ 
+                          '<input class="form-control" type="text" id="age" value="'+(getAge(d[38]))+'">'+ 
                       '</div>'+ 
                       '</div>'+
                         '<label for="age_class" class="" >'+"Age Class"+'</label>'+
                           '<select class="form-control" id="age_class" name="age_class">'+
-                            '<option>'+d[12]+'</option>'+
+                            '<option>'+(testUndefined(d[12]))+'</option>'+
                           '</select>'+
                         '<br>'+                                                                                         
                     '</div>'+
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="intro1_date" class="" >'+"Intro 1 Date"+'</label>'+
-                          '<input class="form-control" type="date" id="intro1_date" name="intro1_date" value="'+d[13]+'">'+
+                          '<input class="form-control" type="date" id="intro1_date" name="intro1_date" value="'+(testUndefined(d[13]))+'">'+
                         '<label for="intro1_time" class="" >'+"Intro 1 Time"+'</label>'+
                           '<select class="form-control" id="intro1_time" name="intro1_time">'+
-                              '<option>'+d[14]+'</option>'+
+                              '<option>'+(testUndefined(d[14]))+'</option>'+
                           '</select>'+
                         '<label for="intro1_attended" class="">'+"Intro 1 Attended"+'</label>'+
                           '<select class="form-control" id="intro1_attended" name="intro1_attended">'+
-                            '<option>'+d[17]+'</option>'+
+                            '<option>'+(testUndefined(d[17]))+'</option>'+
                             '<option></option>'+
                             '<option>Yes</option>'+
                             '<option>No</option>'+
@@ -1066,14 +1077,14 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                         '<br>'+
                         '<label for="intro2_date" class="" >'+"Intro 2 Date"+'</label>'+
-                          '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+d[18]+'">'+
+                          '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+(testUndefined(d[18]))+'">'+
                         '<label for="intro2_time" class="" >'+"Intro 2 Time"+'</label>'+
                           '<select class="form-control" id="intro2_time" name="intro2_time">'+
-                              '<option>'+d[20]+'</option>'+
+                              '<option>'+(testUndefined(d[20]))+'</option>'+
                           '</select>'+
                         '<label for="intro2_attended" class="">'+"Intro 2 Attended"+'</label>'+
                           '<select class="form-control" id="intro2_attended" name="intro2_attended">'+
-                            '<option>'+d[22]+'</option>'+
+                            '<option>'+(testUndefined(d[22]))+'</option>'+
                             '<option></option>'+
                             '<option>Yes</option>'+
                             '<option>No</option>'+
@@ -1087,15 +1098,15 @@ function format(d){
                     '<div class="col-3 text-start border border-5 border-secondary">'+  
                       '<br>'+
                         '<label for="interest" class="" >'+"Interest"+'</label>'+
-                          '<input class="form-control" type="text" id="interest" name="interest" value="'+d[26]+'">'+  
+                          '<input class="form-control" type="text" id="interest" name="interest" value="'+(testUndefined(d[26]))+'">'+  
                         '<label for="intro_offer" class="" >'+"Offer"+'</label>'+
                           '<select class="form-control" id="intro_offer" name="intro_offer">'+
-                            '<option>'+d[28]+'</option>'+
+                            '<option>'+(testUndefined(d[28]))+'</option>'+
                             '<option></option>'+   
                           '</select>'+ 
                         '<label for="dojo_notes" class="" >'+"Intro Notes"+'</label>'+
                           '<select class="form-control" id="intro_notes" name="intro_notes">'+
-                            '<option>'+d[29]+'</option>'+
+                            '<option>'+(testUndefined(d[29]))+'</option>'+
                             '<option></option>'+   
                           '</select>'+ 
                         '<br>'+
