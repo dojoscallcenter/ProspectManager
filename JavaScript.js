@@ -118,10 +118,12 @@ var childRows = $('#newLeads tr.shown');
         "22-Intro 2 Phone Tag",
         "70-Intro Completed -Enrolled",
         "30-Intro Completed -Waiting For Reply",
-        "60-Intro Completed -Did Not Enrolled",
+        "60-Intro Completed -Did Not Enroll",
         "40-Never Attended Intro 1 -Lost Intros",
         "50-Never Attended Intro 2 -Lost Intros",
-        "80-Formerly Enrolled"  
+        "80-Formerly Enrolled",
+        "90-Text and Email Marketing",
+        "99-Hard No / Do Not Contact"  
       ];
   
       var leadSources = [
@@ -835,13 +837,14 @@ function newEntryDropdownStack(){
 
   //POPULATE DROPDOWN SELECTORS
 function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
-    var list = document.getElementById('dojo_location');  
+    var list = document.getElementById('dojo_location');
       for (var i = 0; i < values.length; i++) {
         var option = document.createElement("option");
         option.value = values[i];
         option.text = values[i];
         list.appendChild(option);
       }
+    console.log(listOptions);
 }
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
