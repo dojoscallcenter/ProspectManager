@@ -844,7 +844,6 @@ function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/537719
         option.text = values[i];
         list.appendChild(option);
       }
-    console.log(listOptions);
 }
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
