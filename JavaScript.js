@@ -836,12 +836,14 @@ function newEntryDropdownStack(){
   //POPULATE DROPDOWN SELECTORS
 function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('dojo_location');  
-    for (var i = 0; i < values.length; i++) {
-      var option = document.createElement("option");
-      option.value = values[i];
-      option.text = values[i];
-      list.appendChild(option);
-    }
+    if (!list.contains(dojoLocations)){
+      for (var i = 0; i < values.length; i++) {
+        var option = document.createElement("option");
+        option.value = values[i];
+        option.text = values[i];
+        list.appendChild(option);
+      }
+  }
 }
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
@@ -1129,7 +1131,6 @@ function newLeadsInit(){
             dom: "Britp",
             displayLength: 50,
             stateSave: true,
-
             ajax:{
                 url:"https://sheets.googleapis.com/v4/spreadsheets/1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0/values/CC_AllData!A2:AM?key=AIzaSyArmBSmCY-VxB3XIlgFuS5SdwG9p-skggs",
                 dataSrc: "values",
@@ -1228,8 +1229,7 @@ function newLeadsInit(){
                     },
                     {
                     "extend": "searchBuilder",
-                    "className": "btn btn-primary searchBuilderButton",
-        
+                    "className": "btn btn-primary searchBuilderButton",       
                     }, 
                 ],       
             },
