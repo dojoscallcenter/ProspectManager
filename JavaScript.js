@@ -836,14 +836,12 @@ function newEntryDropdownStack(){
   //POPULATE DROPDOWN SELECTORS
 function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('dojo_location');  
-    if (!list.contains(dojoLocations)){
       for (var i = 0; i < values.length; i++) {
         var option = document.createElement("option");
         option.value = values[i];
         option.text = values[i];
         list.appendChild(option);
       }
-  }
 }
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
