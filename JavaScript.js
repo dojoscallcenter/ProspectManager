@@ -812,65 +812,66 @@ function ajaxReload(formObject){
   }
 
 function dropdownStack(){
-  if ($('#dojo_location option').length == 0){
+  if ($('#dojo_location option').length < 2){
       dojoLocationDropdown(dojoLocations);
   }
-  if ($('#student_status option').length == 0){
+  if ($('#student_status option').length < 2){
+    console.log("Student Status length: "+$('#student_status option').length)
       studentStatusDropdown(studentStatuses);
   }
-  if ($('#age_class option').length == 0){
+  if ($('#age_class option').length < 2){
       ageClassDropdown(ageClasses);
   }
-  if ($('#intro1_time option').length == 0){
+  if ($('#intro1_time option').length < 2){
       intro1TimeDropdown(intro1Times);
   }
-  if ($('#intro2_time option').length == 0){
-      intro1TimeDropdown(intro2Times);
+  if ($('#intro2_time option').length < 2){
+      intro2TimeDropdown(intro2Times);
   }
-  if ($('#lead_source option').length == 0){
+  if ($('#lead_source option').length < 2){
       leadSourceDropdown(leadSources);
   }
-  if ($('#leadsource_subcategory option').length == 0){
+  if ($('#leadsource_subcategory option').length < 2){
       leadSourceSubcategoryDropdown(leadSourceSubcategories);
   }
-  if ($('#prospect_phase option').length == 0){
+  if ($('#prospect_phase option').length < 2){
       prospectPhaseDropdown(prospectPhases);
   }    
-  if ($('#intro_offer option').length == 0){
+  if ($('#intro_offer option').length < 3){
       introOfferDropdown(introOffers);
   }
-  if ($('#intro_notes option').length == 0){
+  if ($('#intro_notes option').length < 3){
       introNotesDropdown(introNotes);
   }
 }
   
 function newEntryDropdownStack(){
-  if ($('#dojo_location option').length == 0){
-      dojoLocationDropdown(dojoLocations);
+  if ($('#new_dojo_location option').length == 0){
+      newDojoLocationDropdown(dojoLocations);
   }
-  if ($('#student_status option').length == 0){
-      studentStatusDropdown(studentStatuses);
+  if ($('#new_student_status option').length == 0){
+      newStudentStatusDropdown(studentStatuses);
   }
   if ($('#age_class option').length == 0){
-      ageClassDropdown(ageClasses);
+      newAgeClassDropdown(ageClasses);
   }
-  if ($('#intro1_time option').length == 0){
-      intro1TimeDropdown(intro1Times);
+  if ($('#new_intro1_time option').length == 0){
+      newIntro1TimeDropdown(intro1Times);
   }
-  if ($('#lead_source option').length == 0){
-      leadSourceDropdown(leadSources);
+  if ($('#new_lead_source option').length == 0){
+      newLeadSourceDropdown(leadSources);
   }
-  if ($('#leadsource_subcategory option').length == 0){
-      leadSourceSubcategoryDropdown(leadSourceSubcategories);
+  if ($('#new_leadsource_subcategory option').length == 0){
+      newLeadSourceSubcategoryDropdown(leadSourceSubcategories);
   }
-  if ($('#prospect_phase option').length == 0){
-      prospectPhaseDropdown(prospectPhases);
+  if ($('#new_prospect_phase option').length == 0){
+      newProspectPhaseDropdown(prospectPhases);
   }
-  if ($('#intro_offer option').length == 0){
-      introOfferDropdown(introOffers);
+  if ($('#new_intro_offer option').length == 0){
+      newIntroOfferDropdown(introOffers);
   }
   if ($('#intro_notes option').length == 0){
-      introNotesDropdown(introNotes);
+      newIntroNotesDropdown(introNotes);
   }
 }
 
@@ -885,6 +886,16 @@ function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/537719
     }
 }
 
+function newDojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_dojo_location');
+  for (var i = 0; i < values.length; i++) {
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
+}
+
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('student_status');   
@@ -894,6 +905,16 @@ function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771
       option.text = values[i];
       list.appendChild(option);
     }
+}
+
+function newStudentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_student_status');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
 }
 
 function ageClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
@@ -906,6 +927,16 @@ function ageClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2
     }
 }
 
+function newAgeClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_age_class');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
+}
+
 function intro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro1_time');   
     for (var i = 0; i < values.length; i++){
@@ -914,6 +945,16 @@ function intro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       option.text = values[i];
       list.appendChild(option);
     }
+}
+
+function newIntro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_intro1_time');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = new Date("2020-01-01 "+ values[i]+":00 PM").getHours() +":"+ new Date("2020-01-01 "+ values[i]+":00 PM").getMinutes();
+    option.text = values[i];
+    list.appendChild(option);
+  }
 }
 
 function intro2TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
@@ -936,6 +977,16 @@ function leadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
     }
 }
 
+function newLeadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_lead_source');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
+}
+
 function leadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('leadsource_subcategory');   
     for (var i = 0; i < values.length; i++){
@@ -946,6 +997,16 @@ function leadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com
     }
 }  
 
+function newLeadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_leadsource_subcategory');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
+} 
+
 function prospectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('prospect_phase');   
     for (var i = 0; i < values.length; i++){
@@ -954,6 +1015,16 @@ function prospectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771
       option.text = values[i];
       list.appendChild(option);
     }
+}
+
+function newProspectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_prospect_phase');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
 }
 
 function introOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
@@ -966,6 +1037,16 @@ function introOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
     }
 }
 
+function newIntroOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_intro_offer');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
+}
+
 function introNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('intro_notes');   
     for (var i = 0; i < values.length; i++){
@@ -974,6 +1055,16 @@ function introNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       option.text = values[i];
       list.appendChild(option);
     }
+}
+
+function newIntroNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
+  var list = document.getElementById('new_intro_notes');   
+  for (var i = 0; i < values.length; i++){
+    var option = document.createElement("option");
+    option.value = values[i];
+    option.text = values[i];
+    list.appendChild(option);
+  }
 }
 
 $("#myModal").on('hidden.bs.modal',function(){
