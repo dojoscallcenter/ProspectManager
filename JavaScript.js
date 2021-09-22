@@ -894,7 +894,9 @@ function newDojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/537
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -905,7 +907,9 @@ function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -915,7 +919,9 @@ function newStudentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -925,7 +931,9 @@ function ageClassDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -935,7 +943,9 @@ function newAgeClassDropdown(values){ //Ref: https://stackoverflow.com/a/5377195
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -945,7 +955,9 @@ function intro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       var option = document.createElement("option");
       option.value = new Date("2020-01-01 "+ values[i]+":00 PM").getHours() +":"+ new Date("2020-01-01 "+ values[i]+":00 PM").getMinutes();
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -955,7 +967,9 @@ function newIntro1TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771
     var option = document.createElement("option");
     option.value = new Date("2020-01-01 "+ values[i]+":00 PM").getHours() +":"+ new Date("2020-01-01 "+ values[i]+":00 PM").getMinutes();
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -965,7 +979,9 @@ function intro2TimeDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       var option = document.createElement("option");
       option.value = new Date("2020-01-01 "+ values[i]+":00 PM").getHours() +":"+ new Date("2020-01-01 "+ values[i]+":00 PM").getMinutes();
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }  
 
@@ -975,7 +991,9 @@ function leadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -985,7 +1003,9 @@ function newLeadSourceDropdown(values){ //Ref: https://stackoverflow.com/a/53771
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -995,7 +1015,9 @@ function leadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.com
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }  
 
@@ -1005,7 +1027,9 @@ function newLeadSourceSubcategoryDropdown(values){ //Ref: https://stackoverflow.
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 } 
 
@@ -1015,7 +1039,9 @@ function prospectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53771
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -1025,7 +1051,9 @@ function newProspectPhaseDropdown(values){ //Ref: https://stackoverflow.com/a/53
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -1035,7 +1063,9 @@ function introOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -1045,7 +1075,9 @@ function newIntroOfferDropdown(values){ //Ref: https://stackoverflow.com/a/53771
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
@@ -1055,7 +1087,9 @@ function introNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771955
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
@@ -1065,7 +1099,9 @@ function newIntroNotesDropdown(values){ //Ref: https://stackoverflow.com/a/53771
     var option = document.createElement("option");
     option.value = values[i];
     option.text = values[i];
-    list.appendChild(option);
+    if (list != null){
+      list.appendChild(option);
+    }
   }
 }
 
