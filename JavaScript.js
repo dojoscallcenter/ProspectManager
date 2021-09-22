@@ -882,7 +882,9 @@ function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/537719
       var option = document.createElement("option");
       option.value = values[i];
       option.text = values[i];
-      list.appendChild(option);
+      if (list != null){
+        list.appendChild(option);
+      }
     }
 }
 
