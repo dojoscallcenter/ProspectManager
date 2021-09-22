@@ -110,6 +110,7 @@ var childRows = $('#newLeads tr.shown');
         "",
         "00-Pre-Paid/Not Yet Contacted",
         "01-New Lead/Not Yet Contacted",
+        "02-Too Young/Future Date",
         "10-Intro 1 Scheduled",
         "11-Intro 1 No Show-Needs Contacts",
         "12-Intro 1 Phone Tag",
