@@ -713,7 +713,7 @@ function addNewRecord(formObject){
         communication_notes: formObject.communication_notes.value,
         date_ofbirth:"",
         dojo_location: formObject.new_dojo_location.value,
-        dojo_notes: formObject.new_dojo_notes.value,
+        dojo_notes: formObject.dojo_notes.value,
         email: formObject.email.value,
         gender: formObject.gender.value,
         inquire_date: formObject.inquire_date.value,
