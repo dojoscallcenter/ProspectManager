@@ -722,7 +722,7 @@ function addNewRecord(formObject){
         intro1_date: formObject.intro1_date.value,
         intro1_endtime: "",
         intro1_starttime: "",
-        intro1_time: testUndefined((new Date("2021-01-01 "+formObject.intro1_time.value)).toLocaleTimeString()),//.toLocaleTimeString(),
+        intro1_time: testUndefined((new Date("2021-01-01 "+formObject.new_intro1_time.value)).toLocaleTimeString()),//.toLocaleTimeString(),
         intro2_attended:"",
         intro2_date:"",
         intro2_endtime:"",
