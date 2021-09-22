@@ -15,7 +15,7 @@ var childRows = $('#newLeads tr.shown');
         "Waukee",
         "WDM"
       ];
-    
+    //this is important for the "add to calendar" functionality
     var dojoAddresses = [
         "1810 SW White Birch Cir Suite 100, Ankeny, IA 50023",
         "8805 Chambery Blvd, Johnston, IA 50131",
@@ -811,40 +811,79 @@ function ajaxReload(formObject){
   }
 
 function dropdownStack(){
-    dojoLocationDropdown(dojoLocations);
-    studentStatusDropdown(studentStatuses);
-    ageClassDropdown(ageClasses);
-    intro1TimeDropdown(intro1Times);
-    intro2TimeDropdown(intro2Times);
-    leadSourceDropdown(leadSources);
-    leadSourceSubcategoryDropdown(leadSourceSubcategories);
-    prospectPhaseDropdown(prospectPhases);
-    introOfferDropdown(introOffers);
-    introNotesDropdown(introNotes); 
+  if ($('#dojo_location option').length == 0){
+      dojoLocationDropdown(dojoLocations);
+  }
+  if ($('#student_status option').length == 0){
+      studentStatusDropdown(studentStatuses);
+  }
+  if ($('#age_class option').length == 0){
+      ageClassDropdown(ageClasses);
+  }
+  if ($('#intro1_time option').length == 0){
+      intro1TimeDropdown(intro1Times);
+  }
+  if ($('#intro2_time option').length == 0){
+      intro1TimeDropdown(intro2Times);
+  }
+  if ($('#lead_source option').length == 0){
+      leadSourceDropdown(leadSources);
+  }
+  if ($('#leadsource_subcategory option').length == 0){
+      leadSourceSubcategoryDropdown(leadSourceSubcategories);
+  }
+  if ($('#prospect_phase option').length == 0){
+      prospectPhaseDropdown(prospectPhases);
+  }    
+  if ($('#intro_offer option').length == 0){
+      introOfferDropdown(introOffers);
+  }
+  if ($('#intro_notes option').length == 0){
+      introNotesDropdown(introNotes);
+  }
 }
   
 function newEntryDropdownStack(){
-    dojoLocationDropdown(dojoLocations);
-    studentStatusDropdown(studentStatuses);
-    ageClassDropdown(ageClasses);
-    intro1TimeDropdown(intro1Times);
-    leadSourceDropdown(leadSources);
-    leadSourceSubcategoryDropdown(leadSourceSubcategories);
-    prospectPhaseDropdown(prospectPhases);
-    introOfferDropdown(introOffers);
-    introNotesDropdown(introNotes);
+  if ($('#dojo_location option').length == 0){
+      dojoLocationDropdown(dojoLocations);
+  }
+  if ($('#student_status option').length == 0){
+      studentStatusDropdown(studentStatuses);
+  }
+  if ($('#age_class option').length == 0){
+      ageClassDropdown(ageClasses);
+  }
+  if ($('#intro1_time option').length == 0){
+      intro1TimeDropdown(intro1Times);
+  }
+  if ($('#lead_source option').length == 0){
+      leadSourceDropdown(leadSources);
+  }
+  if ($('#leadsource_subcategory option').length == 0){
+      leadSourceSubcategoryDropdown(leadSourceSubcategories);
+  }
+  if ($('#prospect_phase option').length == 0){
+      prospectPhaseDropdown(prospectPhases);
+  }
+  if ($('#intro_offer option').length == 0){
+      introOfferDropdown(introOffers);
+  }
+  if ($('#intro_notes option').length == 0){
+      introNotesDropdown(introNotes);
+  }
 }
 
   //POPULATE DROPDOWN SELECTORS
 function dojoLocationDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('dojo_location');
-      for (var i = 0; i < values.length; i++) {
-        var option = document.createElement("option");
-        option.value = values[i];
-        option.text = values[i];
-        list.appendChild(option);
-      }
+    for (var i = 0; i < values.length; i++) {
+      var option = document.createElement("option");
+      option.value = values[i];
+      option.text = values[i];
+      list.appendChild(option);
+    }
 }
+
 
 function studentStatusDropdown(values){ //Ref: https://stackoverflow.com/a/53771955/2391195
     var list = document.getElementById('student_status');   
