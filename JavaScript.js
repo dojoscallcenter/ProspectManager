@@ -1330,13 +1330,20 @@ function newLeadsInit(){
                     }
                 },
                 {
+                  title: "Participant Name",
+                  data: null,
+                  render: function (data,type,row){
+                  return row[10]+" "+row[11]
+                  }
+                },
+                {
                     title: "Phone",
                     data: 7,
                 },
-                {
+                /*{
                     title: "Email",
                     data: 8,
-                },
+                },*/
                 {
                     title: "Last Action Date",
                     data: 9,
@@ -1494,8 +1501,8 @@ function newLeadsInit(){
           }
         //console.log("Table drawn");              
       }).dataTable();
-      table.order([1,"desc"]);
-      table.column(10).visible(false);
+      table.order([[1,'desc'],[3,'asc']]).draw();
+      //table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
 }
