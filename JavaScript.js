@@ -6,6 +6,7 @@ const SCOPE = 'https://www.googleapis.com/auth/spreadsheets https://www.googleap
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
 const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
+var userFilter;
 
     //All dropdown variables
     var dojoLocations = [
@@ -224,6 +225,31 @@ function revokeAccess() {
 
 function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
+    userProfile = user.getBasicProfile();
+    userProfileEmail = userProfile.getEmail();
+    if (gapi.auth2.getAuthInstance().isSignedIn.get()){
+      if (userProfileEmail === "info@mydojos.com"){
+        userFilter = "";
+      }else{
+        if (userProfileEmail === "info-ankeny@mydojos.com"){
+          signedInUser = "Ankeny";
+        }else{
+          if (userProfileEmail === "info-johnston@mydojos.com"){
+            signedInUser = "Johnston";
+          }else{
+            if (userProfileEmail === "info-wdm@mydojos.com"){
+              signedInUser = "WDM";
+            }else{
+              if (userProfileEmail === "info-waukee@mydojos.com"){
+                signedInUser = "Waukee";
+              }
+            }
+          }
+        }
+      }
+    }
+  
+    //console.log(userFilter);
     var isAuthorized = user.hasGrantedScopes(SCOPE);
     if (isAuthorized) {
       //console.log ("I am signed in as: "+ user.getBasicProfile().getName());
@@ -1365,6 +1391,7 @@ function newLeadsInit(){
                     className: "delete-button",
                 }, 
             ],
+            
             "buttons":
             {
                 "buttons":[
@@ -1594,8 +1621,8 @@ function newLeadsInit(){
                         }
                     },
                     {
-                    "extend": "searchBuilder",
-                    "className": "btn btn-primary searchBuilderButton",       
+                      "extend": "searchBuilder",
+                      "className": "btn btn-primary searchBuilderButton",     
                     }, 
                 ],       
             },
@@ -1693,6 +1720,8 @@ function newLeadsInit(){
       }).dataTable();
       table.order([[1,'desc'],[3,'asc']]).draw();
       table.searchPanes.container().addClass('overflow-auto');
+      table.columns(2).search(userFilter).draw();
+      table.searchBuilder.container().addClass('w-100');
       //table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
