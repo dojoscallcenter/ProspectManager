@@ -1364,10 +1364,6 @@ function newLeadsInit(){
                     defaultContent : '<i class="fa fa-backspace"></i>',
                     className: "delete-button",
                 }, 
-                {
-                  title: "Student Status",
-                  data: 4,
-                },
             ],
             "buttons":
             {
@@ -1392,12 +1388,206 @@ function newLeadsInit(){
                     }
                     },
                     {
-                        "extend": 'searchPanes',
+                        "extend": "searchPanes",
                         "className": "btn btn-primary searchPaneButton",
                         "config": {
                             cascadePanes: true,
                             layout: "columns-3",
                             columns: [2,7,8],
+                            panes: [
+                              {
+                                header: "Ankeny",
+                                options: [
+                                  {
+                                    label: "New Leads",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                    }
+                                  },
+                                  {
+                                    label: "Phone Tag",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                    }
+                                  },
+                                  {
+                                    label: "Awaiting Response",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "30-Intro Completed -Waiting For Reply");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 1 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "10-Intro 1 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 2 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "20-Intro 2 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "No Shows",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                    }
+                                  },
+                                  {
+                                    label: "Text/Email Marketing",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Ankeny" && rowData[23] === "90-Text and Email Marketing");
+                                    }
+                                  },
+                                ],
+                              },
+
+                              {
+                                header: "Johnston",
+                                options: [
+                                  {
+                                    label: "New Leads",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                    }
+                                  },
+                                  {
+                                    label: "Phone Tag",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                    }
+                                  },
+                                  {
+                                    label: "Awaiting Response",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "30-Intro Completed -Waiting For Reply");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 1 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "10-Intro 1 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 2 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "20-Intro 2 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "No Shows",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                    }
+                                  },
+                                  {
+                                    label: "Text/Email Marketing",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Johnston" && rowData[23] === "90-Text and Email Marketing");
+                                    }
+                                  },
+                                ],
+                              },
+                              {
+                                header: "WDM",
+                                options: [
+                                  {
+                                    label: "New Leads",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                    }
+                                  },
+                                  {
+                                    label: "Phone Tag",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                    }
+                                  },
+                                  {
+                                    label: "Awaiting Response",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "30-Intro Completed -Waiting For Reply");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 1 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "10-Intro 1 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 2 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "20-Intro 2 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "No Shows",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                    }
+                                  },
+                                  {
+                                    label: "Text/Email Marketing",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "WDM" && rowData[23] === "90-Text and Email Marketing");
+                                    }
+                                  },
+                                ],
+                              },
+
+                              {
+                                header: "Waukee",
+                                options: [
+                                  {
+                                    label: "New Leads",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                    }
+                                  },
+                                  {
+                                    label: "Phone Tag",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                    }
+                                  },
+                                  {
+                                    label: "Awaiting Response",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "30-Intro Completed -Waiting For Reply");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 1 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "10-Intro 1 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro 2 Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "20-Intro 2 Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "No Shows",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                    }
+                                  },
+                                  {
+                                    label: "Text/Email Marketing",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Waukee" && rowData[23] === "90-Text and Email Marketing");
+                                    }
+                                  },
+                                ],
+                              },
+
+                            ],
+
                             action: function(dt){
                             table.searchPanes.container().toggle();
                             }
@@ -1502,6 +1692,7 @@ function newLeadsInit(){
         //console.log("Table drawn");              
       }).dataTable();
       table.order([[1,'desc'],[3,'asc']]).draw();
+      table.searchPanes.container().addClass('overflow-auto');
       //table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
