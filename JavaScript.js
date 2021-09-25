@@ -1342,29 +1342,38 @@ function newLeadsInit(){
                     data: 2,
                     render: function ( data, type, full, meta ) {
                         return moment(data).format('MM-DD-YYYY');
-                    }
+                    },
+                    width: "auto"
                 },
                 {
                     title: "Location",
                     data: 3,
+                    width: "auto"
+
                 },
                 {
                     title: "Lead Name",
                     data: null,
                     render: function (data,type,row){
                     return row[5]+" "+row[6]
-                    }
+                    },
+                    width: "auto"
+
                 },
                 {
                   title: "Participant Name",
                   data: null,
                   render: function (data,type,row){
                   return row[10]+" "+row[11]
-                  }
+                  },
+                  width: "auto"
+
                 },
                 {
                     title: "Phone",
                     data: 7,
+                    width: "auto"
+
                 },
                 /*{
                     title: "Email",
@@ -1376,19 +1385,27 @@ function newLeadsInit(){
                     "render": function ( data, type, full, meta ) {
                     return moment(data).format('MM-DD-YYYY');
                     },
+                    width: "auto"
+
                 },
                 {
                     title: "Source",
                     data: 24,
+                    width: "auto"
+
                 },
                 {
                     title: "Prospect Phase",
                     data: 23,
+                    width: "auto"
+
                 },
                 {   data: null,
                     title: "", 
                     defaultContent : '<i class="fa fa-backspace"></i>',
                     className: "delete-button",
+                    width: "auto"
+
                 }, 
             ],
             
