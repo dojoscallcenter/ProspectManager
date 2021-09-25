@@ -1640,7 +1640,33 @@ function newLeadsInit(){
                     {
                       "extend": "searchBuilder",
                       "className": "btn btn-primary searchBuilderButton",     
-                    }, 
+                    },
+                    {
+                      "text": "Find Duplicates",
+                      "action": function (e, dt, node, config){
+                        var records = [];
+                        table.column(5).data().each(function(value,index){
+                          //console.log(value);
+                          records.push(value);
+                        });
+
+                        $.fn.dataTable.ext.search.push(
+                          function(settings, data, dataIndex){
+                            var count = records.reduce(function(n, val){
+                              //console.log(data[5]);
+                              return n + (val == data[5]);
+                            }, 0);
+
+                            if (count >= 2){
+                              return true;
+                            }
+                            return false;
+                          }
+                        );
+                        
+                      table.column(3).order('asc').draw();
+                      }
+                    },
                 ],       
             },
             "initComplete": function(){
