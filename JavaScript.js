@@ -240,16 +240,16 @@ function setSigninStatus() {
             userFilter = "";
         }else{
             if (userProfileEmail === "info-ankeny@mydojos.com"){
-                signedInUser = "Ankeny";
+                userFilter = "Ankeny";
             }else{
                 if (userProfileEmail === "info-johnston@mydojos.com"){
-                    signedInUser = "Johnston";
+                    userFilter = "Johnston";
                      }else{
                         if (userProfileEmail === "info-wdm@mydojos.com"){
-                            signedInUser = "WDM";
+                            userFilter = "WDM";
                              }else{
                                  if (userProfileEmail === "info-waukee@mydojos.com"){
-                                    signedInUser = "Waukee";
+                                    userFilter = "Waukee";
                                  }
                              }
                      }
