@@ -227,12 +227,14 @@ function revokeAccess() {
 
 function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
+    console.log(user);
     var isSignedIn = GoogleAuth.isSignedIn.get();
     console.log(isSignedIn);
     if (isSignedIn) {
         
         userProfile = user.getBasicProfile();
         userProfileEmail = userProfile.getEmail();
+        console.log(userProfileEmail);
         if (gapi.auth2.getAuthInstance().isSignedIn.get()){
         if (userProfileEmail === "info@mydojos.com"){
             userFilter = "";
@@ -254,6 +256,7 @@ function setSigninStatus() {
                  }
             }
         }
+        console.log(userFilter);
     }
   
     //console.log(userFilter);
@@ -274,8 +277,9 @@ function setSigninStatus() {
           'signed out.');
         if ($.fn.DataTable.isDataTable( '#newLeads' ) ) {
         //console.log("Signing out...");
-        $('#newLeads').DataTable().destroy();
-        $('#newLeads').empty();
+        $('#newLeads').DataTable().clear().destroy();
+        location.reload();
+        //$('#newLeads').empty();
         }
     }
 }
