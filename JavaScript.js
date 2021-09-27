@@ -255,8 +255,8 @@ function setSigninStatus() {
       //console.log ("I am signed in as: "+ user.getBasicProfile().getName());
       $('#sign-in-or-out-button').html('Sign out');
       $('#sign-in-or-out-button').removeClass('btn btn-warning').addClass('btn btn-outline-light me-2');
-      $('#auth-status').html('You are currently signed in and have granted ' +
-          'access to this app.');
+      //$('#auth-status').html('You are currently signed in and have granted ' +
+          //'access to this app.');
           newLeadsInit();
     ////////////////////Put dataTables init function here.
         //console.log("Login initialization complete...");
@@ -1343,12 +1343,12 @@ function newLeadsInit(){
                     render: function ( data, type, full, meta ) {
                         return moment(data).format('MM-DD-YYYY');
                     },
-                    width: "auto"
+                    width: "auto",
                 },
                 {
                     title: "Location",
                     data: 3,
-                    width: "auto"
+                    width: "auto",
 
                 },
                 {
@@ -1357,7 +1357,7 @@ function newLeadsInit(){
                     render: function (data,type,row){
                     return row[5]+" "+row[6]
                     },
-                    width: "auto"
+                    width: "auto",
 
                 },
                 {
@@ -1366,13 +1366,13 @@ function newLeadsInit(){
                   render: function (data,type,row){
                   return row[10]+" "+row[11]
                   },
-                  width: "auto"
+                  width: "auto",
 
                 },
                 {
                     title: "Phone",
                     data: 7,
-                    width: "auto"
+                    width: "auto",
 
                 },
                 /*{
@@ -1385,29 +1385,30 @@ function newLeadsInit(){
                     "render": function ( data, type, full, meta ) {
                     return moment(data).format('MM-DD-YYYY');
                     },
-                    width: "auto"
+                    width: "auto",
 
                 },
                 {
                     title: "Source",
                     data: 24,
-                    width: "auto"
+                    width: "auto",
 
                 },
                 {
                     title: "Prospect Phase",
                     data: 23,
-                    width: "auto"
+                    width: "auto",
 
                 },
                 {   data: null,
                     title: "", 
                     defaultContent : '<i class="fa fa-backspace"></i>',
                     className: "delete-button",
-                    width: "auto"
+                    width: "auto",
 
                 }, 
             ],
+
             
             "buttons":
             {
@@ -1642,7 +1643,8 @@ function newLeadsInit(){
                       "className": "btn btn-primary searchBuilderButton",     
                     },
                     {
-                      "text": "Find Duplicates",
+                      //"text": "Find Duplicates",
+                      "className": "btn btn-primary findDuplicatesButton",
                       "action": function (e, dt, node, config){
                         var records = [];
                         table.column(5).data().each(function(value,index){
@@ -1667,6 +1669,10 @@ function newLeadsInit(){
                       table.column(3).order('asc').draw();
                       }
                     },
+                    {
+                      //"text": "Restore Defaults",
+                      "className": "btn btn-primary restoreDefaults",
+                    },
                 ],       
             },
             "initComplete": function(){
@@ -1678,6 +1684,8 @@ function newLeadsInit(){
                 });   
                 $('button.searchPaneButton').html('<i class="fas fa-filter"></i>'); 
                 $('button.searchBuilderButton').html('<i class="fa fa-bullseye" aria-hidden="true"></i>'); 
+                $('button.findDuplicatesButton').html('<i class="far fa-clone"></i>');
+                $('button.restoreDefaults').html('<i class="fas fa-undo-alt"></i>');
                 $('button.dt-button').removeClass('dt-button');
                 $('table th').addClass('sticky')
             },
@@ -1741,6 +1749,16 @@ function newLeadsInit(){
             deleteRow(row.data());
         }
       });
+
+      $('.restoreDefaults').on('click', function(){
+        console.log("Test Button Clicked!");
+        $('#newLeads').DataTable().clear().destroy();
+        //ajaxReload();
+        //$('#newLeads').empty();
+        //newLeadsInit();
+        location.reload();
+        
+      });
       
       $('#newLeads').on('draw.dt', function (){  
         //console.log("Child rows at draw: "+childRows);
@@ -1760,7 +1778,7 @@ function newLeadsInit(){
             //console.log("Nothing to see here...")
           }
         //console.log("Table drawn");              
-      }).dataTable();
+      })//.dataTable();
       table.order([[1,'desc'],[3,'asc']]).draw();
       table.searchPanes.container().addClass('overflow-auto');
       table.columns(2).search(userFilter).draw();
