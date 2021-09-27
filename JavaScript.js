@@ -234,7 +234,7 @@ function setSigninStatus() {
         
         userProfile = user.getBasicProfile();
         userProfileEmail = userProfile.getEmail();
-        console.log(userProfileEmail);
+        //console.log(userProfileEmail);
         if (gapi.auth2.getAuthInstance().isSignedIn.get()){
         if (userProfileEmail === "info@mydojos.com"){
             userFilter = "";
@@ -499,7 +499,7 @@ function sendWelcomeForm(d){
         // started executing.
       var result = resp.result;
       if (result.error && result.error.status) {
-          alert.log("Error calling API!");
+          //alert.log("Error calling API!");
           $('#welcomeForm').prop("disabled",false);
           $('#welcomeForm').html("Send Welcome Form");
       } else if (result.error) {
@@ -508,7 +508,7 @@ function sendWelcomeForm(d){
         // The values of this object are the script's 'errorMessage' and
         // 'errorType', and an array of stack trace elements.
         var error = result.error.details[0];
-        alert.log('Script error message: ' + error.errorMessage);
+        //alert.log('Script error message: ' + error.errorMessage);
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
 
@@ -516,7 +516,7 @@ function sendWelcomeForm(d){
         if (error.scriptStackTraceElements) {
           // There may not be a stacktrace if the script didn't start
           // executing.            
-            alert.log("Stack Trace Elements present!");
+            //alert.log("Stack Trace Elements present!");
             $('#welcomeForm').prop("disabled",false);
             $('#welcomeForm').html("Send Welcome Form");
 
@@ -853,7 +853,7 @@ function dropdownStack(){
       dojoLocationDropdown(dojoLocations);
   }
   if ($('#student_status option').length < 2){
-    console.log("Student Status length: "+$('#student_status option').length)
+    //console.log("Student Status length: "+$('#student_status option').length)
       studentStatusDropdown(studentStatuses);
   }
   if ($('#age_class option').length < 2){
