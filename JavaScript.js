@@ -499,7 +499,7 @@ function sendWelcomeForm(d){
         // started executing.
       var result = resp.result;
       if (result.error && result.error.status) {
-          //alert.log("Error calling API!");
+          console.log("Error calling API!");
           $('#welcomeForm').prop("disabled",false);
           $('#welcomeForm').html("Send Welcome Form");
       } else if (result.error) {
@@ -508,7 +508,7 @@ function sendWelcomeForm(d){
         // The values of this object are the script's 'errorMessage' and
         // 'errorType', and an array of stack trace elements.
         var error = result.error.details[0];
-        //alert.log('Script error message: ' + error.errorMessage);
+        console.log('Script error message: ' + error.errorMessage);
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
 
@@ -516,7 +516,7 @@ function sendWelcomeForm(d){
         if (error.scriptStackTraceElements) {
           // There may not be a stacktrace if the script didn't start
           // executing.            
-            //alert.log("Stack Trace Elements present!");
+            console.log("Stack Trace Elements present!");
             $('#welcomeForm').prop("disabled",false);
             $('#welcomeForm').html("Send Welcome Form");
 
@@ -526,7 +526,7 @@ function sendWelcomeForm(d){
       } else {
         // The structure of the result will depend upon what the Apps
         // Script function returns.
-        //console.log(resp.result);
+        console.log(resp.result);
         alert("Welcome form sent!");
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
