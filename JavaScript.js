@@ -2,7 +2,7 @@
 
 
 let GoogleAuth;
-const SCOPE = 'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
+const SCOPE = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
 const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
