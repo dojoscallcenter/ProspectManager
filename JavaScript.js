@@ -226,6 +226,7 @@ function revokeAccess() {
 function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
     var isSignedIn = GoogleAuth.isSignedIn.get();
+    console.log(isSignedIn);
     if (isSignedIn) {
         
         userProfile = user.getBasicProfile();
