@@ -526,7 +526,7 @@ function sendWelcomeForm(d){
       } else {
         // The structure of the result will depend upon what the Apps
         // Script function returns.
-        console.log(resp.result);
+        //console.log(resp.result);
         alert("Welcome form sent!");
         $('#welcomeForm').prop("disabled",false);
         $('#welcomeForm').html("Send Welcome Form");
