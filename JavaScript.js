@@ -225,28 +225,31 @@ function revokeAccess() {
 
 function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
-    userProfile = user.getBasicProfile();
-    userProfileEmail = userProfile.getEmail();
-    if (gapi.auth2.getAuthInstance().isSignedIn.get()){
-      if (userProfileEmail === "info@mydojos.com"){
-        userFilter = "";
-      }else{
-        if (userProfileEmail === "info-ankeny@mydojos.com"){
-          signedInUser = "Ankeny";
+    if (user) {
+        
+        userProfile = user.getBasicProfile();
+        userProfileEmail = userProfile.getEmail();
+        if (gapi.auth2.getAuthInstance().isSignedIn.get()){
+        if (userProfileEmail === "info@mydojos.com"){
+            userFilter = "";
         }else{
-          if (userProfileEmail === "info-johnston@mydojos.com"){
-            signedInUser = "Johnston";
-          }else{
-            if (userProfileEmail === "info-wdm@mydojos.com"){
-              signedInUser = "WDM";
+            if (userProfileEmail === "info-ankeny@mydojos.com"){
+                signedInUser = "Ankeny";
             }else{
-              if (userProfileEmail === "info-waukee@mydojos.com"){
-                signedInUser = "Waukee";
-              }
+                if (userProfileEmail === "info-johnston@mydojos.com"){
+                    signedInUser = "Johnston";
+                     }else{
+                        if (userProfileEmail === "info-wdm@mydojos.com"){
+                            signedInUser = "WDM";
+                             }else{
+                                 if (userProfileEmail === "info-waukee@mydojos.com"){
+                                    signedInUser = "Waukee";
+                                 }
+                             }
+                     }
+                 }
             }
-          }
         }
-      }
     }
   
     //console.log(userFilter);
