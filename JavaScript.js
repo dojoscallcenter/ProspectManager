@@ -802,7 +802,7 @@ function addNewRecord(formObject){
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
-        //.then(res => res.json())
+        .then(res => res.json())
         .then(function(){
             //console.log("Cleaning up modals...")
             ajaxReload();
