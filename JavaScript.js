@@ -7,7 +7,7 @@ const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepec
 const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
 var userFilter;
-//const isMobile = navigator.userAgentData.mobile; //resolves true/false
+const isMobile = navigator.userAgentData.mobile; //resolves true/false
 //console.log(isMobile);
 
     //All dropdown variables
@@ -645,6 +645,11 @@ function deleteRow(rowData) {
 
 
 function updateRow(formData, searchValue) {
+  var options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  };
     //console.log("Reading all data for update...");
     $('#formSubmitButton').prop("disabled",true);
     $('#formSubmitButton').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Saving...</span>');
@@ -661,13 +666,13 @@ function updateRow(formData, searchValue) {
             //console.log(valueArray.length);
             if(formData.intro1_time.value == ""){
                 intro1TimeValue = "";
-            }else {
-                intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString();
+            }else{
+                intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString('en-US', options);
               }
             if(formData.intro2_time.value == ""){
                 intro2TimeValue = "";
             }else {
-                intro2TimeValue = new Date("2021-01-01 "+ formData.intro2_time.value).toLocaleTimeString();
+                intro2TimeValue = new Date("2021-01-01 "+ formData.intro2_time.value).toLocaleTimeString('en-US', options);
             }
 
             valueArray.find(function (){
