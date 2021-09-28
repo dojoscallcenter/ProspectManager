@@ -8,7 +8,7 @@ const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j
 var childRows = $('#newLeads tr.shown');
 var userFilter;
 const isMobile = navigator.userAgentData.mobile; //resolves true/false
-//console.log(isMobile);
+console.log(isMobile);
 
     //All dropdown variables
     var dojoLocations = [
@@ -662,7 +662,6 @@ function updateRow(formData, searchValue) {
                 intro1TimeValue = "";
             }else {
                 intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString();
-                //console.log(intro1TimeValue);
               }
             if(formData.intro2_time.value == ""){
                 intro2TimeValue = "";
