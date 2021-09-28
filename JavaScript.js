@@ -800,7 +800,7 @@ function addNewRecord(formObject){
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
-        .then($('#unCloseable').modal('show'))
+        //.then($('#unCloseable').modal('show'))
         .then(res => res.json())
         .then(function(){
             //console.log("Cleaning up modals...")
