@@ -792,7 +792,7 @@ function addNewRecord(formObject){
         zip: ""
     }
 
-    $('#unCloseable').modal('show'));
+    $('#unCloseable').modal('show');
     fetch(appURL,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
