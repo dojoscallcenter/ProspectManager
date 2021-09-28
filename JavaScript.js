@@ -7,6 +7,7 @@ const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepec
 const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
 var userFilter;
+const isMobile = navigator.userAgentData.mobile; //resolves true/false
 
     //All dropdown variables
     var dojoLocations = [
@@ -657,12 +658,14 @@ function updateRow(formData, searchValue) {
             //console.log(valueArray);
             //console.log(valueArray.length);
             if(formData.intro1_time.value == ""){
-                intro1TimeValue = ""
+                intro1TimeValue = "";
             }else {
+              if (!isMobile){
                 intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString();
-            }
+                }else{intro1TimeValue = "3:00"}
+              }
             if(formData.intro2_time.value == ""){
-                intro2TimeValue = ""
+                intro2TimeValue = "";
             }else {
                 intro2TimeValue = new Date("2021-01-01 "+ formData.intro2_time.value).toLocaleTimeString();
             }
