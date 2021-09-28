@@ -792,6 +792,7 @@ function addNewRecord(formObject){
         zip: ""
     }
 
+    $('#unCloseable').modal('show'));
     fetch(appURL,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -800,7 +801,6 @@ function addNewRecord(formObject){
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
-        //.then($('#unCloseable').modal('show'))
         .then(res => res.json())
         .then(function(){
             //console.log("Cleaning up modals...")
