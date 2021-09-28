@@ -7,8 +7,8 @@ const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepec
 const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 var childRows = $('#newLeads tr.shown');
 var userFilter;
-const isMobile = navigator.userAgentData.mobile; //resolves true/false
-console.log(isMobile);
+//const isMobile = navigator.userAgentData.mobile; //resolves true/false
+//console.log(isMobile);
 
     //All dropdown variables
     var dojoLocations = [
