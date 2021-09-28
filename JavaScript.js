@@ -273,6 +273,7 @@ function setSigninStatus() {
     ////////////////////Put dataTables init function here.
         //console.log("Login initialization complete...");
     } else {
+      GoogleAuth.disconnect();
       $('#sign-in-or-out-button').html('Sign In');
       $('#sign-in-or-out-button').removeClass('btn btn-outline-light me-2').addClass('btn btn-warning');
       $('#auth-status').html('You have not authorized this app or you are ' +
