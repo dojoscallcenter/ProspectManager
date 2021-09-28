@@ -662,7 +662,7 @@ function updateRow(formData, searchValue) {
                 intro1TimeValue = "";
             }else {
                 intro1TimeValue = new Date("2021-01-01 "+ formData.intro1_time.value).toLocaleTimeString();
-                console.log(intro1TimeValue);
+                //console.log(intro1TimeValue);
               }
             if(formData.intro2_time.value == ""){
                 intro2TimeValue = "";
