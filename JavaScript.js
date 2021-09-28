@@ -797,12 +797,13 @@ function addNewRecord(formObject){
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
         mode: 'no-cors', 
-        credentials: 'include',
+        //credentials: 'include',
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
         //.then(res => res.json())
         .then(function(){
+            console.log(res);
             //console.log("Cleaning up modals...")
             ajaxReload();
         });
