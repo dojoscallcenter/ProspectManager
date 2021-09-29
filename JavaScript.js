@@ -1495,7 +1495,11 @@ function newLeadsInit(){
             "buttons":
             {
                 "buttons":[
-                    { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-secondary btn-block' },
+                    { "extend": "csv", 
+                      "text":'<i class="far fa-file-excel"></i>', 
+                      "title": "Data Export",
+                      "className": 'btn btn-secondary btn-block' 
+                    },
                     { "extend": 'pdf', "text":'<i class="far fa-file-pdf"></i>', "className": 'btn btn-secondary btn-block' },
                     {
                     "text": '<i class="fas fa-sync"></i>',
