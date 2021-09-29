@@ -4,8 +4,9 @@
 let GoogleAuth;
 const SCOPE = 'https://www.googleapis.com/auth/script.send_mail https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
-//ORIGINAL const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
-const appURL = "https://script.google.com/a/macros/mydojos.com/s/AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4/exec";
+//ORIGINAL 
+const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
+//const appURL = "https://script.google.com/a/macros/mydojos.com/s/AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4/exec";
 var childRows = $('#newLeads tr.shown');
 var userFilter;
 //const isMobile = navigator.userAgentData.mobile; //resolves true/false
@@ -754,18 +755,18 @@ function updateRow(formData, searchValue) {
 function addNewRecord(formObject){
     var formInfo = {
         add_constantcontact: "",
-        age_class: formObject.new_age_class.value,
+        age_class: testUndefined(formObject.new_age_class.value),
         city: "",
-        communication_notes: formObject.communication_notes.value,
+        communication_notes: testUndefined(formObject.communication_notes.value),
         date_ofbirth:"",
-        dojo_location: formObject.new_dojo_location.value,
-        dojo_notes: formObject.dojo_notes.value,
-        email: formObject.email.value,
-        gender: formObject.gender.value,
-        inquire_date: formObject.inquire_date.value,
+        dojo_location: testUndefined(formObject.new_dojo_location.value),
+        dojo_notes: testUndefined(formObject.dojo_notes.value),
+        email: testUndefined(formObject.email.value),
+        gender: testUndefined(formObject.gender.value),
+        inquire_date: testUndefined(formObject.inquire_date.value),
         interest: "",
         intro1_attended: "",
-        intro1_date: formObject.intro1_date.value,
+        intro1_date: testUndefined(formObject.intro1_date.value),
         intro1_endtime: "",
         intro1_starttime: "",
         intro1_time: testUndefined((new Date("2021-01-01 "+formObject.new_intro1_time.value)).toLocaleTimeString()),//.toLocaleTimeString(),
@@ -774,35 +775,40 @@ function addNewRecord(formObject){
         intro2_endtime:"",
         intro2_starttime:"",
         intro2_time:"",
-        intro_notes: formObject.new_intro_notes.value,
-        intro_offer: formObject.new_intro_offer.value,
-        lastcontact_date: formObject.lastcontact_date.value,
-        lead_date: formObject.lead_date.value,
-        lead_firstname: formObject.lead_firstname.value,
-        lead_lastname: formObject.lead_lastname.value,
-        leadsource: formObject.new_lead_source.value,
-        leadsource_subcategory: formObject.new_leadsource_subcategory.value,
-        participant_firstname: formObject.participant_firstname.value,
-        participant_lastname: formObject.participant_lastname.value,
-        phone: formObject.phone.value,
-        prospect_phase: formObject.new_prospect_phase.value,
+        intro_notes: testUndefined(formObject.new_intro_notes.value),
+        intro_offer: testUndefined(formObject.new_intro_offer.value),
+        lastcontact_date: testUndefined(formObject.lastcontact_date.value),
+        lead_date: testUndefined(formObject.lead_date.value),
+        lead_firstname: testUndefined(formObject.lead_firstname.value),
+        lead_lastname: testUndefined(formObject.lead_lastname.value),
+        leadsource: testUndefined(formObject.new_lead_source.value),
+        leadsource_subcategory: testUndefined(formObject.new_leadsource_subcategory.value),
+        participant_firstname: testUndefined(formObject.participant_firstname.value),
+        participant_lastname: testUndefined(formObject.participant_lastname.value),
+        phone: testUndefined(formObject.phone.value),
+        prospect_phase: testUndefined(formObject.new_prospect_phase.value),
         send_introsheet: "",
         state: "",
         street_address: "",
-        student_status: formObject.new_student_status.value,
+        student_status: testUndefined(formObject.new_student_status.value),
         zip: ""
     }
-
-    $('#unCloseable').modal('show');
+    console.log(JSON.stringify(formInfo));
+    
     fetch(appURL,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        mode: 'no-cors', 
-        credentials: 'omit',
+        //mode: 'no-cors', 
+        //credentials: 'omit',
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
-        .then(res => res.json())
+        .then($('#unCloseable').modal('show'))
+        .then(res => {
+          console.log(res);
+          //console.log(res.headers.get('Access-Control-Allow-Origin'));
+          console.log(res.json());
+        })
         .then(function(){
             //console.log("Cleaning up modals...")
             ajaxReload();
@@ -1363,7 +1369,11 @@ function newLeadsInit(){
                     title: "Inquire Date",
                     data: 2,
                     render: function ( data, type, full, meta ) {
+                      if(data != ""){
                         return moment(data).format('MM-DD-YYYY');
+                      }else{
+                        return moment("1111-11-11").format('MM-DD-YYYY');
+                      }
                     },
                     width: "auto",
                 },
@@ -1377,7 +1387,21 @@ function newLeadsInit(){
                     title: "Lead Name",
                     data: null,
                     render: function (data,type,row){
-                    return row[5]+" "+row[6]
+                    let firstName;
+                    let lastName;
+                    if(row[5] != null){
+                      firstName = row[5];
+                      }else{
+                        firstName = "";
+                      }
+                      if(row[6] != null){
+                        lastName = row[6];
+                        }else{
+                          lastName = "";
+                        }
+
+
+                      return firstName + " " + lastName;
                     },
                     width: "auto",
 
@@ -1386,14 +1410,36 @@ function newLeadsInit(){
                   title: "Participant Name",
                   data: null,
                   render: function (data,type,row){
-                  return row[10]+" "+row[11]
-                  },
+                    let firstName;
+                    let lastName;
+                    if(row[10] != null){
+                      firstName = row[10];
+                      }else{
+                        firstName = "";
+                      }
+                      if(row[11] != null){
+                        lastName = row[11];
+                        }else{
+                          lastName = "";
+                        }
+
+
+                      return firstName + " " + lastName;
+                    },
                   width: "auto",
 
                 },
                 {
                     title: "Phone",
                     data: 7,
+                    render: function ( data, type, full, meta ) {
+                      if(data === "" || data === "undefined" || data == null){
+                        return "1111111111";
+                      }else{
+                        return data;
+                      }
+                    },
+
                     width: "auto",
 
                 },
@@ -1413,12 +1459,26 @@ function newLeadsInit(){
                 {
                     title: "Source",
                     data: 24,
+                    render: function ( data, type, full, meta ) {
+                      if(data === "" || data === "undefined" || data == null){
+                        return "";
+                      }else{
+                        return data;
+                      }
+                    },
                     width: "auto",
 
                 },
                 {
                     title: "Prospect Phase",
                     data: 23,
+                    render: function ( data, type, full, meta ) {
+                      if(data === "" || data === "undefined" || data == null){
+                        return "";
+                      }else{
+                        return data;
+                      }
+                    },
                     width: "auto",
 
                 },
