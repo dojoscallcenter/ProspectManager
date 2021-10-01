@@ -1305,7 +1305,7 @@ function format(d){
                           '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+(testUndefined(d[18]))+'">'+
                         '<label for="intro2_time" class="" >'+"Intro 2 Time"+'</label>'+
                           '<select class="form-control" id="intro2_time" name="intro2_time">'+
-                              '<option>'+(testUndefined(d[20]))+'</option>'+
+                              '<option>'+(testUndefined(d[19]))+'</option>'+
                           '</select>'+
                         '<label for="intro2_attended" class="">'+"Intro 2 Attended"+'</label>'+
                           '<select class="form-control" id="intro2_attended" name="intro2_attended">'+
