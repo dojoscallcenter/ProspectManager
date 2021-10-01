@@ -5,7 +5,8 @@ let GoogleAuth;
 const SCOPE = 'https://www.googleapis.com/auth/script.send_mail https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
 //ORIGINAL 
-const appURL = "https://script.google.com/a/mydojos.com/macros/s/AKfycbxADIOuKIoqRt5FOMLYypHI7ofFhyiUjDYy17z4/exec";
+const appURL = "https://script.google.com/macros/s/AKfycbwCztJL5oXGa67KzeSyHgtzw_3x3ZT3clS-cOZouufOHkUvVWc/exec"
+//const appURL = "https://script.google.com/a/mydojos.com/macros/s/AKfycbxADIOuKIoqRt5FOMLYypHI7ofFhyiUjDYy17z4/exec";
 //const appURL = "https://script.google.com/macros/s/AKfycbyCDw5q27hAzTXTFcPkQYwRPFIRCU0D8fYftC-pnZsgd-6dD6kCgUecgrOYbU7Pks8/exec" NEWEST
 //const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec"; LAST WORKING
 //const appURL = "https://script.google.com/a/macros/mydojos.com/s/AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4/exec";
@@ -448,8 +449,9 @@ function sendWelcomeForm(d){
     $('#welcomeForm').prop("disabled",true);
     $('#welcomeForm').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Sending...</span>');
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
+    var scriptId = "AKfycbwCztJL5oXGa67KzeSyHgtzw_3x3ZT3clS-cOZouufOHkUvVWc"
     //var scriptId = "AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4"; OLD
-    var scriptId = "AKfycbyCDw5q27hAzTXTFcPkQYwRPFIRCU0D8fYftC-pnZsgd-6dD6kCgUecgrOYbU7Pks8";
+    //var scriptId = "AKfycbyCDw5q27hAzTXTFcPkQYwRPFIRCU0D8fYftC-pnZsgd-6dD6kCgUecgrOYbU7Pks8"; LAST WORKING
     var formInfo = {
         add_constantcontact: "",
         age_class: d[12],
