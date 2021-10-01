@@ -1815,7 +1815,7 @@ function newLeadsInit(){
         var row = table.row(tr);
         //console.log(row.data());
         var data = row.data();
-        checkCalendarEvent(data);
+        checkCalendarEvents(data);
       });
 
       $('#newLeads tbody').on('click', 'button.welcomeForm',function(){
