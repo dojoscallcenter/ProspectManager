@@ -800,8 +800,8 @@ function addNewRecord(formObject){
     fetch(appURL,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        //mode: 'cors', 
-        //credentials: 'include',
+        mode: 'no-cors', 
+        credentials: 'include',
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
