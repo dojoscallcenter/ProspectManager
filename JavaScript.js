@@ -1580,13 +1580,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Johnston" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Johnston" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1610,7 +1610,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Johnston" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
@@ -1627,13 +1627,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "WDM" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "WDM" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "WDM" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "WDM" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1657,7 +1657,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "WDM" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "WDM" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
@@ -1675,13 +1675,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Waukee" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Waukee" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1705,7 +1705,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Waukee" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
