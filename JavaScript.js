@@ -1720,7 +1720,8 @@ function newLeadsInit(){
                             ],
 
                             action: function(dt){
-                            table.searchPanes.container().toggle();
+                            //table.searchPanes.container().toggle();
+                            table.searchPanes.container().show();
                             }
                         }
                     },
