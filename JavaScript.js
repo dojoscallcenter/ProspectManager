@@ -1765,7 +1765,7 @@ function newLeadsInit(){
             "initComplete": function(){
                 newEntryDropdownStack();
                 maskUp(); 
-                $("div.dt-buttons").detach().appendTo('#headerList');  
+                //$("div.dt-buttons").detach().appendTo('#headerList');  
                 $('#darkSearchBox').keyup(function(){
                     table.search($(this).val()).draw();
                 });   
@@ -1867,9 +1867,9 @@ function newLeadsInit(){
         //console.log("Table drawn");              
       })//.dataTable();
       table.order([[1,'desc'],[3,'asc']]).draw();
-      table.searchPanes.container().addClass('overflow-auto');
+      //table.searchPanes.container().addClass('overflow-auto');
       table.columns(2).search(userFilter).draw();
-      table.searchBuilder.container().addClass('w-100');
+      //table.searchBuilder.container().addClass('w-100');
       //table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
