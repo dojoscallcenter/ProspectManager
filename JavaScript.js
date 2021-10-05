@@ -1722,7 +1722,7 @@ function newLeadsInit(){
                             action: function(dt){
                             //table.searchPanes.container().toggle();
                                 //You need to detach the container and prepend it to something in the table, I bet.
-                            table.searchPanes.container().show();
+                            table.searchPanes.container().detach().appendTo("#searchPanesPlaceholder").show();
                             }
                         }
                     },
