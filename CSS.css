@@ -47,6 +47,10 @@ div.dtsb-searchBuilder{
   text-align: right;
 }
 
+div.dt-button-collection{
+    overflow: auto !important;
+}
+
 .dtsb-titleRow{
   display: none;
 }
