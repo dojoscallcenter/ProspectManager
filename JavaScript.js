@@ -1765,7 +1765,7 @@ function newLeadsInit(){
             "initComplete": function(){
                 newEntryDropdownStack();
                 maskUp(); 
-                //$("div.dt-buttons").detach().appendTo('#headerList');  
+                $("div.dt-buttons").detach().appendTo('#buttonList');  
                 $('#darkSearchBox').keyup(function(){
                     table.search($(this).val()).draw();
                 });   
