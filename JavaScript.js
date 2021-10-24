@@ -1305,7 +1305,7 @@ function format(d){
                           '<input class="form-control" type="date" id="intro2_date" name="intro2_date" value="'+(testUndefined(d[18]))+'">'+
                         '<label for="intro2_time" class="" >'+"Intro 2 Time"+'</label>'+
                           '<select class="form-control" id="intro2_time" name="intro2_time">'+
-                              '<option>'+(testUndefined(d[19]))+'</option>'+
+                              '<option>'+(testUndefined(d[20]))+'</option>'+
                           '</select>'+
                         '<label for="intro2_attended" class="">'+"Intro 2 Attended"+'</label>'+
                           '<select class="form-control" id="intro2_attended" name="intro2_attended">'+
@@ -1369,7 +1369,9 @@ function newLeadsInit(){
                     title: "Inquire Date",
                     data: 2,
                     render: function ( data, type, full, meta ) {
+
                       if(data != ""){
+                        //return new Date(data).toLocaleDateString("en-US");
                         return moment(data).format('MM-DD-YYYY');
                       }else{
                         return moment("1111-11-11").format('MM-DD-YYYY');
@@ -1489,7 +1491,8 @@ function newLeadsInit(){
                     width: "auto",
 
                 }, 
-            ],
+            ],  
+            
 
             
             "buttons":
@@ -1580,13 +1583,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Johnston" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Johnston" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1610,7 +1613,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Johnston" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Johnston" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "Johnston" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
@@ -1627,13 +1630,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "WDM" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "WDM" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "WDM" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "WDM" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1657,7 +1660,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "WDM" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "WDM" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "WDM" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
@@ -1675,13 +1678,13 @@ function newLeadsInit(){
                                   {
                                     label: "New Leads",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Waukee" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "01-New Lead/Not Yet Contacted") || (rowData[3] === "Ankeny" && rowData[23] === "00-Pre-Paid/Not Yet Contacted");
                                     }
                                   },
                                   {
                                     label: "Phone Tag",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Waukee" && rowData[23] === "22-Intro 2 Phone Tag");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "12-Intro 1 Phone Tag") || (rowData[3] === "Ankeny" && rowData[23] === "22-Intro 2 Phone Tag");
                                     }
                                   },
                                   {
@@ -1705,7 +1708,7 @@ function newLeadsInit(){
                                   {
                                     label: "No Shows",
                                     value: function(rowData, rowIdx){
-                                      return (rowData[3] === "Waukee" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Waukee" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
+                                      return (rowData[3] === "Waukee" && rowData[23] === "11-Intro 1 No Show-Needs Contacts") || (rowData[3] === "Ankeny" && rowData[23] === "21-Intro 2 No Show-Needs Contacts");
                                     }
                                   },
                                   {
@@ -1720,9 +1723,7 @@ function newLeadsInit(){
                             ],
 
                             action: function(dt){
-                            //table.searchPanes.container().toggle();
-                                //You need to detach the container and prepend it to something in the table, I bet.
-                            table.searchPanes.container().detach().appendTo("#searchPanesPlaceholder").show();
+                            table.searchPanes.container().toggle();
                             }
                         }
                     },
@@ -1766,7 +1767,7 @@ function newLeadsInit(){
             "initComplete": function(){
                 newEntryDropdownStack();
                 maskUp(); 
-                $("div.dt-buttons").detach().appendTo('#buttonList');  
+                $("div.dt-buttons").detach().appendTo('#headerList');  
                 $('#darkSearchBox').keyup(function(){
                     table.search($(this).val()).draw();
                 });   
@@ -1817,7 +1818,7 @@ function newLeadsInit(){
         var row = table.row(tr);
         //console.log(row.data());
         var data = row.data();
-        checkCalendarEvents(data);
+        checkCalendarEvent(data);
       });
 
       $('#newLeads tbody').on('click', 'button.welcomeForm',function(){
@@ -1868,9 +1869,9 @@ function newLeadsInit(){
         //console.log("Table drawn");              
       })//.dataTable();
       table.order([[1,'desc'],[3,'asc']]).draw();
-      //table.searchPanes.container().addClass('overflow-auto');
+      table.searchPanes.container().addClass('overflow-auto');
       table.columns(2).search(userFilter).draw();
-      //table.searchBuilder.container().addClass('w-100');
+      table.searchBuilder.container().addClass('w-100');
       //table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
