@@ -798,8 +798,8 @@ function addNewRecord(formObject){
     fetch(appURL,{
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-        //mode: 'cors', 
-        //credentials: 'include',
+        //mode: 'no-cors', 
+        //credentials: 'omit',
         redirect: 'follow', // manual, *follow, error
         body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
       })
@@ -1369,9 +1369,7 @@ function newLeadsInit(){
                     title: "Inquire Date",
                     data: 2,
                     render: function ( data, type, full, meta ) {
-
                       if(data != ""){
-                        //return new Date(data).toLocaleDateString("en-US");
                         return moment(data).format('MM-DD-YYYY');
                       }else{
                         return moment("1111-11-11").format('MM-DD-YYYY');
@@ -1491,18 +1489,13 @@ function newLeadsInit(){
                     width: "auto",
 
                 }, 
-            ],  
-            
+            ],
 
             
             "buttons":
             {
                 "buttons":[
-                    { "extend": "csv", 
-                      "text":'<i class="far fa-file-excel"></i>', 
-                      "title": "Data Export",
-                      "className": 'btn btn-secondary btn-block' 
-                    },
+                    { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-secondary btn-block' },
                     { "extend": 'pdf', "text":'<i class="far fa-file-pdf"></i>', "className": 'btn btn-secondary btn-block' },
                     {
                     "text": '<i class="fas fa-sync"></i>',
