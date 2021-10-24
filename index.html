@@ -26,13 +26,16 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchbuilder/1.1.0/js/dataTables.searchBuilder.min.js"></script>
         -->
 
+        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.11.3/sorting/datetime-moment.js"></script>
+
+
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchbuilder/1.2.2/js/dataTables.searchBuilder.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/searchbuilder/1.2.2/js/searchBuilder.bootstrap5.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchbuilder/1.2.2/css/searchBuilder.bootstrap5.min.css"> 
 
 
-        <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-        
+
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"> 
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
@@ -63,24 +66,20 @@
         
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 align-items-center justify-content-center mb-md-0" id="headerList">
                   <li><a class="navbar-brand" href="#">Prospect Manager</a></li>
-                    <div id="buttonList">
-                    </div>
                 </ul>
-
-                    <div>
-                        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" id="darkSearchBoxContainer">
-                        <input type="search" class="form-control form-control-dark" id="darkSearchBox" placeholder="Search..." aria-label="Search">
-                        </form>
-                    </div>
-        
-                    <div class="text-end">
-                     <button id="sign-in-or-out-button" class="btn btn-outline-light me-2" style="margin: 5px;">Sign In</button>
-                    </div>
-                 </div>
+                <div>
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" id="darkSearchBoxContainer">
+                      <input type="search" class="form-control form-control-dark" id="darkSearchBox" placeholder="Search..." aria-label="Search">
+                    </form>
                 </div>
-            </header>
+        
+                <div class="text-end">
+                  <button id="sign-in-or-out-button" class="btn btn-outline-light me-2" style="margin: 5px;">Sign In</button>
+                </div>
+              </div>
+            </div>
+          </header>
         </nav>
-        <div id="searchPanesPlaceholder"></div>
         <table id="newLeads" class="display" style="width:100%"></table>
 
         <!-- MODALS -->
