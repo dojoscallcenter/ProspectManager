@@ -1378,7 +1378,7 @@ function newLeadsInit(){
                       }
                     },
                     width: "auto",
-                    //searchBuilderType: "date"
+                    searchBuilderType: "date"
                 },
                 {
                     title: "Location",
