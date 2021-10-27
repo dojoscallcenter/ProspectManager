@@ -18,7 +18,8 @@ var userFilter;
         "Ankeny",
         "Johnston",
         "Waukee",
-        "WDM"
+        "WDM",
+        "Location"
       ];
     //this is important for the "add to calendar" functionality
     var dojoAddresses = [
@@ -240,7 +241,7 @@ function setSigninStatus() {
         userProfileEmail = userProfile.getEmail();
         //console.log(userProfileEmail);
         if (gapi.auth2.getAuthInstance().isSignedIn.get()){
-        if (userProfileEmail === "info@mydojos.com"){
+        if (userProfileEmail === "info@mydojos.com" || userProfileEmail === "info-location@mydojos.com"){
             userFilter = "";
         }else{
             if (userProfileEmail === "info-ankeny@mydojos.com"){
