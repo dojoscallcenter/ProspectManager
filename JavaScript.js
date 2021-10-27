@@ -677,8 +677,6 @@ function updateRow(formData, searchValue) {
             }else {
                 intro2TimeValue = new Date("2021-01-01 "+ formData.intro2_time.value).toLocaleTimeString('en-US', options);
             }
-            console.log(intro1TimeValue)
-            console.log(intro2TimeValue)
 
             valueArray.find(function (){
                 for (let index = 0; index < valueArray.length; index++) {
@@ -1372,13 +1370,15 @@ function newLeadsInit(){
                     title: "Inquire Date",
                     data: 2,
                     render: function ( data, type, full, meta ) {
-                      if(data != ""){
-                        return moment(data).format('MM-DD-YYYY');
+                      dateEntry = testUndefined(data);
+                      if(dateEntry != ""){
+                        return moment(dateEntry).format('MM-DD-YYYY');
                       }else{
                         return moment("1111-11-11").format('MM-DD-YYYY');
                       }
                     },
                     width: "auto",
+                    searchBuilderType: "date"
                 },
                 {
                     title: "Location",
@@ -1725,7 +1725,12 @@ function newLeadsInit(){
                     },
                     {
                       "extend": "searchBuilder",
-                      "className": "btn btn-primary searchBuilderButton",     
+                      "className": "btn btn-primary searchBuilderButton",  
+                      /*"config": {
+                        action: function(dt){
+                        table.searchBuilder.container().toggle();
+                        }  
+                      } */
                     },
                     {
                       //"text": "Find Duplicates",
@@ -1836,7 +1841,7 @@ function newLeadsInit(){
       });
 
       $('.restoreDefaults').on('click', function(){
-        console.log("Test Button Clicked!");
+        //console.log("Test Button Clicked!");
         $('#newLeads').DataTable().clear().destroy();
         //ajaxReload();
         //$('#newLeads').empty();
@@ -1844,6 +1849,8 @@ function newLeadsInit(){
         location.reload();
         
       });
+
+
       
       $('#newLeads').on('draw.dt', function (){  
         //console.log("Child rows at draw: "+childRows);
