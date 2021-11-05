@@ -1740,15 +1740,11 @@ function newLeadsInit(){
                               },
 
                             ],
-
-                            action: function(dt){
-                            table.searchPanes.container().toggle();
-                            }
                         }
                     },
                     {
                       "extend": "searchBuilder",
-                      "className": "btn btn-primary searchBuilderButton",  
+                      "className": "btn btn-primary searchBuilderButton"  
                       /*"config": {
                         action: function(dt){
                         table.searchBuilder.container().toggle();
@@ -1871,6 +1867,11 @@ function newLeadsInit(){
         //$('#newLeads').empty();
         //newLeadsInit();
         location.reload();
+        
+      });
+
+      $('.searchPaneButton').on('click', function(){
+        $('div.dt-button-collection').detach().prependTo('#newLeads_wrapper').addClass('w-100 p-3').removeAttr('style');
         
       });
 
