@@ -496,7 +496,7 @@ function checkCalendarEvents(d) {
                           
                           var request = gapi.client.calendar.events.insert({
                             'calendarId': calendarId,
-                            'sendUpdates':'externalOnly',
+                            'sendUpdates':'all',
                             'resource': event
                           });
                           
