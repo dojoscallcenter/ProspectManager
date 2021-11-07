@@ -5,7 +5,8 @@ let GoogleAuth;
 const SCOPE = 'https://www.googleapis.com/auth/script.send_mail https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/script.projects https://www.googleapis.com/auth/script.scriptapp https://www.googleapis.com/auth/script.deployments https://www.googleapis.com/auth/script.external_request https://www.googleapis.com/auth/presentations';
 const spreadsheetId = "1HdgnSTtfFPBr5obA2hyuhLOqdaA2bmqIShW9IKVWNn0"; //prosepect manager
 //ORIGINAL 
-const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
+const appURL = "https://script.google.com/a/macros/mydojos.com/s/AKfycbwF6JOLDFFhAKXKUuk-JyXN6G-hbUJnrRY2TOhoJAqQWpv59dGvwLJ4bp6XYLmJOzj0/exec"
+//const appURL = "https://script.google.com/macros/s/AKfycbyKg5mLu1i9U16Cq_GLRLe-j4UEQgAdlVDzEG6S-BQ70HYc7T_t350oH5Z9_C5pDrLd/exec";
 //const appURL = "https://script.google.com/a/macros/mydojos.com/s/AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4/exec";
 var childRows = $('#newLeads tr.shown');
 var userFilter;
@@ -236,7 +237,7 @@ function setSigninStatus() {
         userProfileEmail = userProfile.getEmail();
         //console.log(userProfileEmail);
         if (gapi.auth2.getAuthInstance().isSignedIn.get()){
-        if (userProfileEmail === "info@mydojos.com" || userProfileEmail === "info-location@mydojos.com"){
+        if (userProfileEmail === "info@mydojos.com"){ //|| userProfileEmail === "info-location@mydojos.com"){
             userFilter = "";
         }else{
             if (userProfileEmail === "info-ankeny@mydojos.com"){
@@ -250,7 +251,11 @@ function setSigninStatus() {
                              }else{
                                  if (userProfileEmail === "info-waukee@mydojos.com"){
                                     userFilter = "Waukee";
-                                 }
+                                 }else{
+                                  if (userProfileEmail === "info-location@mydojos.com"){
+                                     userFilter = "Location";
+                                  }
+                              }
                              }
                      }
                  }
@@ -520,7 +525,8 @@ function sendWelcomeForm(d){
     $('#welcomeForm').prop("disabled",true);
     $('#welcomeForm').html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><span>Sending...</span>');
     //USE DEPLOYMENT ID INSTEAD OF SCRIPT ID
-    var scriptId = "AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4";
+    var scriptId = "AKfycbwF6JOLDFFhAKXKUuk-JyXN6G-hbUJnrRY2TOhoJAqQWpv59dGvwLJ4bp6XYLmJOzj0";
+    //var scriptId = "AKfycbzsxmJeXvPY4cNQXGs1nX_I-O5iKJ1_yCgMaW4V8Ti0MXjLrmb8VePJvKAGmnJvIdd4";
     var formInfo = {
         add_constantcontact: "",
         age_class: d[12],
@@ -1734,6 +1740,42 @@ function newLeadsInit(){
                                     label: "Text/Email Marketing",
                                     value: function(rowData, rowIdx){
                                       return (rowData[3] === "Waukee" && rowData[23] === "90-Text and Email Marketing");
+                                    }
+                                  },
+                                ],
+                              },
+
+                              {
+                                header: "Location",
+                                options: [
+                                  {
+                                    label: "New Leads",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Location" && rowData[23] === "01-New Lead/Not Yet Scheduled") || (rowData[3] === "Location" && rowData[23] === "00-Pre-Paid/Not Yet Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "Awaiting Response",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Location" && rowData[23] === "30-Intro Completed -Waiting For Reply");
+                                    }
+                                  },
+                                  {
+                                    label: "Intro Scheduled",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Location" && rowData[23] === "10-Intro Scheduled");
+                                    }
+                                  },
+                                  {
+                                    label: "No Shows",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Location" && rowData[23] === "11-Intro No Show-Needs Contacted");
+                                    }
+                                  },
+                                  {
+                                    label: "Text/Email Marketing",
+                                    value: function(rowData, rowIdx){
+                                      return (rowData[3] === "Location" && rowData[23] === "90-Text and Email Marketing");
                                     }
                                   },
                                 ],
