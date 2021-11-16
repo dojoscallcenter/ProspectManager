@@ -411,7 +411,9 @@ function checkCalendarEvents(d) {
         'timeMin': (new Date()).toISOString(),
     })
         .then(function(response) {
+          
             resultItems = response.result.items;
+            console.log(resultItems)
             valueArray = [];
             matchArray = [];
             calendarId = "info-"+d[3]+"@mydojos.com";
@@ -460,10 +462,12 @@ function checkCalendarEvents(d) {
             var eDateTimeString = newDateString +'T'+eTimeString;
 
             for (let index = 0; index < resultItems.length; index++) {
-
+              console.log(resultItems[index].summary)
+              console.log(resultItems[index].start.dateTime)
                 if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
                     if(resultItems[index].summary === eventTitle && resultItems[index].start.dateTime.includes(sDateTimeString)){
                         valueArray.push(resultItems[index].summary);
+                        console.log(valueArray)
                     }
                 }
             }
@@ -1824,7 +1828,141 @@ function newLeadsInit(){
                       //"text": "Restore Defaults",
                       "className": "btn btn-primary restoreDefaults",
                     },
-                    { "extend": "csv", "text":'<i class="far fa-file-excel"></i>', "className": 'btn btn-success btn-block' },
+                    { 
+                      "text":'<i class="far fa-file-excel"></i>', 
+                      "className": 'btn btn-success btn-block', 
+              
+                      /*"action": function(e, dt, node, config) {
+                        rows = table.rows().data()
+                        console.log(rows)
+                      },*/
+                      action: function () {
+                          var titles = [
+                            
+                            "First Name",
+                            "Last Name",
+                            "Phone",
+                            "Email",
+
+                        ];
+                          var data = [];
+                        
+                          /*
+                           * Get the table headers, this will be CSV headers
+                           * The count of headers will be CSV string separator
+                           */
+
+                          console.log(titles);
+                        
+                          /*
+                           * Get the actual data, this will contain all the data, in 1 array
+                           */
+                          i=0;
+                          j=1;
+                          test = table.rows();
+                          console.log(test[0].length);
+                          while (i < test[0].length){
+                                //console.log(test);
+                              
+                                  console.log(table.row(j).data());
+                                //console.log($(this)[0][i]);
+                                  i++;
+                                  thisEmail = table.row(j).data()[8];
+                                  console.log(thisEmail);
+                                  if (jQuery.inArray(thisEmail,data) == -1 && thisEmail !== ""){
+                                    data.push(table.row(j).data()[5]);
+                                    data.push(table.row(j).data()[6]);
+                                    data.push(table.row(j).data()[7]);
+                                    data.push(table.row(j).data()[8]);
+                                  }
+
+                                  
+                                  
+
+
+                                  if (j < test[0].length-1){
+                                    j++;
+                                  }
+                          }
+                          //console.log(jQuery.unique(data));
+                          console.log(data)
+                          /*$('.dataTable td').each(function() {
+                            data.push($(this).text());
+                          });*/
+                          
+                          /*
+                           * Convert our data to CSV string
+                           */
+                          var CSVString = prepCSVRow(titles, titles.length, '');
+                          CSVString = prepCSVRow(data, titles.length, CSVString);
+                        
+                          /*
+                           * Make CSV downloadable
+                           */
+                          var downloadLink = document.createElement("a");
+                          var blob = new Blob(["\ufeff", CSVString]);
+                          var url = URL.createObjectURL(blob);
+                          downloadLink.href = url;
+                          downloadLink.download = "data.csv";
+                        
+                          /*
+                           * Actually download CSV
+                           */
+                          document.body.appendChild(downloadLink);
+                          downloadLink.click();
+                          document.body.removeChild(downloadLink);
+                      
+                        
+                           /*
+                        * Convert data array to CSV string
+                        * @param arr {Array} - the actual data
+                        * @param columnCount {Number} - the amount to split the data into columns
+                        * @param initial {String} - initial string to append to CSV string
+                        * return {String} - ready CSV string
+                        */
+                        function prepCSVRow(arr, columnCount, initial) {
+                          var row = ''; // this will hold data
+                          var delimeter = ','; // data slice separator, in excel it's `;`, in usual CSv it's `,`
+                          var newLine = '\r\n'; // newline separator for CSV row
+                        
+                          /*
+                           * Convert [1,2,3,4] into [[1,2], [3,4]] while count is 2
+                           * @param _arr {Array} - the actual array to split
+                           * @param _count {Number} - the amount to split
+                           * return {Array} - splitted array
+                           */
+                          function splitArray(_arr, _count) {
+                            var splitted = [];
+                            var result = [];
+                            _arr.forEach(function(item, idx) {
+                              if ((idx + 1) % _count === 0) {
+                                splitted.push(item);
+                                result.push(splitted);
+                                splitted = [];
+                              } else {
+                                splitted.push(item);
+                              }
+                            });
+                            return result;
+                          }
+                          var plainArr = splitArray(arr, columnCount);
+                          // don't know how to explain this
+                          // you just have to like follow the code
+                          // and you understand, it's pretty simple
+                          // it converts `['a', 'b', 'c']` to `a,b,c` string
+                          plainArr.forEach(function(arrItem) {
+                            arrItem.forEach(function(item, idx) {
+                              row += item + ((idx + 1) === arrItem.length ? '' : delimeter);
+                            });
+                            row += newLine;
+                          });
+                          return initial + row;
+                        }
+
+
+                      }
+
+                  },
                 ],       
             },
             "initComplete": function(){
