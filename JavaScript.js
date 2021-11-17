@@ -462,8 +462,8 @@ function checkCalendarEvents(d) {
             var eDateTimeString = newDateString +'T'+eTimeString;
 
             for (let index = 0; index < resultItems.length; index++) {
-              console.log(resultItems[index].summary)
-              console.log(resultItems[index].start.dateTime)
+              //console.log(resultItems[index].summary)
+              //console.log(resultItems[index].start.dateTime)
                 if((resultItems[index].summary != undefined && resultItems[index].start.dateTime != undefined)){
                     if(resultItems[index].summary === eventTitle && resultItems[index].start.dateTime.includes(sDateTimeString)){
                         valueArray.push(resultItems[index].summary);
