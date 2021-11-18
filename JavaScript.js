@@ -1568,13 +1568,19 @@ function newLeadsInit(){
                     width: "auto",
 
                 },
-                {   data: null,
+                {   
+                    data: null,
                     title: "", 
                     defaultContent : '<i class="fa fa-backspace"></i>',
                     className: "delete-button",
                     width: "auto",
 
                 }, 
+                {
+                    data: 12,
+                    title: "Age Class",
+
+                }
             ],
 
             
@@ -1790,12 +1796,10 @@ function newLeadsInit(){
                     },
                     {
                       "extend": "searchBuilder",
-                      "className": "btn btn-primary searchBuilderButton"  
-                      /*"config": {
-                        action: function(dt){
-                        table.searchBuilder.container().toggle();
-                        }  
-                      } */
+                      "className": "btn btn-primary searchBuilderButton",  
+                      "config": {
+                        "columns": [1,2,3,4,5,6,7,8,10]
+                      } 
                     },
                     {
                       //"text": "Find Duplicates",
@@ -2080,7 +2084,7 @@ function newLeadsInit(){
       table.searchPanes.container().addClass('overflow-auto');
       table.columns(2).search(userFilter).draw();
       table.searchBuilder.container().addClass('w-100');
-      //table.column(10).visible(false);
+      table.column(10).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
 }
