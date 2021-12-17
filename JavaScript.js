@@ -900,6 +900,70 @@ function addNewRecord(formObject){
     //console.log("Transmission sent...");
 }
 
+function duplicateRecord(formObject){
+  var formInfo = {
+      add_constantcontact: "",
+      age_class: testUndefined(formObject.age_class.value),
+      city: "",
+      communication_notes: testUndefined(formObject.communication_notes.value),
+      date_ofbirth:"",
+      dojo_location: testUndefined(formObject.dojo_location.value),
+      dojo_notes: testUndefined(formObject.dojo_notes.value),
+      email: testUndefined(formObject.email.value),
+      gender: testUndefined(formObject.gender.value),
+      inquire_date: testUndefined(formObject.inquire_date.value),
+      interest: "",
+      intro1_attended: "",
+      intro1_date: testUndefined(formObject.intro1_date.value),
+      intro1_endtime: "",
+      intro1_starttime: "",
+      intro1_time: testUndefined((new Date("2021-01-01 "+formObject.intro1_time.value)).toLocaleTimeString()),//.toLocaleTimeString(),
+      intro2_attended:"",
+      intro2_date:"",
+      intro2_endtime:"",
+      intro2_starttime:"",
+      intro2_time:"",
+      intro_notes: testUndefined(formObject.intro_notes.value),
+      intro_offer: testUndefined(formObject.intro_offer.value),
+      lastcontact_date: testUndefined(formObject.lastcontact_date.value),
+      lead_date: "",//testUndefined(formObject.lead_date.value),
+      lead_firstname: testUndefined(formObject.lead_firstname.value),
+      lead_lastname: testUndefined(formObject.lead_lastname.value),
+      leadsource: testUndefined(formObject.lead_source.value),
+      leadsource_subcategory: testUndefined(formObject.leadsource_subcategory.value),
+      participant_firstname: testUndefined(formObject.participant_firstname.value),
+      participant_lastname: testUndefined(formObject.participant_lastname.value),
+      phone: testUndefined(formObject.phone.value),
+      prospect_phase: testUndefined(formObject.prospect_phase.value),
+      send_introsheet: "",
+      state: "",
+      street_address: "",
+      student_status: testUndefined(formObject.student_status.value),
+      zip: ""
+  }
+  console.log(JSON.stringify(formInfo));
+  
+  fetch(appURL,{
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+      //mode: 'no-cors', 
+      //credentials: 'omit',
+      redirect: 'follow', // manual, *follow, error
+      body: JSON.stringify(formInfo) // body data type must match "Content-Type" header
+    })
+      .then($('#unCloseable').modal('show'))
+      .then(res => {
+        console.log(res);
+        //console.log(res.headers.get('Access-Control-Allow-Origin'));
+        console.log(res.json());
+      })
+      .then(function(){
+          //console.log("Cleaning up modals...")
+          ajaxReload();
+      });
+  //console.log("Transmission sent...");
+}
+
 
 function resetEditForm(){
     var tr = $('#newLeads tbody tr.shown');
@@ -1276,6 +1340,10 @@ function format(d){
                       '<select class="form-control" id="student_status" name="student_status">'+
                         '<option>'+(testUndefined(d[4]))+'</option>'+
                       '</select>'+
+                      '<br>'+
+                    '<div class="text-center">'+
+                      //'<button class="duplicateButton btn btn-secondary" id="duplicateButton" type="button" onClick="addNewRecord(this)")>Duplicate</button>'+
+                    '</div>'+
                   '</div>'+
                   '<div class="col-3 text-start border border-5 border-secondary border-end-0">'+
                     '<br>'+
@@ -1424,9 +1492,10 @@ function format(d){
                         '</div>'+                                                                                                                    
                     '</div>'+               
                 '</div>'+
-                '<div class="text-center">'+
-                  '<button type="button" class="btn btn-secondary col" id="editFormReset" onClick="resetEditForm()">Cancel</button>'+
-                  '<button type="button" class="btn btn-primary col save-btn" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d[0]+')">Save</button>'+  
+                '<div class="text-center p-3">'+
+                  '<button type="button" class="btn btn-secondary col m-1" id="editFormReset" onClick="resetEditForm()">Cancel</button>'+
+                  '<button type="button" class="duplicateButton col btn btn-secondary m-1" id="duplicateButton"  formtarget="_blank" form="editForm" onClick="duplicateRecord(editForm)")>Duplicate</button>'+
+                  '<button type="button" class="btn btn-primary col save-btn m-1" id="formSubmitButton" formtarget="_blank" onClick="updateRow(editForm,'+d[0]+')">Save</button>'+  
                 '</div>'+          
         '</div>'+
         '</form>'+
@@ -1882,8 +1951,6 @@ function newLeadsInit(){
 
                                   
                                   
-
-
                                   if (j < test[0].length-1){
                                     j++;
                                   }
@@ -2043,6 +2110,8 @@ function newLeadsInit(){
             deleteRow(row.data());
         }
       });
+
+
 
       $('.restoreDefaults').on('click', function(){
         //console.log("Test Button Clicked!");
