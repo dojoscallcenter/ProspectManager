@@ -904,17 +904,17 @@ function duplicateRecord(formObject){
   var formInfo = {
       add_constantcontact: "",
       age_class: testUndefined(formObject.age_class.value),
-      city: "",
+      city: testUndefined(formObject.city.value),
       communication_notes: testUndefined(formObject.communication_notes.value),
       date_ofbirth:"",
       dojo_location: testUndefined(formObject.dojo_location.value),
       dojo_notes: testUndefined(formObject.dojo_notes.value),
       email: testUndefined(formObject.email.value),
-      gender: testUndefined(formObject.gender.value),
+      gender: "",
       inquire_date: testUndefined(formObject.inquire_date.value),
       interest: "",
       intro1_attended: "",
-      intro1_date: testUndefined(formObject.intro1_date.value),
+      intro1_date: "",
       intro1_endtime: "",
       intro1_starttime: "",
       intro1_time: testUndefined((new Date("2021-01-01 "+formObject.intro1_time.value)).toLocaleTimeString()),//.toLocaleTimeString(),
@@ -936,10 +936,10 @@ function duplicateRecord(formObject){
       phone: testUndefined(formObject.phone.value),
       prospect_phase: testUndefined(formObject.prospect_phase.value),
       send_introsheet: "",
-      state: "",
-      street_address: "",
+      state: formObject.state.value,
+      street_address: formObject.street_address.value,
       student_status: testUndefined(formObject.student_status.value),
-      zip: ""
+      zip: formObject.zip.value
   }
   console.log(JSON.stringify(formInfo));
   
