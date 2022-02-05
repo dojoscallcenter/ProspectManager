@@ -1503,6 +1503,7 @@ function format(d){
 }
 
 function newLeadsInit(){
+        //$.fn.dataTable.moment( 'MM-DD-YYYY' );
         var table = $('#newLeads').DataTable({
             dom: "Britp",
             displayLength: 50,
@@ -1530,7 +1531,9 @@ function newLeadsInit(){
                       }
                     },
                     width: "auto",
-                    searchBuilderType: "date"
+                    type: "date"
+                    //searchBuilderType: "date",
+                    
                 },
                 {
                     title: "Location",
@@ -1605,10 +1608,12 @@ function newLeadsInit(){
                 {
                     title: "Last Action Date",
                     data: 9,
-                    "render": function ( data, type, full, meta ) {
+                    render: function ( data, type, full, meta ) {
                     return moment(data).format('MM-DD-YYYY');
                     },
                     width: "auto",
+                    type: "date"
+                    //searchBuilderType: "date"
 
                 },
                 {
