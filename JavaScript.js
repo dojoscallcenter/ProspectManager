@@ -140,6 +140,7 @@ var userFilter;
       var leadSourceSubcategories = [
         "",
         "Websearch",
+        "Referral",
         "Facebook",
         "Print Ad",
         "Online Ad",
