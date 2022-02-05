@@ -47,10 +47,6 @@ div.dtsb-searchBuilder{
   text-align: right;
 }
 
-div.dtsp-panesContainer{
-    overflow: auto !important;
-}
-
 .dtsb-titleRow{
   display: none;
 }
@@ -70,4 +66,8 @@ div.dtsp-panesContainer{
   width: 100%;
   background-color: white;
   z-index: 1;
+}
+
+.dt-datetime-label {
+  color: black;
 }
