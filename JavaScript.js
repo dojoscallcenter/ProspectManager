@@ -2067,24 +2067,6 @@ function newLeadsInit(){
                 $('button.dt-button').removeClass('dt-button');
                 $('table th').addClass('sticky')
             },
-            "drawCallback": function( row, data, index ) {
-              var allData = this.api().rows().data().toArray();
-              var phone = this.api().column(5).data().toArray();
-              var leadFirstName = this.api().column(11).data().toArray();
-              var leadLastName = this.api().column(12).data().toArray();
-              var rowData = this.api().rows().data()
-              if (rowData != undefined){
-                for (i=0;i< rowData.length; i++){
-                  console.log(rowData[i][7]);
-                  if ((phone.indexOf(rowData[i][7]) != phone.lastIndexOf(rowData[i][7]))) {
-                    $('td:eq(0)', row).css('background-color', 'Red');
-                  }
-                }
-                
-                
-
-              }
-            },
             "rowCallback": function( row, data, index ) {
               var allData = this.api().column(5).data().toArray();
               if (allData.indexOf(data[7]) != allData.lastIndexOf(data[7])) {
