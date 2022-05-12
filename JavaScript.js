@@ -1504,7 +1504,7 @@ function format(d){
 }
 
 function newLeadsInit(){
-        //$.fn.dataTable.moment( 'MM-DD-YYYY' );
+        $.fn.dataTable.moment( 'MM-DD-YYYY' );
         var table = $('#newLeads').DataTable({
             dom: "Britp",
             displayLength: 50,
@@ -1523,17 +1523,20 @@ function newLeadsInit(){
                 {
                     title: "Inquire Date",
                     data: 2,
-                    render: function ( data, type, full, meta ) {
+                    render: function (data, type, row){
+                      return moment(new Date(row[2])).format('MM-DD-YYYY');
+                    },
+                    /*render: function ( data, type, full, meta ) {
                       dateEntry = testUndefined(data);
                       if(dateEntry != ""){
                         return moment(dateEntry).format('MM-DD-YYYY');
                       }else{
                         return moment("1111-11-11").format('MM-DD-YYYY');
                       }
-                    },
+                    },*/
                     width: "auto",
-                    type: "date"
-                    //searchBuilderType: "date",
+                    type: "date",
+                    searchBuilderType: "moment-MM-DD-YYYY",
                     
                 },
                 {
@@ -1613,7 +1616,7 @@ function newLeadsInit(){
                     return moment(data).format('MM-DD-YYYY');
                     },
                     width: "auto",
-                    type: "date"
+                    
                     //searchBuilderType: "date"
 
                 },
@@ -1655,6 +1658,14 @@ function newLeadsInit(){
                     data: 12,
                     title: "Age Class",
 
+                },
+                {
+                  //lead first name
+                  data: 5,
+                },
+                {
+                  //lead last name
+                  data: 6,
                 }
             ],
 
@@ -2056,6 +2067,30 @@ function newLeadsInit(){
                 $('button.dt-button').removeClass('dt-button');
                 $('table th').addClass('sticky')
             },
+            "drawCallback": function( row, data, index ) {
+              var allData = this.api().rows().data().toArray();
+              var phone = this.api().column(5).data().toArray();
+              var leadFirstName = this.api().column(11).data().toArray();
+              var leadLastName = this.api().column(12).data().toArray();
+              var rowData = this.api().rows().data()
+              if (rowData != undefined){
+                for (i=0;i< rowData.length; i++){
+                  console.log(rowData[i][7]);
+                  if ((phone.indexOf(rowData[i][7]) != phone.lastIndexOf(rowData[i][7]))) {
+                    $('td:eq(0)', row).css('background-color', 'Red');
+                  }
+                }
+                
+                
+
+              }
+            },
+            "rowCallback": function( row, data, index ) {
+              var allData = this.api().column(5).data().toArray();
+              if (allData.indexOf(data[7]) != allData.lastIndexOf(data[7])) {
+                $('td:eq(0)', row).css('background-color', 'Yellow');
+              }
+            }
         });
 
     $('#newLeads tbody').on('click', 'td.details-control-symbol', function () {
@@ -2160,6 +2195,8 @@ function newLeadsInit(){
       table.columns(2).search(userFilter).draw();
       table.searchBuilder.container().addClass('w-100');
       table.column(10).visible(false);
+      table.column(11).visible(false);
+      table.column(12).visible(false);
       //table.searchBuilder.container().prependTo(table.table().container());
 
 }
